@@ -8,6 +8,13 @@ MEM.CHANGELOG = {
 		version = version,
 		date = buildDate ~= "" and buildDate or nil,
 		entries = {
+			"Updated: GitHub links following the organization rename to 'arcane-wizard-dev'"
+		}
+	},
+	{
+		version = "v2.26",
+		date = "2026-09-06",
+		entries = {
 			"Added: TOC version for patch 12.1.5 [retail]"
 		}
 	},
@@ -74,13 +81,6 @@ MEM.CHANGELOG = {
 		date = "2026-07-21",
 		entries = {
 			"Updated: deDE, enUS localizations"
-		}
-	},
-	{
-		version = "v2.17",
-		date = "2026-07-18",
-		entries = {
-			"Minor code adjustments"
 		}
 	}
 }
