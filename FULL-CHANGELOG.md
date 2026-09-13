@@ -1,3 +1,6 @@
+**v2.27 (2026-09-13)**
+- Updated: GitHub links following the organization rename to 'arcane-wizard-dev'
+
 **v2.26 (2026-09-06)**
 - Added: TOC version for patch 12.1.5 [retail]
 
