@@ -92,45 +92,49 @@ function Utils:OpenSettings()
 end
 
 function Utils:IsAccountProfile()
-	local characterRealmKey = AWL.Utils:GetCharacterRealmKey()
+	local characterGUID = AWL.Utils:GetCharacterGUID()
 
-	return Memento_Options_v5.profileKeys[characterRealmKey]["use-account"]
+	return Memento_Options_v6.profileKeys[characterGUID]["use-account"]
 end
 
 function Utils:OpenSettingsOnLoading()
-	local characterRealmKey = AWL.Utils:GetCharacterRealmKey()
+	local characterGUID = AWL.Utils:GetCharacterGUID()
 
-	if Memento_Options_v5.profileKeys[characterRealmKey]["open-settings"] then
+	if Memento_Options_v6.profileKeys[characterGUID]["open-settings"] then
 		if not self:OpenSettings() then
 			return
 		end
 
-		Memento_Options_v5.profileKeys[characterRealmKey]["open-settings"] = false
+		Memento_Options_v6.profileKeys[characterGUID]["open-settings"] = false
 	end
 end
 
 function Utils:ToggleProfileMode()
-	local characterRealmKey = AWL.Utils:GetCharacterRealmKey()
+	local characterGUID = AWL.Utils:GetCharacterGUID()
 	local useAccountProfile = self:IsAccountProfile()
 
-	Memento_Options_v5.profileKeys[characterRealmKey]["use-account"] = not useAccountProfile
-	Memento_Options_v5.profileKeys[characterRealmKey]["open-settings"] = true
+	Memento_Options_v6.profileKeys[characterGUID]["use-account"] = not useAccountProfile
+	Memento_Options_v6.profileKeys[characterGUID]["open-settings"] = true
 end
 
 function Utils:ResetAllCharacterProfiles()
-	local characterRealmKey = AWL.Utils:GetCharacterRealmKey()
+	local characterGUID = AWL.Utils:GetCharacterGUID()
 
-	Memento_Options_v5.profiles = {}
-	Memento_Options_v5.profileKeys = {}
+	Memento_Options_v6.profiles = {}
+	Memento_Options_v6.profileKeys = {}
 
-	Memento_Options_v5.profileKeys[characterRealmKey] = {
+	Memento_Options_v6.profileKeys[characterGUID] = {
 		["use-account"] = true,
 		["open-settings"] = true
 	}
 end
 
 function Utils:InitializeDatabase()
-	local characterRealmKey = AWL.Utils:GetCharacterRealmKey()
+	local characterGUID = AWL.Utils:GetCharacterGUID()
+
+	if not characterGUID then
+		return nil
+	end
 
 	local createdProfile = false
 	local createdProfileKey = false
@@ -144,47 +148,45 @@ function Utils:InitializeDatabase()
 		["event"] = {}
 	}
 
-	if not Memento_Options_v5 then
-		Memento_Options_v5 = {
+	if not Memento_Options_v6 then
+		Memento_Options_v6 = {
 			["account"] = AWL.Utils:CopyTable(defaults),
 			["profiles"] = {},
 			["profileKeys"] = {}
 		}
 	end
 
-	if not Memento_Options_v5.profiles[characterRealmKey] then
-		Memento_Options_v5.profiles[characterRealmKey] = AWL.Utils:CopyTable(defaults)
+	if not Memento_Options_v6.profiles[characterGUID] then
+		Memento_Options_v6.profiles[characterGUID] = AWL.Utils:CopyTable(defaults)
 		createdProfile = true
 	end
 
-	if not Memento_Options_v5.profileKeys[characterRealmKey] then
-		Memento_Options_v5.profileKeys[characterRealmKey] = {
+	if not Memento_Options_v6.profileKeys[characterGUID] then
+		Memento_Options_v6.profileKeys[characterGUID] = {
 			["use-account"] = true,
 			["open-settings"] = false
 		}
 		createdProfileKey = true
 	end
 
-	local useAccountProfile = Memento_Options_v5.profileKeys[characterRealmKey]["use-account"]
+	local useAccountProfile = Memento_Options_v6.profileKeys[characterGUID]["use-account"]
 
 	if useAccountProfile then
-		MEM.Settings.general = Memento_Options_v5.account["general"]
-		MEM.Settings.event = Memento_Options_v5.account["event"]
+		MEM.Settings.general = Memento_Options_v6.account["general"]
+		MEM.Settings.event = Memento_Options_v6.account["event"]
 	else
-		MEM.Settings.general = Memento_Options_v5.profiles[characterRealmKey]["general"]
-		MEM.Settings.event = Memento_Options_v5.profiles[characterRealmKey]["event"]
+		MEM.Settings.general = Memento_Options_v6.profiles[characterGUID]["general"]
+		MEM.Settings.event = Memento_Options_v6.profiles[characterGUID]["event"]
 	end
 
 	if not Memento_DataBossKill then
 		Memento_DataBossKill = {}
 	end
 
-	if AWL.GAME_TYPE_MAINLINE then
-		MEM.Data.bossKill = Memento_DataBossKill
-	end
+	MEM.Data.bossKill = Memento_DataBossKill
 
 	return {
-		characterRealmKey = characterRealmKey,
+		characterGUID = characterGUID,
 		createdProfile = createdProfile,
 		createdProfileKey = createdProfileKey,
 		activeProfile = useAccountProfile and "account" or "character"

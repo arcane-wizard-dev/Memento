@@ -9,6 +9,7 @@ local Options = MEM.Modules.Options
 local Utils = MEM.Modules.Utils
 
 -- Variables
+local isInitialized = false
 local minutesPassed = 0
 local sessionStartTime = 0
 
@@ -88,6 +89,8 @@ local function IsPlayerWinner(winner)
 end
 
 local function SlashCommand(msg)
+	if not isInitialized then return end
+
 	local command = strtrim(msg or "")
 
 	if command == "" then
@@ -108,24 +111,31 @@ function MementoFrame:OnEvent(event, ...)
 end
 
 function MementoFrame:ADDON_LOADED(_, addOnName)
-	if addOnName == addonName then
-		sessionStartTime = GetTime()
+	if addOnName ~= addonName or isInitialized then return end
 
-		local dbInit = Utils:InitializeDatabase()
-		Utils:InitializeMinimapButton()
-		Options:Initialize()
+	local dbInit = Utils:InitializeDatabase()
 
-		Utils:RequestTimePlayed()
-		Utils:OpenSettingsOnLoading()
-
-		C_Timer.NewTicker(60, CheckInterval)
-
-		Utils:PrintDebug(string.format(
-			"InitializeDatabase: key=%s, createdProfile=%s, createdProfileKey=%s, activeProfile=%s",
-			tostring(dbInit.characterRealmKey), tostring(dbInit.createdProfile), tostring(dbInit.createdProfileKey), tostring(dbInit.activeProfile)
-		))
-		Utils:PrintDebug("Addon fully loaded.")
+	if not dbInit then
+		AWL:GetAddon(addonName):AbortInitialization(self)
+		return
 	end
+
+	Utils:InitializeMinimapButton()
+	Options:Initialize()
+
+	Utils:RequestTimePlayed()
+	Utils:OpenSettingsOnLoading()
+
+	sessionStartTime = GetTime()
+	C_Timer.NewTicker(60, CheckInterval)
+
+	isInitialized = true
+
+	Utils:PrintDebug(string.format(
+		"InitializeDatabase: key=%s, createdProfile=%s, createdProfileKey=%s, activeProfile=%s",
+		tostring(dbInit.characterGUID), tostring(dbInit.createdProfile), tostring(dbInit.createdProfileKey), tostring(dbInit.activeProfile)
+	))
+	Utils:PrintDebug("Addon fully loaded.")
 end
 
 function MementoFrame:TIME_PLAYED_MSG(_, totalTimePlayed, timePlayedThisLevel)
