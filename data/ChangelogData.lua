@@ -8,6 +8,15 @@ MEM.CHANGELOG = {
 		version = version,
 		date = buildDate ~= "" and buildDate or nil,
 		entries = {
+			"Added: TOC version for patch 1.60.1 [forever]",
+			"Changed: Character profiles now use GUIDs",
+			"Changed: Addon initialization stops if the player identity is unavailable"
+		}
+	},
+	{
+		version = "v2.27",
+		date = "2026-09-13",
+		entries = {
 			"Updated: GitHub links following the organization rename to 'arcane-wizard-dev'"
 		}
 	},
@@ -74,13 +83,6 @@ MEM.CHANGELOG = {
 		date = "2026-07-26",
 		entries = {
 			"Added: Configurable sound effects can now be played after a screenshot has been taken"
-		}
-	},
-	{
-		version = "v2.18",
-		date = "2026-07-21",
-		entries = {
-			"Updated: deDE, enUS localizations"
 		}
 	}
 }
