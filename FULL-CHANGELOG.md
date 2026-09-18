@@ -1,3 +1,8 @@
+**v2.28 (2026-09-18)**
+- Added: TOC version for patch 1.60.1 [forever]
+- Changed: Character profiles now use GUIDs
+- Changed: Addon initialization stops if the player identity is unavailable
+
 **v2.27 (2026-09-13)**
 - Updated: GitHub links following the organization rename to 'arcane-wizard-dev'
 
