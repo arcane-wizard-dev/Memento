@@ -8,6 +8,14 @@ MEM.CHANGELOG = {
 		version = version,
 		date = buildDate ~= "" and buildDate or nil,
 		entries = {
+			"Adapted to the latest version of Arcane Wizard: Library to ensure full compatibility",
+			"Minor code adjustments"
+		}
+	},
+	{
+		version = "v2.28",
+		date = "2026-09-18",
+		entries = {
 			"Added: TOC version for patch 1.60.1 [forever]",
 			"Changed: Character profiles now use GUIDs",
 			"Changed: Addon initialization stops if the player identity is unavailable"
@@ -76,13 +84,6 @@ MEM.CHANGELOG = {
 			"Removed: TOC version for patch 1.15.8 [classic]",
 			"Minor code adjustments",
 			"Adapted to the latest version of Arcane Wizard: Library to ensure full compatibility"
-		}
-	},
-	{
-		version = "v2.19",
-		date = "2026-07-26",
-		entries = {
-			"Added: Configurable sound effects can now be played after a screenshot has been taken"
 		}
 	}
 }
