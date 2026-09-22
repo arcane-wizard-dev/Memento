@@ -2,6 +2,7 @@ local addonName, MEM = ...
 
 -- Library
 local AWL = ArcaneWizardLibrary
+local Addon = AWL:GetAddon(addonName)
 
 -- Module imports
 local Capture = MEM.Modules.Capture
@@ -116,7 +117,7 @@ function MementoFrame:ADDON_LOADED(_, addOnName)
 	local dbInit = Utils:InitializeDatabase()
 
 	if not dbInit then
-		AWL:GetAddon(addonName):AbortInitialization(self)
+		Addon:AbortInitialization(self)
 		return
 	end
 
@@ -124,7 +125,7 @@ function MementoFrame:ADDON_LOADED(_, addOnName)
 	Options:Initialize()
 
 	Utils:RequestTimePlayed()
-	Utils:OpenSettingsOnLoading()
+	Addon:OpenSettingsOnLoading()
 
 	sessionStartTime = GetTime()
 	C_Timer.NewTicker(60, CheckInterval)
@@ -132,8 +133,8 @@ function MementoFrame:ADDON_LOADED(_, addOnName)
 	isInitialized = true
 
 	Utils:PrintDebug(string.format(
-		"InitializeDatabase: key=%s, createdProfile=%s, createdProfileKey=%s, activeProfile=%s",
-		tostring(dbInit.characterGUID), tostring(dbInit.createdProfile), tostring(dbInit.createdProfileKey), tostring(dbInit.activeProfile)
+		"InitializeDatabase: key=%s, createdProfile=%s, createdProfileKey=%s, cleanedOptions=%s, activeProfile=%s",
+		tostring(dbInit.characterGUID), tostring(dbInit.createdProfile), tostring(dbInit.createdProfileKey), tostring(dbInit.cleanedOptions), tostring(dbInit.activeProfile)
 	))
 	Utils:PrintDebug("Addon fully loaded.")
 end
@@ -185,7 +186,7 @@ function MementoFrame:SHOW_LOOT_TOAST(_, typeIdentifier, itemLink, quantity, spe
 		return
 	end
 
-	local delay = MEM.Settings.event["loot-toast-delay"] or 1
+	local delay = MEM.Settings.event["loot-toast-delay"] or MEM.OPTIONS_DEFAULTS.event["loot-toast-delay"]
 
 	if typeIdentifier == MEM.LOOT_TOAST_TYPE.ITEM then
 		if not itemLink then
@@ -494,7 +495,7 @@ elseif AWL.GAME_TYPE_MISTS then
 	MementoFrame:RegisterEvent("NEW_PET_ADDED")
 	MementoFrame:RegisterEvent("NEW_MOUNT_ADDED")
 	MementoFrame:RegisterEvent("NEW_TOY_ADDED")
-elseif AWL.GAME_TYPE_MAINLINE then
+elseif AWL.GAME_TYPE_RETAIL or AWL.GAME_TYPE_FOREVER then
 	MementoFrame:RegisterEvent("ACHIEVEMENT_EARNED")
 	MementoFrame:RegisterEvent("CRITERIA_EARNED")
 	MementoFrame:RegisterEvent("CHALLENGE_MODE_COMPLETED")

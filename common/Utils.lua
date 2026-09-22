@@ -91,93 +91,22 @@ function Utils:OpenSettings()
 	return true
 end
 
-function Utils:IsAccountProfile()
-	local characterGUID = AWL.Utils:GetCharacterGUID()
-
-	return Memento_Options_v6.profileKeys[characterGUID]["use-account"]
-end
-
-function Utils:OpenSettingsOnLoading()
-	local characterGUID = AWL.Utils:GetCharacterGUID()
-
-	if Memento_Options_v6.profileKeys[characterGUID]["open-settings"] then
-		if not self:OpenSettings() then
-			return
-		end
-
-		Memento_Options_v6.profileKeys[characterGUID]["open-settings"] = false
-	end
-end
-
-function Utils:ToggleProfileMode()
-	local characterGUID = AWL.Utils:GetCharacterGUID()
-	local useAccountProfile = self:IsAccountProfile()
-
-	Memento_Options_v6.profileKeys[characterGUID]["use-account"] = not useAccountProfile
-	Memento_Options_v6.profileKeys[characterGUID]["open-settings"] = true
-end
-
-function Utils:ResetAllCharacterProfiles()
-	local characterGUID = AWL.Utils:GetCharacterGUID()
-
-	Memento_Options_v6.profiles = {}
-	Memento_Options_v6.profileKeys = {}
-
-	Memento_Options_v6.profileKeys[characterGUID] = {
-		["use-account"] = true,
-		["open-settings"] = true
-	}
-end
-
 function Utils:InitializeDatabase()
-	local characterGUID = AWL.Utils:GetCharacterGUID()
+	local dbInit = Addon:InitializeOptions({
+		databaseName = "Memento_Options_v6",
+		defaults = MEM.OPTIONS_DEFAULTS,
+		onOpenSettings = function()
+			return self:OpenSettings()
+		end
+	})
 
-	if not characterGUID then
+	if not dbInit then
 		return nil
 	end
 
-	local createdProfile = false
-	local createdProfileKey = false
-
-	local defaults = {
-		["general"] = {
-			["minimap-button"] = {
-				["hide"] = false
-			}
-		},
-		["event"] = {}
-	}
-
-	if not Memento_Options_v6 then
-		Memento_Options_v6 = {
-			["account"] = AWL.Utils:CopyTable(defaults),
-			["profiles"] = {},
-			["profileKeys"] = {}
-		}
-	end
-
-	if not Memento_Options_v6.profiles[characterGUID] then
-		Memento_Options_v6.profiles[characterGUID] = AWL.Utils:CopyTable(defaults)
-		createdProfile = true
-	end
-
-	if not Memento_Options_v6.profileKeys[characterGUID] then
-		Memento_Options_v6.profileKeys[characterGUID] = {
-			["use-account"] = true,
-			["open-settings"] = false
-		}
-		createdProfileKey = true
-	end
-
-	local useAccountProfile = Memento_Options_v6.profileKeys[characterGUID]["use-account"]
-
-	if useAccountProfile then
-		MEM.Settings.general = Memento_Options_v6.account["general"]
-		MEM.Settings.event = Memento_Options_v6.account["event"]
-	else
-		MEM.Settings.general = Memento_Options_v6.profiles[characterGUID]["general"]
-		MEM.Settings.event = Memento_Options_v6.profiles[characterGUID]["event"]
-	end
+	MEM.Settings.global = dbInit.global
+	MEM.Settings.general = dbInit.settings["general"]
+	MEM.Settings.event = dbInit.settings["event"]
 
 	if not Memento_DataBossKill then
 		Memento_DataBossKill = {}
@@ -185,12 +114,7 @@ function Utils:InitializeDatabase()
 
 	MEM.Data.bossKill = Memento_DataBossKill
 
-	return {
-		characterGUID = characterGUID,
-		createdProfile = createdProfile,
-		createdProfileKey = createdProfileKey,
-		activeProfile = useAccountProfile and "account" or "character"
-	}
+	return dbInit
 end
 
 function Utils:InitializeMinimapButton()

@@ -19,7 +19,7 @@ MEM.LOOT_TOAST_SETTING_BY_TYPE = {
 	[MEM.LOOT_TOAST_TYPE.CURRENCY] = "loot-toast-currency"
 }
 
-MEM.LOOT_TOAST_QUALITY_DEFAULT = Enum.ItemQuality.Rare
+MEM.LOOT_TOAST_QUALITY_DEFAULT = MEM.OPTIONS_DEFAULTS.event["loot-toast-quality"]
 
 MEM.LOOT_TOAST_QUALITIES = {
 	Enum.ItemQuality.Rare,
@@ -31,7 +31,7 @@ MEM.LOOT_TOAST_QUALITIES = {
 local SCREENSHOT_SOUND_PATH = "Interface\\AddOns\\" .. addonName .. "\\assets\\"
 
 MEM.SCREENSHOT_SOUND_CHANNEL = "SFX"
-MEM.SCREENSHOT_SOUND_DEFAULT = "memento-camera"
+MEM.SCREENSHOT_SOUND_DEFAULT = MEM.OPTIONS_DEFAULTS.general["screenshot-sound-style"]
 
 MEM.SCREENSHOT_SOUNDS = {
 	{

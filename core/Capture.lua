@@ -275,7 +275,7 @@ local function LevelUpEventHandler(level, timePlayedOnPreviousLevel)
 
 	if AWL.GAME_TYPE_VANILLA or AWL.GAME_TYPE_TBC then
 		message = L["chat.event.level-up.classic.new"]:format(tostring(level))
-	elseif AWL.GAME_TYPE_MISTS or AWL.GAME_TYPE_MAINLINE then
+	elseif AWL.GAME_TYPE_MISTS or AWL.GAME_TYPE_RETAIL or AWL.GAME_TYPE_FOREVER then
 		message = L["chat.event.level-up.retail.new"]:format(tostring(level))
 	end
 
