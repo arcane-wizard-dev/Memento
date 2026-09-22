@@ -38,12 +38,12 @@ Individual features and display options can be configured in the addon settings.
 
 *\* These events are not supported in Classic and Burning Crusade - Classic Anniversary Edition.*
 
-*\*\* These events are only supported in Retail.*
+*\*\* These events are only supported in Retail and Forever.*
 
 ## Supported Languages & Flavors
 
 * Languages: English, German
-* Flavors: Classic, Burning Crusade - Classic Anniversary Edition, Mists of Pandaria - Classic, Retail
+* Flavors: Classic, Burning Crusade - Classic Anniversary Edition, Mists of Pandaria - Classic, Retail, Forever
 
 ## Installation & Quick Start
 
