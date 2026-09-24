@@ -8,6 +8,14 @@ MEM.CHANGELOG = {
 		version = version,
 		date = buildDate ~= "" and buildDate or nil,
 		entries = {
+			"Updated: Compatibility with the beta client [forever]",
+			"Adapted to the latest version of Arcane Wizard: Library to ensure full compatibility"
+		}
+	},
+	{
+		version = "v2.29",
+		date = "2026-09-22",
+		entries = {
 			"Adapted to the latest version of Arcane Wizard: Library to ensure full compatibility",
 			"Minor code adjustments"
 		}
@@ -16,7 +24,7 @@ MEM.CHANGELOG = {
 		version = "v2.28",
 		date = "2026-09-18",
 		entries = {
-			"Added: TOC version for patch 1.60.1 [forever]",
+			"Added: Support for 'Forever'",
 			"Changed: Character profiles now use GUIDs",
 			"Changed: Addon initialization stops if the player identity is unavailable"
 		}
@@ -73,17 +81,6 @@ MEM.CHANGELOG = {
 			"Changed: Playtime data is now requested only when at least one playtime output is enabled",
 			"Updated: deDE, enUS localizations",
 			"Minor code adjustments"
-		}
-	},
-	{
-		version = "v2.20",
-		date = "2026-07-28",
-		entries = {
-			"Added: TOC version for patch 1.15.9 [classic]",
-			"Added: New event 'Special Loot' - A screenshot can now be taken automatically when selected types of special loot are received",
-			"Removed: TOC version for patch 1.15.8 [classic]",
-			"Minor code adjustments",
-			"Adapted to the latest version of Arcane Wizard: Library to ensure full compatibility"
 		}
 	}
 }
