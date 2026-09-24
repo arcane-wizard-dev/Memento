@@ -18,14 +18,20 @@ Individual features and display options can be configured in the addon settings.
 
 ### Supported Events
 
-* Capture character milestones such as level-ups, deaths, and logins.
-* Capture personal achievements, guild achievements, and achievement criteria*.
-* Capture boss victories and wipes**.
-* Capture Mythic+ dungeon completions**.
-* Capture PvP events in duels, arenas, battlegrounds, and brawls**.
-* Capture collection events for pets, mounts, toys, recipes, and housing**.
-* <sup>✨ NEW</sup> Capture special loot such as items, money, and currencies**.
+* Capture level-ups, deaths, and logins.
+* Capture personal and guild achievements\*, and achievement criteria\*\*.
+* Capture boss victories and wipes in dungeons and raids\*\*, and scenarios\*\*\*.
+* Capture Mythic+ dungeon completions\*\*\*.
+* Capture PvP events in duels, arenas and battlegrounds\*\*, and brawls\*\*\*.
+* Capture new pets, mounts, toys, recipes, and housing items\*\*\*.
+* Capture special loot: items, money, and currencies\*\*\*.
 * Take screenshots at regular intervals.
+
+*\* These events are not supported in Classic and Burning Crusade - Classic Anniversary Edition.*
+
+*\*\* These events are only supported in Forever and Retail.*
+
+*\*\*\* These events are only supported in Retail.*
 
 ### Capture Settings
 
@@ -36,14 +42,10 @@ Individual features and display options can be configured in the addon settings.
 * Boss killing will be saved and you can choose whether a screenshot should be taken again for a boss that has already been killed.
 * If another character has already earned an achievement, a screenshot can optionally be prevented.
 
-*\* These events are not supported in Classic and Burning Crusade - Classic Anniversary Edition.*
-
-*\*\* These events are only supported in Retail and Forever.*
-
 ## Supported Languages & Flavors
 
 * Languages: English, German
-* Flavors: Classic, Burning Crusade - Classic Anniversary Edition, Mists of Pandaria - Classic, Retail, Forever
+* Flavors: Classic, Burning Crusade - Classic Anniversary Edition, Mists of Pandaria - Classic, Forever, Retail
 
 ## Installation & Quick Start
 

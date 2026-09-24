@@ -257,7 +257,7 @@ function MementoFrame:PVP_MATCH_COMPLETE(_, winner, duration)
 	local isArena = C_PvP.IsArena()
 	local isBattleground = C_PvP.IsBattleground()
 	local isSoloRBG = C_PvP.IsSoloRBG()
-	local isInBrawl = C_PvP.IsInBrawl()
+	local isInBrawl = AWL.GAME_TYPE_RETAIL and C_PvP.IsInBrawl()
 
 	if isArena then
 		if MEM.Settings.event["pvp-arena-active"] then
@@ -410,7 +410,7 @@ function MementoFrame:ENCOUNTER_END(_, encounterID, encounterName, difficultyID,
 	local difficultyName, groupType = GetDifficultyInfo(difficultyID)
 	local difficulty = "D" .. tostring(difficultyID)
 
-	if groupType == "party" or groupType == "raid" or groupType == "scenario" then
+	if groupType == "party" or groupType == "raid" or (groupType == "scenario" and AWL.GAME_TYPE_RETAIL) then
 		if success == 1 then
 			local isActive = (groupType == "party" and MEM.Settings.event["encounter-victory-party-active"]) or
 								(groupType == "raid" and MEM.Settings.event["encounter-victory-raid-active"]) or
@@ -488,14 +488,19 @@ end
 MementoFrame:RegisterEvent("ADDON_LOADED")
 MementoFrame:RegisterEvent("TIME_PLAYED_MSG")
 
-if AWL.GAME_TYPE_VANILLA then
+if AWL.GAME_TYPE_CLASSIC then
 elseif AWL.GAME_TYPE_TBC then
 elseif AWL.GAME_TYPE_MISTS then
 	MementoFrame:RegisterEvent("ACHIEVEMENT_EARNED")
 	MementoFrame:RegisterEvent("NEW_PET_ADDED")
 	MementoFrame:RegisterEvent("NEW_MOUNT_ADDED")
 	MementoFrame:RegisterEvent("NEW_TOY_ADDED")
-elseif AWL.GAME_TYPE_RETAIL or AWL.GAME_TYPE_FOREVER then
+elseif AWL.GAME_TYPE_FOREVER then
+	MementoFrame:RegisterEvent("ACHIEVEMENT_EARNED")
+	MementoFrame:RegisterEvent("CRITERIA_EARNED")
+	MementoFrame:RegisterEvent("PVP_MATCH_COMPLETE")
+	MementoFrame:RegisterEvent("ENCOUNTER_END")
+elseif AWL.GAME_TYPE_RETAIL then
 	MementoFrame:RegisterEvent("ACHIEVEMENT_EARNED")
 	MementoFrame:RegisterEvent("CRITERIA_EARNED")
 	MementoFrame:RegisterEvent("CHALLENGE_MODE_COMPLETED")

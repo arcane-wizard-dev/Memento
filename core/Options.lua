@@ -376,56 +376,58 @@ function Options:Initialize()
 			shownPredicate			= isEncounterExpanded
 		})
 
-		-- Scenario
-		local initializerVictoryScenario, settingVictoryScenario = AWL.Settings:AddCheckboxSliderCombo(category, layout, {
-			variableTable			= MEM.Settings.event,
-			checkboxSettingKey		= addonName .. "_encounter-victory-scenario-active",
-			checkboxVariableName	= "encounter-victory-scenario-active",
-			checkboxName			= eventScenarioVictory,
-			checkboxTooltip			= L["options.event.general.active.tooltip"]:format(eventScenarioVictory),
-			checkboxDefault			= defaults["event"]["encounter-victory-scenario-active"],
+		if AWL.GAME_TYPE_RETAIL then
+			-- Scenario
+			local initializerVictoryScenario, settingVictoryScenario = AWL.Settings:AddCheckboxSliderCombo(category, layout, {
+				variableTable			= MEM.Settings.event,
+				checkboxSettingKey		= addonName .. "_encounter-victory-scenario-active",
+				checkboxVariableName	= "encounter-victory-scenario-active",
+				checkboxName			= eventScenarioVictory,
+				checkboxTooltip			= L["options.event.general.active.tooltip"]:format(eventScenarioVictory),
+				checkboxDefault			= defaults["event"]["encounter-victory-scenario-active"],
 
-			sliderSettingKey		= addonName .. "_encounter-victory-scenario-delay",
-			sliderVariableName		= "encounter-victory-scenario-delay",
-			sliderName				= L["options.event.general.delay.name"],
-			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(eventScenarioVictory, defaults["event"]["encounter-victory-scenario-delay"]),
-			sliderDefault			= defaults["event"]["encounter-victory-scenario-delay"], sliderMin = 1, sliderMax = 10, sliderStep = 1,
-			sliderFormatter			= FormatSeconds,
+				sliderSettingKey		= addonName .. "_encounter-victory-scenario-delay",
+				sliderVariableName		= "encounter-victory-scenario-delay",
+				sliderName				= L["options.event.general.delay.name"],
+				sliderTooltip			= L["options.event.general.delay.tooltip"]:format(eventScenarioVictory, defaults["event"]["encounter-victory-scenario-delay"]),
+				sliderDefault			= defaults["event"]["encounter-victory-scenario-delay"], sliderMin = 1, sliderMax = 10, sliderStep = 1,
+				sliderFormatter			= FormatSeconds,
 
-			shownPredicate			= isEncounterExpanded
-		})
+				shownPredicate			= isEncounterExpanded
+			})
 
-		-- Scenario: Only First Victory
-		AWL.Settings:AddCheckbox(category, {
-			variableTable	= MEM.Settings.event,
-			settingKey		= addonName .. "_encounter-victory-scenario-first",
-			variableName	= "encounter-victory-scenario-first",
-			name			= L["options.event.encounter.victory.first.name"],
-			tooltip			= L["options.event.encounter.victory.first.tooltip"],
-			default			= defaults["event"]["encounter-victory-scenario-first"],
-			parentInit		= initializerVictoryScenario,
-			parentCondition	= function() return GetVal(settingVictoryScenario) end,
-			shownPredicate	= isEncounterExpanded
-		})
+			-- Scenario: Only First Victory
+			AWL.Settings:AddCheckbox(category, {
+				variableTable	= MEM.Settings.event,
+				settingKey		= addonName .. "_encounter-victory-scenario-first",
+				variableName	= "encounter-victory-scenario-first",
+				name			= L["options.event.encounter.victory.first.name"],
+				tooltip			= L["options.event.encounter.victory.first.tooltip"],
+				default			= defaults["event"]["encounter-victory-scenario-first"],
+				parentInit		= initializerVictoryScenario,
+				parentCondition	= function() return GetVal(settingVictoryScenario) end,
+				shownPredicate	= isEncounterExpanded
+			})
 
-		-- Scenario: Wipe
-		AWL.Settings:AddCheckboxSliderCombo(category, layout, {
-			variableTable			= MEM.Settings.event,
-			checkboxSettingKey		= addonName .. "_encounter-wipe-scenario-active",
-			checkboxVariableName	= "encounter-wipe-scenario-active",
-			checkboxName			= eventScenarioWipe,
-			checkboxTooltip			= L["options.event.general.active.tooltip"]:format(eventScenarioWipe),
-			checkboxDefault			= defaults["event"]["encounter-wipe-scenario-active"],
+			-- Scenario: Wipe
+			AWL.Settings:AddCheckboxSliderCombo(category, layout, {
+				variableTable			= MEM.Settings.event,
+				checkboxSettingKey		= addonName .. "_encounter-wipe-scenario-active",
+				checkboxVariableName	= "encounter-wipe-scenario-active",
+				checkboxName			= eventScenarioWipe,
+				checkboxTooltip			= L["options.event.general.active.tooltip"]:format(eventScenarioWipe),
+				checkboxDefault			= defaults["event"]["encounter-wipe-scenario-active"],
 
-			sliderSettingKey		= addonName .. "_encounter-wipe-scenario-delay",
-			sliderVariableName		= "encounter-wipe-scenario-delay",
-			sliderName				= L["options.event.general.delay.name"],
-			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(eventScenarioWipe, defaults["event"]["encounter-wipe-scenario-delay"]),
-			sliderDefault			= defaults["event"]["encounter-wipe-scenario-delay"], sliderMin = 1, sliderMax = 10, sliderStep = 1,
-			sliderFormatter			= FormatSeconds,
+				sliderSettingKey		= addonName .. "_encounter-wipe-scenario-delay",
+				sliderVariableName		= "encounter-wipe-scenario-delay",
+				sliderName				= L["options.event.general.delay.name"],
+				sliderTooltip			= L["options.event.general.delay.tooltip"]:format(eventScenarioWipe, defaults["event"]["encounter-wipe-scenario-delay"]),
+				sliderDefault			= defaults["event"]["encounter-wipe-scenario-delay"], sliderMin = 1, sliderMax = 10, sliderStep = 1,
+				sliderFormatter			= FormatSeconds,
 
-			shownPredicate			= isEncounterExpanded
-		})
+				shownPredicate			= isEncounterExpanded
+			})
+		end
 	end
 
 	local _, isPvPExpanded = AWL.Settings:AddExpandableHeader(layout, L["options.event.pvp"])
@@ -501,37 +503,39 @@ function Options:Initialize()
 			shownPredicate	= isPvPExpanded
 		})
 
-		-- Brawl
-		local initializerBrawl, settingBrawl = AWL.Settings:AddCheckboxSliderCombo(category, layout, {
-			variableTable			= MEM.Settings.event,
-			checkboxSettingKey		= addonName .. "_pvp-brawl-active",
-			checkboxVariableName	= "pvp-brawl-active",
-			checkboxName			= L["options.event.pvp.brawl"],
-			checkboxTooltip			= L["options.event.general.active.tooltip"]:format(L["options.event.pvp.brawl"]),
-			checkboxDefault			= defaults["event"]["pvp-brawl-active"],
+		if AWL.GAME_TYPE_RETAIL then
+			-- Brawl
+			local initializerBrawl, settingBrawl = AWL.Settings:AddCheckboxSliderCombo(category, layout, {
+				variableTable			= MEM.Settings.event,
+				checkboxSettingKey		= addonName .. "_pvp-brawl-active",
+				checkboxVariableName	= "pvp-brawl-active",
+				checkboxName			= L["options.event.pvp.brawl"],
+				checkboxTooltip			= L["options.event.general.active.tooltip"]:format(L["options.event.pvp.brawl"]),
+				checkboxDefault			= defaults["event"]["pvp-brawl-active"],
 
-			sliderSettingKey		= addonName .. "_pvp-brawl-delay",
-			sliderVariableName		= "pvp-brawl-delay",
-			sliderName				= L["options.event.general.delay.name"],
-			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.pvp.brawl"], defaults["event"]["pvp-brawl-delay"]),
-			sliderDefault			= defaults["event"]["pvp-brawl-delay"], sliderMin = 1, sliderMax = 10, sliderStep = 1,
-			sliderFormatter			= FormatSeconds,
+				sliderSettingKey		= addonName .. "_pvp-brawl-delay",
+				sliderVariableName		= "pvp-brawl-delay",
+				sliderName				= L["options.event.general.delay.name"],
+				sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.pvp.brawl"], defaults["event"]["pvp-brawl-delay"]),
+				sliderDefault			= defaults["event"]["pvp-brawl-delay"], sliderMin = 1, sliderMax = 10, sliderStep = 1,
+				sliderFormatter			= FormatSeconds,
 
-			shownPredicate			= isPvPExpanded
-		})
+				shownPredicate			= isPvPExpanded
+			})
 
-		-- Brawl: Only Victory
-		AWL.Settings:AddCheckbox(category, {
-			variableTable	= MEM.Settings.event,
-			settingKey		= addonName .. "_pvp-brawl-victory-only",
-			variableName	= "pvp-brawl-victory-only",
-			name			= L["options.event.pvp.victory.name"],
-			tooltip			= L["options.event.pvp.victory.tooltip"],
-			default			= defaults["event"]["pvp-brawl-victory-only"],
-			parentInit		= initializerBrawl,
-			parentCondition	= function() return GetVal(settingBrawl) end,
-			shownPredicate	= isPvPExpanded
-		})
+			-- Brawl: Only Victory
+			AWL.Settings:AddCheckbox(category, {
+				variableTable	= MEM.Settings.event,
+				settingKey		= addonName .. "_pvp-brawl-victory-only",
+				variableName	= "pvp-brawl-victory-only",
+				name			= L["options.event.pvp.victory.name"],
+				tooltip			= L["options.event.pvp.victory.tooltip"],
+				default			= defaults["event"]["pvp-brawl-victory-only"],
+				parentInit		= initializerBrawl,
+				parentCondition	= function() return GetVal(settingBrawl) end,
+				shownPredicate	= isPvPExpanded
+			})
+		end
 	end
 
 	local _, isWarbandCollectionExpanded = AWL.Settings:AddExpandableHeader(layout, L["options.event.warband-collection"])
@@ -562,7 +566,7 @@ function Options:Initialize()
 	AddWarbandEntry("mount", L["options.event.warband-collection.new-mount"], AWL.GAME_TYPE_RETAIL or AWL.GAME_TYPE_FOREVER or AWL.GAME_TYPE_MISTS)
 	AddWarbandEntry("toy", L["options.event.warband-collection.new-toy"], AWL.GAME_TYPE_RETAIL or AWL.GAME_TYPE_FOREVER or AWL.GAME_TYPE_MISTS)
 	AddWarbandEntry("recipe", L["options.event.warband-collection.new-recipe"], true)
-	AddWarbandEntry("housing", L["options.event.warband-collection.new-housing-item"], AWL.GAME_TYPE_RETAIL or AWL.GAME_TYPE_FOREVER)
+	AddWarbandEntry("housing", L["options.event.warband-collection.new-housing-item"], AWL.GAME_TYPE_RETAIL)
 
 	local _, isOtherExpanded = AWL.Settings:AddExpandableHeader(layout, L["options.event.other"])
 
@@ -656,7 +660,7 @@ function Options:Initialize()
 	})
 
 	-- Mythic+
-	if AWL.GAME_TYPE_RETAIL or AWL.GAME_TYPE_FOREVER then
+	if AWL.GAME_TYPE_RETAIL then
 		AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 			variableTable			= MEM.Settings.event,
 			checkboxSettingKey		= addonName .. "_mythic-active",
