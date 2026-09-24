@@ -1,3 +1,7 @@
+**v2.30 (2026-09-24)**
+- Updated: Compatibility with the beta client [forever]
+- Adapted to the latest version of Arcane Wizard: Library to ensure full compatibility
+
 **v2.29 (2026-09-22)**
 - Adapted to the latest version of Arcane Wizard: Library to ensure full compatibility
 - Minor code adjustments
