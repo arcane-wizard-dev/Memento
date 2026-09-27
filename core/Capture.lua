@@ -279,13 +279,8 @@ local function LevelUpEventHandler(level, timePlayedOnPreviousLevel)
 		message = L["chat.event.level-up.retail.new"]:format(tostring(level))
 	end
 
-	if message and MEM.Settings.event["level-up-time-played"] and timePlayedOnPreviousLevel then
-		local days, hours, minutes, seconds = Utils:GetDurationParts(timePlayedOnPreviousLevel)
-		message = message .. " - " .. L["chat.event.level-up.time-played"]:format(level - 1, days, hours, minutes, seconds)
-	end
-
 	if message then
-		Utils:PrintMessage(message)
+		Utils:PrintMessage(message, level - 1, timePlayedOnPreviousLevel)
 	end
 
 	TakeScreenshot()

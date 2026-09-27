@@ -48,7 +48,7 @@ function Utils:RequestTimePlayed()
 	RequestTimePlayed()
 end
 
-function Utils:PrintMessage(msg)
+function Utils:PrintMessage(msg, previousLevel, timePlayedOnPreviousLevel)
 	if MEM.Settings.general["notification"] then
 		if MEM.Settings.general["notification-timestamp"] then
 			local formattedTime = date("%d.%m.%y - %H:%M:%S")
@@ -68,7 +68,13 @@ function Utils:PrintMessage(msg)
 			PrintChatMessage(NORMAL_FONT_COLOR, addonName, L["chat.notification.time-played"]:format(days, hours, minutes, seconds))
 		end
 
-		if MEM.Settings.general["notification-level-time-played"] then
+		if previousLevel then
+			if (MEM.Settings.general["notification-level-time-played"] or MEM.Settings.event["level-up-time-played"]) and timePlayedOnPreviousLevel then
+				local days, hours, minutes, seconds = self:GetDurationParts(timePlayedOnPreviousLevel)
+
+				PrintChatMessage(NORMAL_FONT_COLOR, addonName, L["chat.event.level-up.time-played"]:format(previousLevel, days, hours, minutes, seconds))
+			end
+		elseif MEM.Settings.general["notification-level-time-played"] then
 			local days, hours, minutes, seconds = self:GetDurationParts(MEM.State.timePlayedThisLevel)
 
 			PrintChatMessage(NORMAL_FONT_COLOR, addonName, L["chat.notification.level-time-played"]:format(days, hours, minutes, seconds))
