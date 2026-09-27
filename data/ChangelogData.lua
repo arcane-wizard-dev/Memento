@@ -8,6 +8,16 @@ MEM.CHANGELOG = {
 		version = version,
 		date = buildDate ~= "" and buildDate or nil,
 		entries = {
+			"Changed: Level-up notifications show the previous level's playtime once on a separate line",
+			"Updated: Compatibility with the beta client [forever]",
+			"Updated: deDE, enUS localizations",
+			"Minor code adjustments"
+		}
+	},
+	{
+		version = "v2.30",
+		date = "2026-09-24",
+		entries = {
 			"Updated: Compatibility with the beta client [forever]",
 			"Adapted to the latest version of Arcane Wizard: Library to ensure full compatibility"
 		}
@@ -71,15 +81,6 @@ MEM.CHANGELOG = {
 		version = "v2.22",
 		date = "2026-08-04",
 		entries = {
-			"Minor code adjustments"
-		}
-	},
-	{
-		version = "v2.21",
-		date = "2026-07-31",
-		entries = {
-			"Changed: Playtime data is now requested only when at least one playtime output is enabled",
-			"Updated: deDE, enUS localizations",
 			"Minor code adjustments"
 		}
 	}
