@@ -6,5 +6,5 @@
 
 - Changed: Level-up notifications show the previous level's playtime once on a separate line
 - Updated: Compatibility with the beta client [forever]
-- Updated: enUS localizations
+- Updated: deDE, enUS localizations
 - Minor code adjustments
