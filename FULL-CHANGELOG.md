@@ -1,3 +1,9 @@
+**v2.31 (2026-09-27)**
+- Changed: Level-up notifications show the previous level's playtime once on a separate line
+- Updated: Compatibility with the beta client [forever]
+- Updated: deDE, enUS localizations
+- Minor code adjustments
+
 **v2.30 (2026-09-24)**
 - Updated: Compatibility with the beta client [forever]
 - Adapted to the latest version of Arcane Wizard: Library to ensure full compatibility
