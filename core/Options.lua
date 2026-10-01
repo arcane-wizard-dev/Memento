@@ -561,7 +561,7 @@ function Options:Initialize()
 		end
 	end
 
-	AddWarbandEntry("pet", L["options.event.warband-collection.new-pet"], AWL.GAME_TYPE_RETAIL or AWL.GAME_TYPE_MISTS)
+	AddWarbandEntry("pet", L["options.event.warband-collection.new-pet"], AWL.GAME_TYPE_RETAIL or AWL.GAME_TYPE_FOREVER or AWL.GAME_TYPE_MISTS)
 	AddWarbandEntry("mount", L["options.event.warband-collection.new-mount"], AWL.GAME_TYPE_RETAIL or AWL.GAME_TYPE_MISTS)
 	AddWarbandEntry("toy", L["options.event.warband-collection.new-toy"], AWL.GAME_TYPE_RETAIL or AWL.GAME_TYPE_MISTS)
 	AddWarbandEntry("recipe", L["options.event.warband-collection.new-recipe"], true)

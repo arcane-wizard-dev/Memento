@@ -23,7 +23,7 @@ Individual features and display options can be configured in the addon settings.
 * Capture boss victories and wipes in dungeons and raids\*\*, and scenarios\*\*\*.
 * Capture Mythic+ dungeon completions\*\*\*.
 * Capture PvP events in duels, arenas and battlegrounds\*\*, and brawls\*\*\*.
-* Capture new pets, mounts, toys, recipes, and housing items\*\*\*.
+* Capture new pets\*, mounts, toys, recipes, and housing items\*\*\*.
 * Capture special loot: items, money, and currencies\*\*\*.
 * Take screenshots at regular intervals.
 

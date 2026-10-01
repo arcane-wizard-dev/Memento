@@ -4,7 +4,4 @@
 
 **Important note: This is an initial test version for World of Warcraft: Forever. Some addon features may not work correctly yet.**
 
-- Changed: Level-up notifications show the previous level's playtime once on a separate line
 - Updated: Compatibility with the beta client [forever]
-- Updated: deDE, enUS localizations
-- Minor code adjustments

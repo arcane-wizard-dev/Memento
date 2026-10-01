@@ -500,6 +500,7 @@ elseif AWL.GAME_TYPE_FOREVER then
 	MementoFrame:RegisterEvent("CRITERIA_EARNED")
 	MementoFrame:RegisterEvent("PVP_MATCH_COMPLETE")
 	MementoFrame:RegisterEvent("ENCOUNTER_END")
+	MementoFrame:RegisterEvent("NEW_PET_ADDED")
 elseif AWL.GAME_TYPE_RETAIL then
 	MementoFrame:RegisterEvent("ACHIEVEMENT_EARNED")
 	MementoFrame:RegisterEvent("CRITERIA_EARNED")
