@@ -8,6 +8,17 @@ MEM.CHANGELOG = {
 		version = version,
 		date = buildDate ~= "" and buildDate or nil,
 		entries = {
+			"Added: New event 'World boss defeated' - A screenshot can now be taken automatically when a world boss is defeated [retail]",
+			"Added: New event 'Traveler's Log activity completed' - A screenshot can now be taken automatically when a Traveler's Log activity is completed [retail]",
+			"Changed: Reordered options and separated subsections within option groups with horizontal lines",
+			"Updated: Logo",
+			"Updated: Compatibility with the beta client [forever]"
+		}
+	},
+	{
+		version = "v2.31",
+		date = "2026-09-27",
+		entries = {
 			"Changed: Level-up notifications show the previous level's playtime once on a separate line",
 			"Updated: Compatibility with the beta client [forever]",
 			"Updated: deDE, enUS localizations",
@@ -75,13 +86,6 @@ MEM.CHANGELOG = {
 		date = "2026-08-14",
 		entries = {
 			"Removed: TOC version for patch 12.0.7 [retail]"
-		}
-	},
-	{
-		version = "v2.22",
-		date = "2026-08-04",
-		entries = {
-			"Minor code adjustments"
 		}
 	}
 }
