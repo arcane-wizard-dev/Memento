@@ -1,3 +1,10 @@
+**v2.32 (2026-10-03)**
+- Added: New event 'World boss defeated' - A screenshot can now be taken automatically when a world boss is defeated [retail]
+- Added: New event 'Traveler's Log activity completed' - A screenshot can now be taken automatically when a Traveler's Log activity is completed [retail]
+- Changed: Reordered options and separated subsections within option groups with horizontal lines
+- Updated: Logo
+- Updated: Compatibility with the beta client [forever]
+
 **v2.31 (2026-09-27)**
 - Changed: Level-up notifications show the previous level's playtime once on a separate line
 - Updated: Compatibility with the beta client [forever]
