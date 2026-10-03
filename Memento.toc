@@ -3,7 +3,7 @@
 ## Author: Arcane Wizard | created by diomsg
 
 ## Version: @project-version@
-## IconTexture: Interface\AddOns\Memento\assets\icon.blp
+## IconTexture: Interface\AddOns\Memento\assets\icon.tga
 ## LoadOnDemand: 0
 ## DefaultState: enabled
 

@@ -4,6 +4,9 @@ local addonName, MEM = ...
 local AWL = ArcaneWizardLibrary
 local Addon = AWL:GetAddon(addonName)
 
+-- Localization
+local L = MEM.Localization
+
 -- Module imports
 local Capture = MEM.Modules.Capture
 local Options = MEM.Modules.Options
@@ -248,6 +251,19 @@ function MementoFrame:CHALLENGE_MODE_COMPLETED(_)
 	end
 end
 
+function MementoFrame:PERKS_ACTIVITY_COMPLETED(_, perksActivityID)
+	Utils:PrintDebug(string.format(
+		"Event 'PERKS_ACTIVITY_COMPLETED' fired. Payload: perksActivityID=%s",
+		tostring(perksActivityID)
+	))
+
+	if MEM.Settings.event["perks-activity-active"] then
+		ScheduleScreenshot("PerksActivityEventHandler", MEM.Settings.event["perks-activity-delay"] + MEM.CAPTURE_DELAY_OFFSET)
+	else
+		Utils:PrintDebug("Event 'PERKS_ACTIVITY_COMPLETED' completed. No screenshot requested.")
+	end
+end
+
 function MementoFrame:PVP_MATCH_COMPLETE(_, winner, duration)
 	Utils:PrintDebug(string.format(
 		"Event 'PVP_MATCH_COMPLETE' fired. Payload: winner=%s, duration=%s",
@@ -401,11 +417,41 @@ function MementoFrame:PLAYER_LEVEL_UP(_, level)
 	end
 end
 
+function MementoFrame:BOSS_KILL(_, encounterID, encounterName)
+	Utils:PrintDebug(string.format(
+		"Event 'BOSS_KILL' fired. Payload: encounterID=%s, encounterName=%s",
+		tostring(encounterID), tostring(encounterName)
+	))
+
+	if IsInInstance() then
+		Utils:PrintDebug("Boss killed inside an instance. No world boss screenshot requested.")
+		return
+	end
+
+	if MEM.Settings.event["encounter-victory-world-active"] then
+		local worldBossKills = MEM.Data.bossKill["W"]
+
+		if MEM.Settings.event["encounter-victory-world-first"] and worldBossKills and worldBossKills[encounterID] then
+			Utils:PrintDebug("World boss already killed. No screenshot requested.")
+		else
+			ScheduleScreenshot("EncounterVictoryEventHandler", MEM.Settings.event["encounter-victory-world-delay"] + MEM.CAPTURE_DELAY_OFFSET,
+				encounterName, L["options.event.encounter.world"], "W", encounterID)
+		end
+	else
+		Utils:PrintDebug("Event 'BOSS_KILL' completed. No screenshot requested.")
+	end
+end
+
 function MementoFrame:ENCOUNTER_END(_, encounterID, encounterName, difficultyID, groupSize, success)
 	Utils:PrintDebug(string.format(
 		"Event 'ENCOUNTER_END' fired. Payload: encounterID=%s, encounterName=%s, difficultyID=%s, groupSize=%s, success=%s",
 		tostring(encounterID), tostring(encounterName),	tostring(difficultyID),	tostring(groupSize), tostring(success)
 	))
+
+	if not IsInInstance() then
+		Utils:PrintDebug("Encounter ended outside an instance. No instance boss screenshot requested.")
+		return
+	end
 
 	local difficultyName, groupType = GetDifficultyInfo(difficultyID)
 	local difficulty = "D" .. tostring(difficultyID)
@@ -503,8 +549,10 @@ elseif AWL.GAME_TYPE_FOREVER then
 	MementoFrame:RegisterEvent("NEW_PET_ADDED")
 elseif AWL.GAME_TYPE_RETAIL then
 	MementoFrame:RegisterEvent("ACHIEVEMENT_EARNED")
+	MementoFrame:RegisterEvent("BOSS_KILL")
 	MementoFrame:RegisterEvent("CRITERIA_EARNED")
 	MementoFrame:RegisterEvent("CHALLENGE_MODE_COMPLETED")
+	MementoFrame:RegisterEvent("PERKS_ACTIVITY_COMPLETED")
 	MementoFrame:RegisterEvent("PVP_MATCH_COMPLETE")
 	MementoFrame:RegisterEvent("ENCOUNTER_END")
 	MementoFrame:RegisterEvent("NEW_PET_ADDED")

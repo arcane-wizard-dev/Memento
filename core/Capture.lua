@@ -296,6 +296,11 @@ local function MythicEventHandler()
 	TakeScreenshot()
 end
 
+local function PerksActivityEventHandler()
+	Utils:PrintMessage(L["chat.event.perks-activity.new"])
+	TakeScreenshot()
+end
+
 local function LootToastEventHandler(typeIdentifier, itemLink, quantity)
 	if typeIdentifier == MEM.LOOT_TOAST_TYPE.ITEM then
 		Utils:PrintMessage(L["chat.event.loot-toast.item.new"]:format(itemLink or UNKNOWN))
@@ -332,6 +337,7 @@ local HandlerTable = {
 	["LevelUpEventHandler"]             = LevelUpEventHandler,
 	["DeathEventHandler"]               = DeathEventHandler,
 	["MythicEventHandler"]              = MythicEventHandler,
+	["PerksActivityEventHandler"]       = PerksActivityEventHandler,
 	["LootToastEventHandler"]           = LootToastEventHandler,
 	["IntervalEventHandler"]            = IntervalEventHandler
 }

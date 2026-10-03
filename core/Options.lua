@@ -132,6 +132,8 @@ function Options:Initialize()
 		onClick			= TimePlayedOptionChanged
 	})
 
+	AWL.Settings:AddSeparator(layout)
+
 	-- Hide UI
 	AWL.Settings:AddCheckbox(category, {
 		variableTable	= MEM.Settings.general,
@@ -165,6 +167,8 @@ function Options:Initialize()
 		parentCondition	= function() return GetVal(settingScreenshotSound) end,
 		onClick			= function(_, value) Capture:PreviewScreenshotSound(value) end
 	})
+
+	AWL.Settings:AddSeparator(layout)
 
 	-- Minimap Button Visibility
 	AWL.Settings:AddCheckbox(category, {
@@ -266,6 +270,47 @@ function Options:Initialize()
 
 	if AWL.GAME_TYPE_RETAIL or AWL.GAME_TYPE_FOREVER then
 		local _, isEncounterExpanded = AWL.Settings:AddExpandableHeader(layout, L["options.event.encounter"])
+
+		if AWL.GAME_TYPE_RETAIL then
+			local eventWorldVictory = L["options.event.encounter.world"] .. " (" .. L["options.event.encounter.victory"] .. ")"
+
+			-- World Boss
+			local initializerVictoryWorld, settingVictoryWorld = AWL.Settings:AddCheckboxSliderCombo(category, layout, {
+				isNew					= true,
+				variableTable			= MEM.Settings.event,
+				checkboxSettingKey		= addonName .. "_encounter-victory-world-active",
+				checkboxVariableName	= "encounter-victory-world-active",
+				checkboxName			= eventWorldVictory,
+				checkboxTooltip			= L["options.event.general.active.tooltip"]:format(eventWorldVictory),
+				checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-world-active"],
+
+				sliderSettingKey		= addonName .. "_encounter-victory-world-delay",
+				sliderVariableName		= "encounter-victory-world-delay",
+				sliderName				= L["options.event.general.delay.name"],
+				sliderTooltip			= L["options.event.general.delay.tooltip"]:format(eventWorldVictory, MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-world-delay"]),
+				sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-world-delay"], sliderMin = 1, sliderMax = 10, sliderStep = 1,
+				sliderFormatter			= FormatSeconds,
+
+				shownPredicate			= isEncounterExpanded
+			})
+
+			-- World Boss: Only First Victory
+			AWL.Settings:AddCheckbox(category, {
+				isNew			= true,
+				variableTable	= MEM.Settings.event,
+				settingKey		= addonName .. "_encounter-victory-world-first",
+				variableName	= "encounter-victory-world-first",
+				name			= L["options.event.encounter.world.first.name"],
+				tooltip			= L["options.event.encounter.world.first.tooltip"],
+				default			= MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-world-first"],
+				parentInit		= initializerVictoryWorld,
+				parentCondition	= function() return GetVal(settingVictoryWorld) end,
+				shownPredicate	= isEncounterExpanded
+			})
+
+			AWL.Settings:AddSeparator(layout):AddShownPredicate(isEncounterExpanded)
+		end
+
 		local eventPartyVictory    = L["options.event.encounter.party"] .. " (" .. L["options.event.encounter.victory"] .. ")"
 		local eventPartyWipe       = L["options.event.encounter.party"] .. " (" .. L["options.event.encounter.wipe"] .. ")"
 		local eventRaidVictory     = L["options.event.encounter.raid"] .. " (" .. L["options.event.encounter.victory"] .. ")"
@@ -324,6 +369,8 @@ function Options:Initialize()
 			shownPredicate			= isEncounterExpanded
 		})
 
+		AWL.Settings:AddSeparator(layout):AddShownPredicate(isEncounterExpanded)
+
 		-- Raid
 		local initializerVictoryRaid, settingVictoryRaid = AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 			variableTable			= MEM.Settings.event,
@@ -376,6 +423,8 @@ function Options:Initialize()
 		})
 
 		if AWL.GAME_TYPE_RETAIL then
+			AWL.Settings:AddSeparator(layout):AddShownPredicate(isEncounterExpanded)
+
 			-- Scenario
 			local initializerVictoryScenario, settingVictoryScenario = AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 				variableTable			= MEM.Settings.event,
@@ -658,8 +707,29 @@ function Options:Initialize()
 		shownPredicate	= isOtherExpanded
 	})
 
+	-- Interval
+	AWL.Settings:AddCheckboxSliderCombo(category, layout, {
+		variableTable			= MEM.Settings.event,
+		checkboxSettingKey		= addonName .. "_interval-active",
+		checkboxVariableName	= "interval-active",
+		checkboxName			= L["options.event.other.interval"],
+		checkboxTooltip			= L["options.event.general.active.tooltip"]:format(L["options.event.other.interval"]),
+		checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["interval-active"],
+
+		sliderSettingKey		= addonName .. "_interval-timer",
+		sliderVariableName		= "interval-timer",
+		sliderName				= L["options.event.other.interval-timer.name"],
+		sliderTooltip			= L["options.event.other.interval-timer.tooltip"],
+		sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["interval-timer"], sliderMin = 1, sliderMax = 60, sliderStep = 1,
+		sliderFormatter			= FormatMinutes,
+
+		shownPredicate			= isOtherExpanded
+	})
+
 	-- Mythic+
 	if AWL.GAME_TYPE_RETAIL then
+		AWL.Settings:AddSeparator(layout):AddShownPredicate(isOtherExpanded)
+
 		AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 			variableTable			= MEM.Settings.event,
 			checkboxSettingKey		= addonName .. "_mythic-active",
@@ -679,8 +749,32 @@ function Options:Initialize()
 		})
 	end
 
+	-- Traveler's Log
+	if AWL.GAME_TYPE_RETAIL then
+		AWL.Settings:AddCheckboxSliderCombo(category, layout, {
+			isNew					= true,
+			variableTable			= MEM.Settings.event,
+			checkboxSettingKey		= addonName .. "_perks-activity-active",
+			checkboxVariableName	= "perks-activity-active",
+			checkboxName			= L["options.event.other.perks-activity"],
+			checkboxTooltip			= L["options.event.general.active.tooltip"]:format(L["options.event.other.perks-activity"]),
+			checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["perks-activity-active"],
+
+			sliderSettingKey		= addonName .. "_perks-activity-delay",
+			sliderVariableName		= "perks-activity-delay",
+			sliderName				= L["options.event.general.delay.name"],
+			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.other.perks-activity"], MEM.OPTIONS_DEFAULTS["event"]["perks-activity-delay"]),
+			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["perks-activity-delay"], sliderMin = 1, sliderMax = 10, sliderStep = 1,
+			sliderFormatter			= FormatSeconds,
+
+			shownPredicate			= isOtherExpanded
+		})
+	end
+
 	-- Special Loot
 	if AWL.GAME_TYPE_RETAIL then
+		AWL.Settings:AddSeparator(layout):AddShownPredicate(isOtherExpanded)
+
 		local initializerLootToast, settingLootToast = AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 			variableTable			= MEM.Settings.event,
 			checkboxSettingKey		= addonName .. "_loot-toast-active",
@@ -761,25 +855,6 @@ function Options:Initialize()
 			shownPredicate	= isOtherExpanded
 		})
 	end
-
-	-- Interval
-	AWL.Settings:AddCheckboxSliderCombo(category, layout, {
-		variableTable			= MEM.Settings.event,
-		checkboxSettingKey		= addonName .. "_interval-active",
-		checkboxVariableName	= "interval-active",
-		checkboxName			= L["options.event.other.interval"],
-		checkboxTooltip			= L["options.event.general.active.tooltip"]:format(L["options.event.other.interval"]),
-		checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["interval-active"],
-
-		sliderSettingKey		= addonName .. "_interval-timer",
-		sliderVariableName		= "interval-timer",
-		sliderName				= L["options.event.other.interval-timer.name"],
-		sliderTooltip			= L["options.event.other.interval-timer.tooltip"],
-		sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["interval-timer"], sliderMin = 1, sliderMax = 60, sliderStep = 1,
-		sliderFormatter			= FormatMinutes,
-
-		shownPredicate			= isOtherExpanded
-	})
 
 	-- Profiles Section
 	AWL.Settings:AddProfilesSection(layout, {

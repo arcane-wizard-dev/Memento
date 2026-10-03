@@ -20,8 +20,10 @@ Individual features and display options can be configured in the addon settings.
 
 * Capture level-ups, deaths, and logins.
 * Capture personal and guild achievements\*, and achievement criteria\*\*.
+* Capture world boss victories\*\*\*.
 * Capture boss victories and wipes in dungeons and raids\*\*, and scenarios\*\*\*.
 * Capture Mythic+ dungeon completions\*\*\*.
+* Capture completed Traveler's Log activities\*\*\*.
 * Capture PvP events in duels, arenas and battlegrounds\*\*, and brawls\*\*\*.
 * Capture new pets\*, mounts, toys, recipes, and housing items\*\*\*.
 * Capture special loot: items, money, and currencies\*\*\*.
