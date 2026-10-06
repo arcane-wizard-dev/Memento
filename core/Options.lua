@@ -50,7 +50,9 @@ end
 -----------------------
 
 local function GetVal(setting) return setting:GetValue() end
+
 local function FormatSeconds(value) return value .. " " .. L["general.seconds-short"] end
+
 local function FormatMinutes(value) return value .. " " .. L["general.minutes-short"] end
 
 local function TimePlayedOptionChanged(_, value)
@@ -135,13 +137,26 @@ function Options:Initialize()
 	AWL.Settings:AddSeparator(layout)
 
 	-- Hide UI
-	AWL.Settings:AddCheckbox(category, {
+	local initializerHideUI, settingHideUI = AWL.Settings:AddCheckbox(category, {
 		variableTable	= MEM.Settings.general,
 		settingKey		= addonName .. "_hide-ui",
 		variableName	= "hide-ui",
 		name			= L["options.general.hide-ui.name"],
 		tooltip			= L["options.general.hide-ui.tooltip"],
 		default			= MEM.OPTIONS_DEFAULTS["general"]["hide-ui"]
+	})
+
+	-- Hide UI: Message Box
+	AWL.Settings:AddCheckbox(category, {
+		isNew			= true,
+		variableTable	= MEM.Settings.general,
+		settingKey		= addonName .. "_hide-ui-message",
+		variableName	= "hide-ui-message",
+		name			= L["options.general.hide-ui.message.name"],
+		tooltip			= L["options.general.hide-ui.message.tooltip"],
+		default			= MEM.OPTIONS_DEFAULTS["general"]["hide-ui-message"],
+		parentInit		= initializerHideUI,
+		parentCondition	= function() return GetVal(settingHideUI) end
 	})
 
 	-- Screenshot Sound
@@ -154,7 +169,6 @@ function Options:Initialize()
 		default			= MEM.OPTIONS_DEFAULTS["general"]["screenshot-sound"]
 	})
 
-
 	AWL.Settings:AddDropdown(category, {
 		variableTable	= MEM.Settings.general,
 		settingKey		= addonName .. "_screenshot-sound-style",
@@ -165,7 +179,9 @@ function Options:Initialize()
 		options			= screenshotSoundOptions,
 		parentInit		= initializerScreenshotSound,
 		parentCondition	= function() return GetVal(settingScreenshotSound) end,
-		onClick			= function(_, value) Capture:PreviewScreenshotSound(value) end
+		onClick			= function(_, value)
+			Capture:PreviewScreenshotSound(value)
+		end
 	})
 
 	AWL.Settings:AddSeparator(layout)
@@ -208,7 +224,10 @@ function Options:Initialize()
 			sliderVariableName		= "achievement-personal-delay",
 			sliderName				= L["options.event.general.delay.name"],
 			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.achievement.personal"], MEM.OPTIONS_DEFAULTS["event"]["achievement-personal-delay"]),
-			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["achievement-personal-delay"], sliderMin = 1, sliderMax = 10, sliderStep = 1,
+			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["achievement-personal-delay"],
+			sliderMin = 1,
+			sliderMax = 10,
+			sliderStep = 1,
 			sliderFormatter			= FormatSeconds,
 
 			shownPredicate			= isAchievementExpanded
@@ -241,7 +260,10 @@ function Options:Initialize()
 				sliderVariableName		= "achievement-criteria-delay",
 				sliderName				= L["options.event.general.delay.name"],
 				sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.achievement.criteria"], MEM.OPTIONS_DEFAULTS["event"]["achievement-criteria-delay"]),
-				sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["achievement-criteria-delay"], sliderMin = 1, sliderMax = 10, sliderStep = 1,
+				sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["achievement-criteria-delay"],
+				sliderMin = 1,
+				sliderMax = 10,
+				sliderStep = 1,
 				sliderFormatter			= FormatSeconds,
 
 				shownPredicate			= isAchievementExpanded
@@ -261,7 +283,10 @@ function Options:Initialize()
 			sliderVariableName		= "achievement-guild-delay",
 			sliderName				= L["options.event.general.delay.name"],
 			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.achievement.guild"], MEM.OPTIONS_DEFAULTS["event"]["achievement-guild-delay"]),
-			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["achievement-guild-delay"], sliderMin = 1, sliderMax = 10, sliderStep = 1,
+			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["achievement-guild-delay"],
+			sliderMin = 1,
+			sliderMax = 10,
+			sliderStep = 1,
 			sliderFormatter			= FormatSeconds,
 
 			shownPredicate			= isAchievementExpanded
@@ -288,7 +313,10 @@ function Options:Initialize()
 				sliderVariableName		= "encounter-victory-world-delay",
 				sliderName				= L["options.event.general.delay.name"],
 				sliderTooltip			= L["options.event.general.delay.tooltip"]:format(eventWorldVictory, MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-world-delay"]),
-				sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-world-delay"], sliderMin = 1, sliderMax = 10, sliderStep = 1,
+				sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-world-delay"],
+				sliderMin = 1,
+				sliderMax = 10,
+				sliderStep = 1,
 				sliderFormatter			= FormatSeconds,
 
 				shownPredicate			= isEncounterExpanded
@@ -331,7 +359,10 @@ function Options:Initialize()
 			sliderVariableName		= "encounter-victory-party-delay",
 			sliderName				= L["options.event.general.delay.name"],
 			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(eventPartyVictory, MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-party-delay"]),
-			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-party-delay"], sliderMin = 1, sliderMax = 10, sliderStep = 1,
+			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-party-delay"],
+			sliderMin = 1,
+			sliderMax = 10,
+			sliderStep = 1,
 			sliderFormatter			= FormatSeconds,
 
 			shownPredicate			= isEncounterExpanded
@@ -363,7 +394,10 @@ function Options:Initialize()
 			sliderVariableName		= "encounter-wipe-party-delay",
 			sliderName				= L["options.event.general.delay.name"],
 			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(eventPartyWipe, MEM.OPTIONS_DEFAULTS["event"]["encounter-wipe-party-delay"]),
-			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-wipe-party-delay"], sliderMin = 1, sliderMax = 10, sliderStep = 1,
+			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-wipe-party-delay"],
+			sliderMin = 1,
+			sliderMax = 10,
+			sliderStep = 1,
 			sliderFormatter			= FormatSeconds,
 
 			shownPredicate			= isEncounterExpanded
@@ -384,7 +418,10 @@ function Options:Initialize()
 			sliderVariableName		= "encounter-victory-raid-delay",
 			sliderName				= L["options.event.general.delay.name"],
 			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(eventRaidVictory, MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-raid-delay"]),
-			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-raid-delay"], sliderMin = 1, sliderMax = 10, sliderStep = 1,
+			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-raid-delay"],
+			sliderMin = 1,
+			sliderMax = 10,
+			sliderStep = 1,
 			sliderFormatter			= FormatSeconds,
 
 			shownPredicate			= isEncounterExpanded
@@ -416,7 +453,10 @@ function Options:Initialize()
 			sliderVariableName		= "encounter-wipe-raid-delay",
 			sliderName				= L["options.event.general.delay.name"],
 			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(eventRaidWipe, MEM.OPTIONS_DEFAULTS["event"]["encounter-wipe-raid-delay"]),
-			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-wipe-raid-delay"], sliderMin = 1, sliderMax = 10, sliderStep = 1,
+			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-wipe-raid-delay"],
+			sliderMin = 1,
+			sliderMax = 10,
+			sliderStep = 1,
 			sliderFormatter			= FormatSeconds,
 
 			shownPredicate			= isEncounterExpanded
@@ -438,7 +478,10 @@ function Options:Initialize()
 				sliderVariableName		= "encounter-victory-scenario-delay",
 				sliderName				= L["options.event.general.delay.name"],
 				sliderTooltip			= L["options.event.general.delay.tooltip"]:format(eventScenarioVictory, MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-scenario-delay"]),
-				sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-scenario-delay"], sliderMin = 1, sliderMax = 10, sliderStep = 1,
+				sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-scenario-delay"],
+				sliderMin = 1,
+				sliderMax = 10,
+				sliderStep = 1,
 				sliderFormatter			= FormatSeconds,
 
 				shownPredicate			= isEncounterExpanded
@@ -470,7 +513,10 @@ function Options:Initialize()
 				sliderVariableName		= "encounter-wipe-scenario-delay",
 				sliderName				= L["options.event.general.delay.name"],
 				sliderTooltip			= L["options.event.general.delay.tooltip"]:format(eventScenarioWipe, MEM.OPTIONS_DEFAULTS["event"]["encounter-wipe-scenario-delay"]),
-				sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-wipe-scenario-delay"], sliderMin = 1, sliderMax = 10, sliderStep = 1,
+				sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-wipe-scenario-delay"],
+				sliderMin = 1,
+				sliderMax = 10,
+				sliderStep = 1,
 				sliderFormatter			= FormatSeconds,
 
 				shownPredicate			= isEncounterExpanded
@@ -493,7 +539,10 @@ function Options:Initialize()
 		sliderVariableName		= "pvp-duel-delay",
 		sliderName				= L["options.event.general.delay.name"],
 		sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.pvp.duel"], MEM.OPTIONS_DEFAULTS["event"]["pvp-duel-delay"]),
-		sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["pvp-duel-delay"], sliderMin = 1, sliderMax = 10, sliderStep = 1,
+		sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["pvp-duel-delay"],
+		sliderMin = 1,
+		sliderMax = 10,
+		sliderStep = 1,
 		sliderFormatter			= FormatSeconds,
 
 		shownPredicate			= isPvPExpanded
@@ -513,7 +562,10 @@ function Options:Initialize()
 			sliderVariableName		= "pvp-arena-delay",
 			sliderName				= L["options.event.general.delay.name"],
 			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.pvp.arena"], MEM.OPTIONS_DEFAULTS["event"]["pvp-arena-delay"]),
-			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["pvp-arena-delay"], sliderMin = 1, sliderMax = 10, sliderStep = 1,
+			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["pvp-arena-delay"],
+			sliderMin = 1,
+			sliderMax = 10,
+			sliderStep = 1,
 			sliderFormatter			= FormatSeconds,
 
 			shownPredicate			= isPvPExpanded
@@ -532,7 +584,10 @@ function Options:Initialize()
 			sliderVariableName		= "pvp-battleground-delay",
 			sliderName				= L["options.event.general.delay.name"],
 			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.pvp.battleground"], MEM.OPTIONS_DEFAULTS["event"]["pvp-battleground-delay"]),
-			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["pvp-battleground-delay"], sliderMin = 1, sliderMax = 10, sliderStep = 1,
+			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["pvp-battleground-delay"],
+			sliderMin = 1,
+			sliderMax = 10,
+			sliderStep = 1,
 			sliderFormatter			= FormatSeconds,
 
 			shownPredicate			= isPvPExpanded
@@ -565,7 +620,10 @@ function Options:Initialize()
 				sliderVariableName		= "pvp-brawl-delay",
 				sliderName				= L["options.event.general.delay.name"],
 				sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.pvp.brawl"], MEM.OPTIONS_DEFAULTS["event"]["pvp-brawl-delay"]),
-				sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["pvp-brawl-delay"], sliderMin = 1, sliderMax = 10, sliderStep = 1,
+				sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["pvp-brawl-delay"],
+				sliderMin = 1,
+				sliderMax = 10,
+				sliderStep = 1,
 				sliderFormatter			= FormatSeconds,
 
 				shownPredicate			= isPvPExpanded
@@ -602,7 +660,10 @@ function Options:Initialize()
 				sliderVariableName		= "collection-" .. key .. "-delay",
 				sliderName				= L["options.event.general.delay.name"],
 				sliderTooltip			= L["options.event.general.delay.tooltip"]:format(nameString, MEM.OPTIONS_DEFAULTS["event"]["collection-" .. key .. "-delay"]),
-				sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["collection-" .. key .. "-delay"], sliderMin = 1, sliderMax = 10, sliderStep = 1,
+				sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["collection-" .. key .. "-delay"],
+				sliderMin = 1,
+				sliderMax = 10,
+				sliderStep = 1,
 				sliderFormatter			= FormatSeconds,
 
 				shownPredicate			= isWarbandCollectionExpanded
@@ -631,7 +692,10 @@ function Options:Initialize()
 		sliderVariableName		= "login-delay",
 		sliderName				= L["options.event.general.delay.name"],
 		sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.other.login"], MEM.OPTIONS_DEFAULTS["event"]["login-delay"]),
-		sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["login-delay"], sliderMin = 1, sliderMax = 10, sliderStep = 1,
+		sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["login-delay"],
+		sliderMin = 1,
+		sliderMax = 10,
+		sliderStep = 1,
 		sliderFormatter			= FormatSeconds,
 
 		shownPredicate			= isOtherExpanded
@@ -650,7 +714,10 @@ function Options:Initialize()
 		sliderVariableName		= "level-up-delay",
 		sliderName				= L["options.event.general.delay.name"],
 		sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.other.level-up"], MEM.OPTIONS_DEFAULTS["event"]["level-up-delay"]),
-		sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["level-up-delay"], sliderMin = 1, sliderMax = 10, sliderStep = 1,
+		sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["level-up-delay"],
+		sliderMin = 1,
+		sliderMax = 10,
+		sliderStep = 1,
 		sliderFormatter			= FormatSeconds,
 
 		shownPredicate			= isOtherExpanded
@@ -683,7 +750,10 @@ function Options:Initialize()
 		sliderVariableName		= "death-delay",
 		sliderName				= L["options.event.general.delay.name"],
 		sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.other.death"], MEM.OPTIONS_DEFAULTS["event"]["death-delay"]),
-		sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["death-delay"], sliderMin = 1, sliderMax = 10, sliderStep = 1,
+		sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["death-delay"],
+		sliderMin = 1,
+		sliderMax = 10,
+		sliderStep = 1,
 		sliderFormatter			= FormatSeconds,
 
 		shownPredicate			= isOtherExpanded
@@ -720,7 +790,10 @@ function Options:Initialize()
 		sliderVariableName		= "interval-timer",
 		sliderName				= L["options.event.other.interval-timer.name"],
 		sliderTooltip			= L["options.event.other.interval-timer.tooltip"],
-		sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["interval-timer"], sliderMin = 1, sliderMax = 60, sliderStep = 1,
+		sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["interval-timer"],
+		sliderMin = 1,
+		sliderMax = 60,
+		sliderStep = 1,
 		sliderFormatter			= FormatMinutes,
 
 		shownPredicate			= isOtherExpanded
@@ -742,7 +815,10 @@ function Options:Initialize()
 			sliderVariableName		= "mythic-delay",
 			sliderName				= L["options.event.general.delay.name"],
 			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.other.mythic"], MEM.OPTIONS_DEFAULTS["event"]["mythic-delay"]),
-			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["mythic-delay"], sliderMin = 1, sliderMax = 10, sliderStep = 1,
+			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["mythic-delay"],
+			sliderMin = 1,
+			sliderMax = 10,
+			sliderStep = 1,
 			sliderFormatter			= FormatSeconds,
 
 			shownPredicate			= isOtherExpanded
@@ -764,7 +840,10 @@ function Options:Initialize()
 			sliderVariableName		= "perks-activity-delay",
 			sliderName				= L["options.event.general.delay.name"],
 			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.other.perks-activity"], MEM.OPTIONS_DEFAULTS["event"]["perks-activity-delay"]),
-			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["perks-activity-delay"], sliderMin = 1, sliderMax = 10, sliderStep = 1,
+			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["perks-activity-delay"],
+			sliderMin = 1,
+			sliderMax = 10,
+			sliderStep = 1,
 			sliderFormatter			= FormatSeconds,
 
 			shownPredicate			= isOtherExpanded
@@ -787,7 +866,10 @@ function Options:Initialize()
 			sliderVariableName		= "loot-toast-delay",
 			sliderName				= L["options.event.general.delay.name"],
 			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.other.loot-toast"], MEM.OPTIONS_DEFAULTS["event"]["loot-toast-delay"]),
-			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["loot-toast-delay"], sliderMin = 1, sliderMax = 10, sliderStep = 1,
+			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["loot-toast-delay"],
+			sliderMin = 1,
+			sliderMax = 10,
+			sliderStep = 1,
 			sliderFormatter			= FormatSeconds,
 
 			shownPredicate			= isOtherExpanded

@@ -121,6 +121,7 @@ function MementoFrame:ADDON_LOADED(_, addOnName)
 
 	if not dbInit then
 		Addon:AbortInitialization(self)
+
 		return
 	end
 
@@ -166,6 +167,7 @@ function MementoFrame:SHOW_LOOT_TOAST(_, typeIdentifier, itemLink, quantity, spe
 
 	if not MEM.Settings.event["loot-toast-active"] then
 		Utils:PrintDebug("Event 'SHOW_LOOT_TOAST' completed. No screenshot requested.")
+
 		return
 	end
 
@@ -194,6 +196,7 @@ function MementoFrame:SHOW_LOOT_TOAST(_, typeIdentifier, itemLink, quantity, spe
 	if typeIdentifier == MEM.LOOT_TOAST_TYPE.ITEM then
 		if not itemLink then
 			Utils:PrintDebug("Event 'SHOW_LOOT_TOAST' did not contain an item link. No screenshot requested.")
+
 			return
 		end
 
@@ -425,6 +428,7 @@ function MementoFrame:BOSS_KILL(_, encounterID, encounterName)
 
 	if IsInInstance() then
 		Utils:PrintDebug("Boss killed inside an instance. No world boss screenshot requested.")
+
 		return
 	end
 
@@ -450,6 +454,7 @@ function MementoFrame:ENCOUNTER_END(_, encounterID, encounterName, difficultyID,
 
 	if not IsInInstance() then
 		Utils:PrintDebug("Encounter ended outside an instance. No instance boss screenshot requested.")
+
 		return
 	end
 
@@ -471,7 +476,9 @@ function MementoFrame:ENCOUNTER_END(_, encounterID, encounterName, difficultyID,
 								(groupType == "scenario" and MEM.Settings.event["encounter-victory-scenario-first"])
 
 			if isActive then
-				if not MEM.Data.bossKill[difficulty] then MEM.Data.bossKill[difficulty] = {} end
+				if not MEM.Data.bossKill[difficulty] then
+					MEM.Data.bossKill[difficulty] = {}
+				end
 
 				if MEM.Data.bossKill[difficulty][encounterID] and firstOnly then
 					Utils:PrintDebug("Encounter already killed. No screenshot requested.")

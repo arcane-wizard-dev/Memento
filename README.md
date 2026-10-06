@@ -38,7 +38,7 @@ Individual features and display options can be configured in the addon settings.
 ### Capture Settings
 
 * Each event can be activated separately.
-* The user interface can be automatically hidden for the screenshot and a small success notification is displayed instead (Note: The user interface cannot be hidden automatically during combat).
+* The user interface can be automatically hidden for the screenshot, with an optional notification box showing a timestamp (Note: The user interface cannot be hidden automatically during combat).
 * A configurable sound effect can be played after a screenshot has been taken.
 * After triggering an event, a delay can be set for creating the screenshot.
 * Boss killing will be saved and you can choose whether a screenshot should be taken again for a boss that has already been killed.
@@ -46,7 +46,7 @@ Individual features and display options can be configured in the addon settings.
 
 ## Supported Languages & Flavors
 
-* Languages: English, German
+* Languages: English, German, Russian
 * Flavors: Classic, Burning Crusade - Classic Anniversary Edition, Mists of Pandaria - Classic, Forever, Retail
 
 ## Installation & Quick Start

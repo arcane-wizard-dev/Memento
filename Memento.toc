@@ -11,6 +11,7 @@
 
 ## Notes: This addon automatically takes screenshots of meaningful gameplay events and personal milestones.
 ## Notes-deDE: Dieses Addon macht automatisch Screenshots von bedeutenden Spielereignissen und persönlichen Meilensteinen.
+## Notes-ruRU: Этот аддон автоматически создаёт снимки экрана при важных игровых событиях и личных достижениях.
 
 ## LoadSavedVariablesFirst: 1
 ## SavedVariables: Memento_Options_v6

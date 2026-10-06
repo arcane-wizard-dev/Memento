@@ -4,8 +4,7 @@
 
 **Important note: This is an initial test version for World of Warcraft: Forever. Some addon features may not work correctly yet.**
 
-- Added: New event 'World boss defeated' - A screenshot can now be taken automatically when a world boss is defeated [retail]
-- Added: New event 'Traveler's Log activity completed' - A screenshot can now be taken automatically when a Traveler's Log activity is completed [retail]
-- Changed: Reordered options and separated subsections within option groups with horizontal lines
-- Updated: Logo
-- Updated: Compatibility with the beta client [forever]
+- Added: Option to hide the notification box in screenshots taken without the user interface
+- Added: ruRU localization
+- Changed: Level-up notifications display the level without a hyperlink [mists of pandaria - classic] [forever] [retail]
+- Minor code adjustments

@@ -1,6 +1,5 @@
 local _, MEM = ...
 
--- Complete defaults for every supported WoW variant.
 MEM.OPTIONS_DEFAULTS = {
 	["general"] = {
 		["minimap-button"] = {
@@ -15,6 +14,7 @@ MEM.OPTIONS_DEFAULTS = {
 		["notification-time-played"] = false,
 		["notification-level-time-played"] = false,
 		["hide-ui"] = false,
+		["hide-ui-message"] = false,
 		["screenshot-sound"] = false,
 		["screenshot-sound-style"] = "memento-camera",
 		["debug-mode"] = false,

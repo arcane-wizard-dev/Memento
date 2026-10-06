@@ -91,6 +91,7 @@ end
 function Utils:OpenSettings()
 	if not Addon:OpenCategory() then
 		self:PrintDebug("In combat. The options menu cannot be opened.")
+
 		return false
 	end
 

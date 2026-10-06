@@ -1,9 +1,12 @@
 local _, MEM = ...
 
-MEM.Localization = setmetatable({},{__index=function(self,key)
+MEM.Localization = setmetatable({},{
+	__index=function(self,key)
 		geterrorhandler()("Memento (Debug): Missing entry for '" .. tostring(key) .. "'")
+
 		return key
-	end})
+	end
+})
 
 local L = MEM.Localization
 
@@ -21,7 +24,9 @@ L["options.general.notification.time-played.tooltip"] = "Activate or deactivate 
 L["options.general.notification.level-time-played.name"] = "Chat output of the time played on the current level"
 L["options.general.notification.level-time-played.tooltip"] = "Activate or deactivate the chat output of the time played on the current level when a screenshot has been taken. Level-up screenshots show the time played on the previous level instead."
 L["options.general.hide-ui.name"] = "Hide user interface for screenshot"
-L["options.general.hide-ui.tooltip"] = "Activate or deactivate the option to hide the user interface for the screenshot. A small success notification is displayed instead.\n\nNote: The user interface cannot be hidden automatically during a combat. In this case, the screenshot is taken with the user interface."
+L["options.general.hide-ui.tooltip"] = "Activate or deactivate the option to hide the user interface for the screenshot.\n\nNote: The user interface cannot be hidden automatically during a combat. In this case, the screenshot is taken with the user interface."
+L["options.general.hide-ui.message.name"] = "Show notification box in screenshot"
+L["options.general.hide-ui.message.tooltip"] = "Shows a small notification box with a timestamp in screenshots taken with the user interface hidden."
 L["options.general.screenshot-sound.name"] = "Screenshot sound effect"
 L["options.general.screenshot-sound.tooltip"] = "Activate or deactivate a sound effect after a screenshot has been taken."
 L["options.general.screenshot-sound-style.name"] = "Sound effect"
@@ -140,7 +145,7 @@ L["chat.event.warband-collection.new-recipe.new"] = "Screenshot taken - |cnGOLD_
 L["chat.event.warband-collection.new-housing-item.new"] = "Screenshot taken - |cnGOLD_FONT_COLOR:New Housing Item|r"
 
 L["chat.event.login.new"] = "Screenshot taken - |cnGOLD_FONT_COLOR:Player Login|r"
-L["chat.event.level-up.retail.new"] = "Screenshot taken - |cnGOLD_FONT_COLOR:Level-Up|r - |cffFF4E00|Hlevelup:%1$s:LEVEL_UP_TYPE_CHARACTER|h[Level %1$s]|h|r"
+L["chat.event.level-up.retail.new"] = "Screenshot taken - |cnGOLD_FONT_COLOR:Level-Up|r - |cffFF4E00[Level %1$s]|r"
 L["chat.event.level-up.classic.new"] = "Screenshot taken - |cnGOLD_FONT_COLOR:Level-Up|r - |cffFF4E00[Level %1$s]|r"
 L["chat.event.level-up.time-played"] = "Time played on level %d: %d days, %d hours, %d minutes, %d seconds"
 L["chat.event.death.new"] = "Screenshot taken - |cnGOLD_FONT_COLOR:Player Death|r"

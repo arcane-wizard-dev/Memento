@@ -1,0 +1,155 @@
+local _, MEM = ...
+
+if GetLocale() ~= "ruRU" then return end
+
+local L = MEM.Localization
+
+-- Options
+
+L["options.general"] = "Общие параметры"
+L["options.general.notification.name"] = "Уведомления в чате"
+L["options.general.notification.tooltip"] = "Включает или отключает уведомление в чате после создания снимка экрана."
+L["options.general.notification.timestamp.name"] = "Время в сообщениях чата"
+L["options.general.notification.timestamp.tooltip"] = "Включает или отключает отображение времени в сообщении чата после создания снимка экрана."
+L["options.general.notification.class.name"] = "Класс в сообщениях чата"
+L["options.general.notification.class.tooltip"] = "Включает или отключает вывод класса персонажа в чат после создания снимка экрана."
+L["options.general.notification.time-played.name"] = "Общее время игры в чате"
+L["options.general.notification.time-played.tooltip"] = "Включает или отключает вывод общего времени игры в чат после создания снимка экрана."
+L["options.general.notification.level-time-played.name"] = "Время игры на текущем уровне в чате"
+L["options.general.notification.level-time-played.tooltip"] = "Включает или отключает вывод времени игры на текущем уровне в чат после создания снимка экрана. При получении уровня вместо этого выводится время игры на предыдущем уровне."
+L["options.general.hide-ui.name"] = "Скрывать интерфейс для снимка экрана"
+L["options.general.hide-ui.tooltip"] = "Включает или отключает скрытие интерфейса при создании снимка экрана.\n\nПримечание: во время боя интерфейс нельзя скрыть автоматически. В этом случае снимок создаётся с интерфейсом."
+L["options.general.hide-ui.message.name"] = "Показывать уведомление на снимке"
+L["options.general.hide-ui.message.tooltip"] = "Показывает небольшое уведомление с отметкой времени на снимках экрана, сделанных со скрытым интерфейсом."
+L["options.general.screenshot-sound.name"] = "Звук снимка экрана"
+L["options.general.screenshot-sound.tooltip"] = "Включает или отключает звуковой эффект после создания снимка экрана."
+L["options.general.screenshot-sound-style.name"] = "Звуковой эффект"
+L["options.general.screenshot-sound-style.tooltip"] = "Выберите звук, воспроизводимый после создания снимка экрана. При выборе звук проигрывается один раз для предварительного прослушивания."
+L["options.general.screenshot-sound-style.option.memento-camera"] = "Затвор камеры (Memento)"
+L["options.general.screenshot-sound-style.option.notification"] = "Уведомление (Memento)"
+L["options.general.screenshot-sound-style.option.melody"] = "Мелодия (Memento)"
+L["options.general.screenshot-sound-style.option.quest-complete"] = "Задание выполнено"
+L["options.general.screenshot-sound-style.option.ready-check"] = "Проверка готовности"
+L["options.general.screenshot-sound-style.option.raid-warning"] = "Объявление для рейда"
+L["options.general.minimap-button.name"] = "Кнопка у мини-карты"
+L["options.general.minimap-button.tooltip"] = "Если этот параметр включен, кнопка отображается у мини-карты."
+L["options.general.debug-mode.name"] = "Режим отладки"
+L["options.general.debug-mode.tooltip"] = "Если режим отладки включен, в чате отображается дополнительная информация."
+
+L["options.event.general.active.tooltip"] = "Включает или отключает автоматическое создание снимка экрана для события %s."
+L["options.event.general.delay.name"] = "Задержка"
+L["options.event.general.delay.tooltip"] = "Задержка создания снимка экрана после события %s.\n\nПо умолчанию: %d сек."
+
+L["options.event"] = "Снимки экрана"
+
+L["options.event.achievement"] = "Достижения"
+L["options.event.achievement.personal"] = "Личное достижение"
+L["options.event.achievement.personal.exist.name"] = "Снимок для уже полученного достижения"
+L["options.event.achievement.personal.exist.tooltip"] = "Включает или отключает создание снимка экрана, если личное достижение уже получено другим персонажем."
+L["options.event.achievement.criteria"] = "Критерий личного достижения"
+L["options.event.achievement.guild"] = "Гильдейское достижение"
+
+L["options.event.encounter"] = "Бой с боссом"
+L["options.event.encounter.victory"] = "Победа"
+L["options.event.encounter.wipe"] = "Поражение"
+L["options.event.encounter.world"] = "Мировой босс"
+L["options.event.encounter.world.first.name"] = "только первая победа"
+L["options.event.encounter.world.first.tooltip"] = "Определяет, создаётся ли снимок экрана только при первой победе над каждым мировым боссом."
+L["options.event.encounter.party"] = "Босс подземелья"
+L["options.event.encounter.raid"] = "Рейдовый босс"
+L["options.event.encounter.scenario"] = "Босс сценария / вылазки"
+L["options.event.encounter.victory.first.name"] = "только первая победа на каждой сложности"
+L["options.event.encounter.victory.first.tooltip"] = "Определяет, создаётся ли снимок экрана только при первой победе над каждым боссом на каждой сложности."
+
+L["options.event.pvp"] = "Игрок против игрока"
+L["options.event.pvp.duel"] = "Завершение дуэли"
+L["options.event.pvp.arena"] = "Завершение боя на арене"
+L["options.event.pvp.battleground"] = "Завершение боя на поле боя"
+L["options.event.pvp.brawl"] = "Завершение потасовки"
+L["options.event.pvp.victory.name"] = "только при победе"
+L["options.event.pvp.victory.tooltip"] = "Включает или отключает автоматическое создание снимка экрана только при победе в PvP-бою."
+
+L["options.event.warband-collection"] = "Коллекции отряда"
+L["options.event.warband-collection.new-pet"] = "Новый питомец"
+L["options.event.warband-collection.new-mount"] = "Новое средство передвижения"
+L["options.event.warband-collection.new-toy"] = "Новая игрушка"
+L["options.event.warband-collection.new-recipe"] = "Новый рецепт"
+L["options.event.warband-collection.new-housing-item"] = "Новый предмет для дома"
+
+L["options.event.other"] = "Прочее"
+L["options.event.other.login"] = "Вход в игру"
+L["options.event.other.level-up"] = "Получение уровня"
+L["options.event.other.level-up.time-played.name"] = "Показывать время на предыдущем уровне"
+L["options.event.other.level-up.time-played.tooltip"] = "При создании снимка экрана в момент получения уровня выводит время игры на предыдущем уровне отдельной строкой в чате, даже если общий вывод времени игры на уровне отключён."
+L["options.event.other.death"] = "Смерть персонажа"
+L["options.event.other.death.instance.name"] = "Снимки внутри и вне инстансов"
+L["options.event.other.death.instance.tooltip"] = "В зависимости от следующих настроек снимки экрана при смерти персонажа создаются внутри и / или вне инстансов.\n\nК инстансам относятся арены, поля боя, рейды и подземелья."
+L["options.event.other.death.instance.option.0"] = "внутри и вне инстансов"
+L["options.event.other.death.instance.option.1"] = "только внутри инстансов"
+L["options.event.other.death.instance.option.2"] = "только вне инстансов"
+L["options.event.other.mythic"] = "Завершение подземелья с ключом"
+L["options.event.other.perks-activity"] = "Завершение задачи журнала путешественника"
+L["options.event.other.loot-toast"] = "Особая добыча"
+L["options.event.other.loot-toast.tooltip"] = "Включает или отключает снимки экрана для добычи, о которой WoW сообщает во всплывающем уведомлении. Предметы, деньги и валюты можно выбрать отдельно."
+L["options.event.other.loot-toast.item.name"] = "Предметы"
+L["options.event.other.loot-toast.item.tooltip"] = "Создаёт снимки экрана, когда WoW показывает предмет во всплывающем уведомлении о добыче. Учитывается выбранное минимальное качество."
+L["options.event.other.loot-toast.quality.name"] = "Минимальное качество"
+L["options.event.other.loot-toast.quality.tooltip"] = "Задаёт минимальное качество предмета во всплывающем уведомлении о добыче, при котором создаётся снимок экрана."
+L["options.event.other.loot-toast.money.name"] = "Деньги"
+L["options.event.other.loot-toast.money.tooltip"] = "Создаёт снимки экрана, когда WoW показывает деньги во всплывающем уведомлении о добыче."
+L["options.event.other.loot-toast.currency.name"] = "Валюты"
+L["options.event.other.loot-toast.currency.tooltip"] = "Создаёт снимки экрана, когда WoW показывает валюту во всплывающем уведомлении о добыче."
+L["options.event.other.interval"] = "Через равные промежутки времени"
+L["options.event.other.interval-timer.name"] = "Интервал"
+L["options.event.other.interval-timer.tooltip"] = "Интервал времени между автоматическими снимками экрана.\n\nПо умолчанию: 5 минут"
+
+-- General
+
+L["minimap-button.tooltip"] = "|cnLINK_FONT_COLOR:Щелкните правой кнопкой мыши|r, чтобы открыть настройки."
+
+L["general.seconds-short"] = "сек."
+L["general.minutes-short"] = "мин."
+
+-- Chat
+
+L["chat.notification.class"] = "Класс: %s"
+L["chat.notification.time-played"] = "Общее время игры: %d дн., %d ч., %d мин., %d сек."
+L["chat.notification.level-time-played"] = "Время игры на текущем уровне: %d дн., %d ч., %d мин., %d сек."
+
+L["chat.event.achievement.personal.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Личное достижение|r — %s"
+L["chat.event.achievement.personal.exist"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Личное достижение|r — %s (уже получено другим персонажем)"
+L["chat.event.achievement.personal.no-link.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Личное достижение|r"
+L["chat.event.achievement.personal.no-link.exist"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Личное достижение|r (уже получено другим персонажем)"
+L["chat.event.achievement.criteria.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Критерий личного достижения|r — %s — %s"
+L["chat.event.achievement.criteria.no-link.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Критерий личного достижения|r"
+L["chat.event.achievement.guild.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Гильдейское достижение|r — %s"
+
+L["chat.event.encounter.victory.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Бой с боссом — Победа|r — %s (%s)"
+L["chat.event.encounter.wipe.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Бой с боссом — Поражение|r — %s (%s)"
+
+L["chat.event.pvp.duel.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:PvP — Дуэль завершена|r"
+L["chat.event.pvp.arena.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:PvP — Бой на арене завершён|r"
+L["chat.event.pvp.battleground.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:PvP — Бой на поле боя завершён|r"
+L["chat.event.pvp.brawl.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:PvP — Потасовка завершена|r"
+
+L["chat.event.warband-collection.new-pet.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Новый питомец|r"
+L["chat.event.warband-collection.new-mount.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Новое средство передвижения|r"
+L["chat.event.warband-collection.new-toy.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Новая игрушка|r"
+L["chat.event.warband-collection.new-recipe.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Новый рецепт|r"
+L["chat.event.warband-collection.new-housing-item.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Новый предмет для дома|r"
+
+L["chat.event.login.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Вход в игру|r"
+L["chat.event.level-up.retail.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Получение уровня|r — |cffFF4E00[Уровень %1$s]|r"
+L["chat.event.level-up.classic.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Получение уровня|r — |cffFF4E00[Уровень %1$s]|r"
+L["chat.event.level-up.time-played"] = "Время игры на уровне %d: %d дн., %d ч., %d мин., %d сек."
+L["chat.event.death.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Смерть персонажа|r"
+L["chat.event.mythic.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Подземелье с ключом завершено|r"
+L["chat.event.perks-activity.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Задача журнала путешественника завершена|r"
+L["chat.event.loot-toast.item.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Особая добыча — Предмет|r — %s"
+L["chat.event.loot-toast.money.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Особая добыча — Деньги|r — %s"
+L["chat.event.loot-toast.currency.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Особая добыча — Валюта|r — %s x%d"
+L["chat.event.interval.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Снимок по интервалу|r"
+
+-- Capture
+
+L["capture.message"] = "Снимок экрана создан"

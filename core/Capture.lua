@@ -103,8 +103,10 @@ local function TakeScreenshot()
 			local status, err = pcall(function ()
 				UIParent:Hide()
 
-				frame = UpdateMessageFrame()
-				frame:Show()
+				if MEM.Settings.general["hide-ui-message"] then
+					frame = UpdateMessageFrame()
+					frame:Show()
+				end
 
 				C_Timer.After(0.1, function()
 					Screenshot()
@@ -210,7 +212,9 @@ local function EncounterVictoryEventHandler(encounterName, difficultyName, diffi
 	Utils:PrintMessage(L["chat.event.encounter.victory.new"]:format(encounterName, difficultyName))
 	TakeScreenshot()
 
-	if not MEM.Data.bossKill[difficulty] then MEM.Data.bossKill[difficulty] = {} end
+	if not MEM.Data.bossKill[difficulty] then
+		MEM.Data.bossKill[difficulty] = {}
+	end
 
 	MEM.Data.bossKill[difficulty][encounterID] = true
 end
