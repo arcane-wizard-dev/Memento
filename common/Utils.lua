@@ -22,6 +22,13 @@ end
 --- Module Functions ---
 ------------------------
 
+function Utils:GetTimestampFormat()
+	local formatData = MEM.TIMESTAMP_FORMAT_BY_KEY[MEM.Settings.general["timestamp-format"]]
+		or MEM.TIMESTAMP_FORMAT_BY_KEY[MEM.OPTIONS_DEFAULTS.general["timestamp-format"]]
+
+	return formatData.format
+end
+
 function Utils:GetDurationParts(totalSeconds)
 	local seconds = math.max(0, math.floor(totalSeconds or 0))
 	local days = math.floor(seconds / 86400)
@@ -51,7 +58,7 @@ end
 function Utils:PrintMessage(msg, previousLevel, timePlayedOnPreviousLevel)
 	if MEM.Settings.general["notification"] then
 		if MEM.Settings.general["notification-timestamp"] then
-			local formattedTime = date("%d.%m.%y - %H:%M:%S")
+			local formattedTime = date(self:GetTimestampFormat())
 			PrintChatMessage(NORMAL_FONT_COLOR, addonName, msg .. " [" .. formattedTime .. "]")
 		else
 			PrintChatMessage(NORMAL_FONT_COLOR, addonName, msg)

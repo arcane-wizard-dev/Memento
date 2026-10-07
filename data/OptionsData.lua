@@ -15,6 +15,7 @@ MEM.OPTIONS_DEFAULTS = {
 		["notification-level-time-played"] = false,
 		["hide-ui"] = false,
 		["hide-ui-message"] = false,
+		["timestamp-format"] = "iso",
 		["screenshot-sound"] = false,
 		["screenshot-sound-style"] = "memento-camera",
 		["debug-mode"] = false,

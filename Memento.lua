@@ -138,7 +138,11 @@ function MementoFrame:ADDON_LOADED(_, addOnName)
 
 	Utils:PrintDebug(string.format(
 		"InitializeDatabase: key=%s, createdProfile=%s, createdProfileKey=%s, cleanedOptions=%s, activeProfile=%s",
-		tostring(dbInit.characterGUID), tostring(dbInit.createdProfile), tostring(dbInit.createdProfileKey), tostring(dbInit.cleanedOptions), tostring(dbInit.activeProfile)
+		tostring(dbInit.characterGUID),
+		tostring(dbInit.createdProfile),
+		tostring(dbInit.createdProfileKey),
+		tostring(dbInit.cleanedOptions),
+		tostring(dbInit.activeProfile)
 	))
 	Utils:PrintDebug("Addon fully loaded.")
 end
@@ -161,8 +165,16 @@ end
 function MementoFrame:SHOW_LOOT_TOAST(_, typeIdentifier, itemLink, quantity, specID, sex, personalLootToast, toastMethod, lessAwesome, upgraded, corrupted)
 	Utils:PrintDebug(string.format(
 		"Event 'SHOW_LOOT_TOAST' fired. Payload: typeIdentifier=%s, itemLink=%s, quantity=%s, specID=%s, sex=%s, personalLootToast=%s, toastMethod=%s, lessAwesome=%s, upgraded=%s, corrupted=%s",
-		tostring(typeIdentifier), tostring(itemLink), tostring(quantity), tostring(specID), tostring(sex), tostring(personalLootToast),
-		tostring(toastMethod), tostring(lessAwesome), tostring(upgraded), tostring(corrupted)
+		tostring(typeIdentifier),
+		tostring(itemLink),
+		tostring(quantity),
+		tostring(specID),
+		tostring(sex),
+		tostring(personalLootToast),
+		tostring(toastMethod),
+		tostring(lessAwesome),
+		tostring(upgraded),
+		tostring(corrupted)
 	))
 
 	if not MEM.Settings.event["loot-toast-active"] then
@@ -216,9 +228,20 @@ function MementoFrame:ACHIEVEMENT_EARNED(_, achievementID, alreadyEarned)
 
 	local isGuildAchievement = select(12, GetAchievementInfo(achievementID))
 
+	if AWL.GAME_TYPE_FOREVER and (isGuildAchievement or alreadyEarned) then
+		Utils:PrintDebug("Event 'ACHIEVEMENT_EARNED' skipped in Forever: guild achievement or already earned. No screenshot requested.")
+
+		return
+	end
+
 	if not isGuildAchievement then
 		if MEM.Settings.event["achievement-personal-active"] then
-			ScheduleScreenshot("AchievementPersonalEventHandler", MEM.Settings.event["achievement-personal-delay"] + MEM.CAPTURE_DELAY_OFFSET, achievementID, alreadyEarned)
+			ScheduleScreenshot(
+				"AchievementPersonalEventHandler",
+				MEM.Settings.event["achievement-personal-delay"] + MEM.CAPTURE_DELAY_OFFSET,
+				achievementID,
+				alreadyEarned
+			)
 		else
 			Utils:PrintDebug("Event 'ACHIEVEMENT_EARNED' (Personal) completed. No screenshot requested.")
 		end
@@ -231,17 +254,32 @@ function MementoFrame:ACHIEVEMENT_EARNED(_, achievementID, alreadyEarned)
 	end
 end
 
-function MementoFrame:CRITERIA_EARNED(_, achievementID, description)
+function MementoFrame:CRITERIA_EARNED(_, achievementID, description, achievementAlreadyEarnedOnAccount)
 	Utils:PrintDebug(string.format(
-		"Event 'CRITERIA_EARNED' fired. Payload: achievementID=%s, description=%s",
-		tostring(achievementID), tostring(description)
+		"Event 'CRITERIA_EARNED' fired. Payload: achievementID=%s, description=%s, achievementAlreadyEarnedOnAccount=%s",
+		tostring(achievementID),
+		tostring(description),
+		tostring(achievementAlreadyEarnedOnAccount)
 	))
+
+	if not AWL.GAME_TYPE_RETAIL then return end
 
 	if MEM.Settings.event["achievement-criteria-active"] then
 		ScheduleScreenshot("CriteriaEventHandler", MEM.Settings.event["achievement-criteria-delay"] + MEM.CAPTURE_DELAY_OFFSET, achievementID, description)
 	else
 		Utils:PrintDebug("Event 'CRITERIA_EARNED' completed. No screenshot requested.")
 	end
+end
+
+function MementoFrame:CRITERIA_COMPLETE(_, criteriaID)
+	Utils:PrintDebug(string.format(
+		"Event 'CRITERIA_COMPLETE' fired. Payload: criteriaID=%s",
+		tostring(criteriaID)
+	))
+end
+
+function MementoFrame:CRITERIA_UPDATE(_)
+	Utils:PrintDebug("Event 'CRITERIA_UPDATE' fired. No payload.")
 end
 
 function MementoFrame:CHALLENGE_MODE_COMPLETED(_)
@@ -279,7 +317,7 @@ function MementoFrame:PVP_MATCH_COMPLETE(_, winner, duration)
 	local isInBrawl = AWL.GAME_TYPE_RETAIL and C_PvP.IsInBrawl()
 
 	if isArena then
-		if MEM.Settings.event["pvp-arena-active"] then
+		if AWL.GAME_TYPE_RETAIL and MEM.Settings.event["pvp-arena-active"] then
 			ScheduleScreenshot("PvPArenaEventHandler", MEM.Settings.event["pvp-arena-delay"] + MEM.CAPTURE_DELAY_OFFSET)
 		else
 			Utils:PrintDebug("Event 'PVP_MATCH_COMPLETE' (Arena) completed. No screenshot requested.")
@@ -420,6 +458,20 @@ function MementoFrame:PLAYER_LEVEL_UP(_, level)
 	end
 end
 
+function MementoFrame:MAJOR_FACTION_RENOWN_LEVEL_CHANGED(_, majorFactionID, newRenownLevel, oldRenownLevel)
+	Utils:PrintDebug(string.format(
+		"Event 'MAJOR_FACTION_RENOWN_LEVEL_CHANGED' fired. Payload: majorFactionID=%s, newRenownLevel=%s, oldRenownLevel=%s",
+		tostring(majorFactionID), tostring(newRenownLevel), tostring(oldRenownLevel)
+	))
+end
+
+function MementoFrame:FACTION_STANDING_CHANGED(_, factionID, updatedStanding)
+	Utils:PrintDebug(string.format(
+		"Event 'FACTION_STANDING_CHANGED' fired. Payload: factionID=%s, updatedStanding=%s",
+		tostring(factionID), tostring(updatedStanding)
+	))
+end
+
 function MementoFrame:BOSS_KILL(_, encounterID, encounterName)
 	Utils:PrintDebug(string.format(
 		"Event 'BOSS_KILL' fired. Payload: encounterID=%s, encounterName=%s",
@@ -551,6 +603,9 @@ elseif AWL.GAME_TYPE_MISTS then
 elseif AWL.GAME_TYPE_FOREVER then
 	MementoFrame:RegisterEvent("ACHIEVEMENT_EARNED")
 	MementoFrame:RegisterEvent("CRITERIA_EARNED")
+	MementoFrame:RegisterEvent("CRITERIA_COMPLETE")
+	MementoFrame:RegisterEvent("CRITERIA_UPDATE")
+	MementoFrame:RegisterEvent("MAJOR_FACTION_RENOWN_LEVEL_CHANGED")
 	MementoFrame:RegisterEvent("PVP_MATCH_COMPLETE")
 	MementoFrame:RegisterEvent("ENCOUNTER_END")
 	MementoFrame:RegisterEvent("NEW_PET_ADDED")
@@ -560,6 +615,7 @@ elseif AWL.GAME_TYPE_RETAIL then
 	MementoFrame:RegisterEvent("CRITERIA_EARNED")
 	MementoFrame:RegisterEvent("CHALLENGE_MODE_COMPLETED")
 	MementoFrame:RegisterEvent("PERKS_ACTIVITY_COMPLETED")
+	MementoFrame:RegisterEvent("MAJOR_FACTION_RENOWN_LEVEL_CHANGED")
 	MementoFrame:RegisterEvent("PVP_MATCH_COMPLETE")
 	MementoFrame:RegisterEvent("ENCOUNTER_END")
 	MementoFrame:RegisterEvent("NEW_PET_ADDED")
@@ -572,6 +628,7 @@ end
 MementoFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
 MementoFrame:RegisterEvent("PLAYER_DEAD")
 MementoFrame:RegisterEvent("PLAYER_LEVEL_UP")
+MementoFrame:RegisterEvent("FACTION_STANDING_CHANGED")
 MementoFrame:RegisterEvent("DUEL_FINISHED")
 MementoFrame:RegisterEvent("NEW_RECIPE_LEARNED")
 

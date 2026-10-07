@@ -45,6 +45,15 @@ for _, soundData in ipairs(MEM.SCREENSHOT_SOUNDS) do
 	}
 end
 
+local timestampFormatOptions = {}
+
+for _, formatData in ipairs(MEM.TIMESTAMP_FORMATS) do
+	timestampFormatOptions[#timestampFormatOptions + 1] = {
+		value = formatData.key,
+		label = L[formatData.labelKey]
+	}
+end
+
 -----------------------
 --- Local Functions ---
 -----------------------
@@ -132,6 +141,19 @@ function Options:Initialize()
 		parentInit		= initializerNotification,
 		parentCondition	= IsNotificationEnabled,
 		onClick			= TimePlayedOptionChanged
+	})
+
+	AWL.Settings:AddDropdown(category, {
+		isNew			= true,
+		variableTable	= MEM.Settings.general,
+		settingKey		= addonName .. "_timestamp-format",
+		variableName	= "timestamp-format",
+		name			= L["options.general.timestamp-format.name"],
+		tooltip			= L["options.general.timestamp-format.tooltip"],
+		default			= MEM.OPTIONS_DEFAULTS["general"]["timestamp-format"],
+		options			= timestampFormatOptions,
+		parentInit		= initializerNotification,
+		parentCondition	= IsNotificationEnabled
 	})
 
 	AWL.Settings:AddSeparator(layout)
@@ -223,7 +245,10 @@ function Options:Initialize()
 			sliderSettingKey		= addonName .. "_achievement-personal-delay",
 			sliderVariableName		= "achievement-personal-delay",
 			sliderName				= L["options.event.general.delay.name"],
-			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.achievement.personal"], MEM.OPTIONS_DEFAULTS["event"]["achievement-personal-delay"]),
+			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(
+				L["options.event.achievement.personal"],
+				MEM.OPTIONS_DEFAULTS["event"]["achievement-personal-delay"]
+			),
 			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["achievement-personal-delay"],
 			sliderMin = 1,
 			sliderMax = 10,
@@ -234,20 +259,22 @@ function Options:Initialize()
 		})
 
 		-- Personal Achievement: Exist Check
-		AWL.Settings:AddCheckbox(category, {
-			variableTable	= MEM.Settings.event,
-			settingKey		= addonName .. "_achievement-personal-exist",
-			variableName	= "achievement-personal-exist",
-			name			= L["options.event.achievement.personal.exist.name"],
-			tooltip			= L["options.event.achievement.personal.exist.tooltip"],
-			default			= MEM.OPTIONS_DEFAULTS["event"]["achievement-personal-exist"],
-			parentInit		= initializerAchievementPersonal,
-			parentCondition	= function() return GetVal(settingAchievementPersonal) end,
-			shownPredicate	= isAchievementExpanded
-		})
+		if not AWL.GAME_TYPE_FOREVER then
+			AWL.Settings:AddCheckbox(category, {
+				variableTable	= MEM.Settings.event,
+				settingKey		= addonName .. "_achievement-personal-exist",
+				variableName	= "achievement-personal-exist",
+				name			= L["options.event.achievement.personal.exist.name"],
+				tooltip			= L["options.event.achievement.personal.exist.tooltip"],
+				default			= MEM.OPTIONS_DEFAULTS["event"]["achievement-personal-exist"],
+				parentInit		= initializerAchievementPersonal,
+				parentCondition	= function() return GetVal(settingAchievementPersonal) end,
+				shownPredicate	= isAchievementExpanded
+			})
+		end
 
 		-- Criteria Achievement
-		if AWL.GAME_TYPE_RETAIL or AWL.GAME_TYPE_FOREVER then
+		if AWL.GAME_TYPE_RETAIL then
 			AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 				variableTable			= MEM.Settings.event,
 				checkboxSettingKey		= addonName .. "_achievement-criteria-active",
@@ -259,7 +286,10 @@ function Options:Initialize()
 				sliderSettingKey		= addonName .. "_achievement-criteria-delay",
 				sliderVariableName		= "achievement-criteria-delay",
 				sliderName				= L["options.event.general.delay.name"],
-				sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.achievement.criteria"], MEM.OPTIONS_DEFAULTS["event"]["achievement-criteria-delay"]),
+				sliderTooltip			= L["options.event.general.delay.tooltip"]:format(
+					L["options.event.achievement.criteria"],
+					MEM.OPTIONS_DEFAULTS["event"]["achievement-criteria-delay"]
+				),
 				sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["achievement-criteria-delay"],
 				sliderMin = 1,
 				sliderMax = 10,
@@ -271,26 +301,31 @@ function Options:Initialize()
 		end
 
 		-- Guild Achievement
-		AWL.Settings:AddCheckboxSliderCombo(category, layout, {
-			variableTable			= MEM.Settings.event,
-			checkboxSettingKey		= addonName .. "_achievement-guild-active",
-			checkboxVariableName	= "achievement-guild-active",
-			checkboxName			= L["options.event.achievement.guild"],
-			checkboxTooltip			= L["options.event.general.active.tooltip"]:format(L["options.event.achievement.guild"]),
-			checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["achievement-guild-active"],
+		if not AWL.GAME_TYPE_FOREVER then
+			AWL.Settings:AddCheckboxSliderCombo(category, layout, {
+				variableTable			= MEM.Settings.event,
+				checkboxSettingKey		= addonName .. "_achievement-guild-active",
+				checkboxVariableName	= "achievement-guild-active",
+				checkboxName			= L["options.event.achievement.guild"],
+				checkboxTooltip			= L["options.event.general.active.tooltip"]:format(L["options.event.achievement.guild"]),
+				checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["achievement-guild-active"],
 
-			sliderSettingKey		= addonName .. "_achievement-guild-delay",
-			sliderVariableName		= "achievement-guild-delay",
-			sliderName				= L["options.event.general.delay.name"],
-			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.achievement.guild"], MEM.OPTIONS_DEFAULTS["event"]["achievement-guild-delay"]),
-			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["achievement-guild-delay"],
-			sliderMin = 1,
-			sliderMax = 10,
-			sliderStep = 1,
-			sliderFormatter			= FormatSeconds,
+				sliderSettingKey		= addonName .. "_achievement-guild-delay",
+				sliderVariableName		= "achievement-guild-delay",
+				sliderName				= L["options.event.general.delay.name"],
+				sliderTooltip			= L["options.event.general.delay.tooltip"]:format(
+					L["options.event.achievement.guild"],
+					MEM.OPTIONS_DEFAULTS["event"]["achievement-guild-delay"]
+				),
+				sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["achievement-guild-delay"],
+				sliderMin = 1,
+				sliderMax = 10,
+				sliderStep = 1,
+				sliderFormatter			= FormatSeconds,
 
-			shownPredicate			= isAchievementExpanded
-		})
+				shownPredicate			= isAchievementExpanded
+			})
+		end
 	end
 
 	if AWL.GAME_TYPE_RETAIL or AWL.GAME_TYPE_FOREVER then
@@ -312,7 +347,10 @@ function Options:Initialize()
 				sliderSettingKey		= addonName .. "_encounter-victory-world-delay",
 				sliderVariableName		= "encounter-victory-world-delay",
 				sliderName				= L["options.event.general.delay.name"],
-				sliderTooltip			= L["options.event.general.delay.tooltip"]:format(eventWorldVictory, MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-world-delay"]),
+				sliderTooltip			= L["options.event.general.delay.tooltip"]:format(
+					eventWorldVictory,
+					MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-world-delay"]
+				),
 				sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-world-delay"],
 				sliderMin = 1,
 				sliderMax = 10,
@@ -477,7 +515,10 @@ function Options:Initialize()
 				sliderSettingKey		= addonName .. "_encounter-victory-scenario-delay",
 				sliderVariableName		= "encounter-victory-scenario-delay",
 				sliderName				= L["options.event.general.delay.name"],
-				sliderTooltip			= L["options.event.general.delay.tooltip"]:format(eventScenarioVictory, MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-scenario-delay"]),
+				sliderTooltip			= L["options.event.general.delay.tooltip"]:format(
+					eventScenarioVictory,
+					MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-scenario-delay"]
+				),
 				sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-scenario-delay"],
 				sliderMin = 1,
 				sliderMax = 10,
@@ -512,7 +553,10 @@ function Options:Initialize()
 				sliderSettingKey		= addonName .. "_encounter-wipe-scenario-delay",
 				sliderVariableName		= "encounter-wipe-scenario-delay",
 				sliderName				= L["options.event.general.delay.name"],
-				sliderTooltip			= L["options.event.general.delay.tooltip"]:format(eventScenarioWipe, MEM.OPTIONS_DEFAULTS["event"]["encounter-wipe-scenario-delay"]),
+				sliderTooltip			= L["options.event.general.delay.tooltip"]:format(
+					eventScenarioWipe,
+					MEM.OPTIONS_DEFAULTS["event"]["encounter-wipe-scenario-delay"]
+				),
 				sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-wipe-scenario-delay"],
 				sliderMin = 1,
 				sliderMax = 10,
@@ -548,7 +592,7 @@ function Options:Initialize()
 		shownPredicate			= isPvPExpanded
 	})
 
-	if AWL.GAME_TYPE_RETAIL or AWL.GAME_TYPE_FOREVER then
+	if AWL.GAME_TYPE_RETAIL then
 		-- Arena
 		AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 			variableTable			= MEM.Settings.event,
@@ -570,7 +614,9 @@ function Options:Initialize()
 
 			shownPredicate			= isPvPExpanded
 		})
+	end
 
+	if AWL.GAME_TYPE_RETAIL or AWL.GAME_TYPE_FOREVER then
 		-- Battleground
 		local initializerBattleground, settingBattleground = AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 			variableTable			= MEM.Settings.event,
@@ -583,7 +629,10 @@ function Options:Initialize()
 			sliderSettingKey		= addonName .. "_pvp-battleground-delay",
 			sliderVariableName		= "pvp-battleground-delay",
 			sliderName				= L["options.event.general.delay.name"],
-			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.pvp.battleground"], MEM.OPTIONS_DEFAULTS["event"]["pvp-battleground-delay"]),
+			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(
+				L["options.event.pvp.battleground"],
+				MEM.OPTIONS_DEFAULTS["event"]["pvp-battleground-delay"]
+			),
 			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["pvp-battleground-delay"],
 			sliderMin = 1,
 			sliderMax = 10,
@@ -839,7 +888,10 @@ function Options:Initialize()
 			sliderSettingKey		= addonName .. "_perks-activity-delay",
 			sliderVariableName		= "perks-activity-delay",
 			sliderName				= L["options.event.general.delay.name"],
-			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.other.perks-activity"], MEM.OPTIONS_DEFAULTS["event"]["perks-activity-delay"]),
+			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(
+				L["options.event.other.perks-activity"],
+				MEM.OPTIONS_DEFAULTS["event"]["perks-activity-delay"]
+			),
 			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["perks-activity-delay"],
 			sliderMin = 1,
 			sliderMax = 10,
@@ -865,7 +917,10 @@ function Options:Initialize()
 			sliderSettingKey		= addonName .. "_loot-toast-delay",
 			sliderVariableName		= "loot-toast-delay",
 			sliderName				= L["options.event.general.delay.name"],
-			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.other.loot-toast"], MEM.OPTIONS_DEFAULTS["event"]["loot-toast-delay"]),
+			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(
+				L["options.event.other.loot-toast"],
+				MEM.OPTIONS_DEFAULTS["event"]["loot-toast-delay"]
+			),
 			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["loot-toast-delay"],
 			sliderMin = 1,
 			sliderMax = 10,

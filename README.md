@@ -16,38 +16,56 @@ Memento is a World of Warcraft addon that automatically takes screenshots of mea
 
 Individual features and display options can be configured in the addon settings. Memento supports an account profile and character profiles.
 
-### Supported Events
+### Retail
 
 * Capture level-ups, deaths, and logins.
-* Capture personal and guild achievements\*, and achievement criteria\*\*.
-* <sup>✨ NEW</sup> Capture world boss victories\*\*\*.
-* Capture boss victories and wipes in dungeons and raids\*\*, and scenarios\*\*\*.
-* Capture Mythic+ dungeon completions\*\*\*.
-* <sup>✨ NEW</sup> Capture completed Traveler's Log activities\*\*\*.
-* Capture PvP events in duels, arenas and battlegrounds\*\*, and brawls\*\*\*.
-* Capture new pets\*, mounts, toys, recipes, and housing items\*\*\*.
-* Capture special loot: items, money, and currencies\*\*\*.
+* Capture personal and guild achievements, and achievement criteria.
+* <sup>✨ NEW</sup> Capture world boss victories.
+* Capture boss victories and wipes in dungeons, raids, and scenarios.
+* Capture Mythic+ dungeon completions.
+* <sup>✨ NEW</sup> Capture completed Traveler's Log activities.
+* Capture PvP events in duels, battlegrounds, arenas, and brawls.
+* Capture new pets, mounts, toys, recipes, and housing items.
+* Capture special loot: items, money, and currencies.
 * Take screenshots at regular intervals.
 
-*\* These events are not supported in Classic and Burning Crusade - Classic Anniversary Edition.*
+### Forever
 
-*\*\* These events are only supported in Forever and Retail.*
+* Capture level-ups, deaths, and logins.
+* Capture personal achievements.
+* Capture boss victories and wipes in dungeons and raids.
+* Capture PvP events in duels and battlegrounds.
+* Capture new pets and recipes.
+* Take screenshots at regular intervals.
 
-*\*\*\* These events are only supported in Retail.*
+### Classic
+
+Shared by Classic, Burning Crusade - Classic Anniversary Edition, and Mists of Pandaria - Classic:
+
+* Capture level-ups, deaths, and logins.
+* Capture completed duels.
+* Capture newly learned recipes.
+* Take screenshots at regular intervals.
+
+Additional events in Mists of Pandaria - Classic:
+
+* Capture personal and guild achievements.
+* Capture new pets, mounts, and toys.
 
 ### Capture Settings
 
 * Each event can be activated separately.
 * The user interface can be automatically hidden for the screenshot, with an optional notification box showing a timestamp (Note: The user interface cannot be hidden automatically during combat).
+* Choose a timestamp format for chat notifications and the screenshot notification box. The default is YYYY-MM-DD with 24-hour time.
 * A configurable sound effect can be played after a screenshot has been taken.
 * After triggering an event, a delay can be set for creating the screenshot.
 * Boss killing will be saved and you can choose whether a screenshot should be taken again for a boss that has already been killed.
-* If another character has already earned an achievement, a screenshot can optionally be prevented.
+* In Mists of Pandaria Classic and Retail, screenshots can optionally be taken for achievements already earned by another character.
 
 ## Supported Languages & Flavors
 
 * Languages: English, German, Russian
-* Flavors: Classic, Burning Crusade - Classic Anniversary Edition, Mists of Pandaria - Classic, Forever, Retail
+* Flavors: Retail, Forever, Classic, Burning Crusade - Classic Anniversary Edition, Mists of Pandaria - Classic
 
 ## Installation & Quick Start
 
