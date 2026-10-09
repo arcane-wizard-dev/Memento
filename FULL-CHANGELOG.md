@@ -1,3 +1,11 @@
+**v2.33 (2026-10-09)**
+- Added: Option to hide the notification box in screenshots taken without the user interface
+- Added: Option to choose the timestamp format for chat notifications and the screenshot notification box
+- Added: ruRU localization
+- Changed: Level-up notifications display the level without a hyperlink [mists of pandaria - classic] [forever] [retail]
+- Updated: Compatibility with the beta client [forever]
+- Minor code adjustments
+
 **v2.32 (2026-10-03)**
 - Added: New event 'World boss defeated' - A screenshot can now be taken automatically when a world boss is defeated [retail]
 - Added: New event 'Traveler's Log activity completed' - A screenshot can now be taken automatically when a Traveler's Log activity is completed [retail]
