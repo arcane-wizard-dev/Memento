@@ -8,6 +8,18 @@ MEM.CHANGELOG = {
 		version = version,
 		date = buildDate ~= "" and buildDate or nil,
 		entries = {
+			"Added: Option to hide the notification box in screenshots taken without the user interface",
+			"Added: Option to choose the timestamp format for chat notifications and the screenshot notification box",
+			"Added: ruRU localization",
+			"Changed: Level-up notifications display the level without a hyperlink [mists of pandaria - classic] [forever] [retail]",
+			"Updated: Compatibility with the beta client [forever]",
+			"Minor code adjustments"
+		}
+	},
+	{
+		version = "v2.32",
+		date = "2026-10-03",
+		entries = {
 			"Added: New event 'World boss defeated' - A screenshot can now be taken automatically when a world boss is defeated [retail]",
 			"Added: New event 'Traveler's Log activity completed' - A screenshot can now be taken automatically when a Traveler's Log activity is completed [retail]",
 			"Changed: Reordered options and separated subsections within option groups with horizontal lines",
@@ -79,13 +91,6 @@ MEM.CHANGELOG = {
 			"Added: Changelog window available through the 'changelog' slash command",
 			"Removed: Version notice chat messages",
 			"Adapted to the latest version of Arcane Wizard: Library to ensure full compatibility"
-		}
-	},
-	{
-		version = "v2.23",
-		date = "2026-08-14",
-		entries = {
-			"Removed: TOC version for patch 12.0.7 [retail]"
 		}
 	}
 }
