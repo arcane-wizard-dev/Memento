@@ -84,6 +84,8 @@ L["options.event.warband-collection.new-housing-item"] = "neuer Behausungsgegens
 L["options.event.other"] = "Sonstige"
 L["options.event.other.login"] = "Spielerlogin"
 L["options.event.other.level-up"] = "Stufenaufstieg"
+L["options.event.other.reputation"] = "Rufstufenaufstieg"
+L["options.event.other.reputation.tooltip"] = "Erstellt einen Screenshot bei einer höheren Rufstufe, einschließlich Freundschaft und Ruhm, sofern verfügbar. Rufpunkte ohne Stufenaufstieg lösen keinen Screenshot aus."
 L["options.event.other.level-up.time-played.name"] = "Spielzeit der vorherigen Stufe anzeigen"
 L["options.event.other.level-up.time-played.tooltip"] = "Zeigt die Spielzeit der vorherigen Stufe als eigene Chatzeile an, wenn ein Screenshot beim Stufenaufstieg erstellt wird, auch wenn die allgemeine Stufenzeitanzeige deaktiviert ist."
 L["options.event.other.death"] = "Spielertod"
@@ -116,6 +118,9 @@ L["general.seconds-short"] = "Sek."
 L["general.minutes-short"] = "Min."
 
 -- Chat
+
+L["chat.event.reputation.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:Rufstufenaufstieg|r - %s (%s)"
+L["chat.event.reputation.renown"] = "Ruhm %d"
 
 L["chat.notification.class"] = "Klasse: %s"
 L["chat.notification.time-played"] = "Gesamtspielzeit: %d Tage, %d Stunden, %d Minuten, %d Sekunden"

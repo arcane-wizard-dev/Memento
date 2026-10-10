@@ -10,6 +10,7 @@ local L = MEM.Localization
 -- Module imports
 local Capture = MEM.Modules.Capture
 local Options = MEM.Modules.Options
+local Reputation = MEM.Modules.Reputation
 local Utils = MEM.Modules.Utils
 
 -- Variables
@@ -40,6 +41,12 @@ end
 local function ScheduleScreenshot(handler, delay, ...)
 	TimePlayed()
 	Capture:ScheduleTimer(handler, delay, ...)
+end
+
+local function ScheduleReputationScreenshot(factionName, rankName)
+	if factionName and MEM.Settings.event["reputation-active"] then
+		ScheduleScreenshot("ReputationEventHandler", MEM.Settings.event["reputation-delay"] + MEM.CAPTURE_DELAY_OFFSET, factionName, rankName)
+	end
 end
 
 local function ProcessLootToast(itemLink, minimumQuality, delay, retriesRemaining)
@@ -413,6 +420,8 @@ function MementoFrame:PLAYER_ENTERING_WORLD(_, isInitialLogin, isReloadingUi)
 		tostring(isInitialLogin), tostring(isReloadingUi)
 	))
 
+	Reputation:Initialize()
+
 	if MEM.Settings.event["login-active"] and isInitialLogin then
 		ScheduleScreenshot("LoginEventHandler", MEM.Settings.event["login-delay"] + MEM.CAPTURE_DELAY_OFFSET)
 	else
@@ -463,6 +472,8 @@ function MementoFrame:MAJOR_FACTION_RENOWN_LEVEL_CHANGED(_, majorFactionID, newR
 		"Event 'MAJOR_FACTION_RENOWN_LEVEL_CHANGED' fired. Payload: majorFactionID=%s, newRenownLevel=%s, oldRenownLevel=%s",
 		tostring(majorFactionID), tostring(newRenownLevel), tostring(oldRenownLevel)
 	))
+
+	ScheduleReputationScreenshot(Reputation:GetRenownIncrease(majorFactionID, newRenownLevel, oldRenownLevel))
 end
 
 function MementoFrame:FACTION_STANDING_CHANGED(_, factionID, updatedStanding)
@@ -470,6 +481,12 @@ function MementoFrame:FACTION_STANDING_CHANGED(_, factionID, updatedStanding)
 		"Event 'FACTION_STANDING_CHANGED' fired. Payload: factionID=%s, updatedStanding=%s",
 		tostring(factionID), tostring(updatedStanding)
 	))
+
+	if not Reputation:IsInitialized() then return end
+
+	C_Timer.After(0, function()
+		ScheduleReputationScreenshot(Reputation:GetFactionIncrease(factionID))
+	end)
 end
 
 function MementoFrame:BOSS_KILL(_, encounterID, encounterName)

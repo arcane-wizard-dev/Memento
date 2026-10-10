@@ -19,6 +19,7 @@ Individual features and display options can be configured in the addon settings.
 ### Retail
 
 * Capture level-ups, deaths, and logins.
+* <sup>✨ NEW</sup> Capture reputation, friendship, and renown rank increases.
 * Capture personal and guild achievements, and achievement criteria.
 * <sup>✨ NEW</sup> Capture world boss victories.
 * Capture boss victories and wipes in dungeons, raids, and scenarios.
@@ -32,6 +33,7 @@ Individual features and display options can be configured in the addon settings.
 ### Forever
 
 * Capture level-ups, deaths, and logins.
+* <sup>✨ NEW</sup> Capture reputation and renown rank increases.
 * Capture personal achievements.
 * Capture boss victories and wipes in dungeons and raids.
 * Capture PvP events in duels and battlegrounds.
@@ -43,12 +45,14 @@ Individual features and display options can be configured in the addon settings.
 Shared by Classic, Burning Crusade - Classic Anniversary Edition, and Mists of Pandaria - Classic:
 
 * Capture level-ups, deaths, and logins.
+* <sup>✨ NEW</sup> Capture reputation rank increases.
 * Capture completed duels.
 * Capture newly learned recipes.
 * Take screenshots at regular intervals.
 
 Additional events in Mists of Pandaria - Classic:
 
+* <sup>✨ NEW</sup> Capture friendship rank increases.
 * Capture personal and guild achievements.
 * Capture new pets, mounts, and toys.
 
@@ -59,6 +63,7 @@ Additional events in Mists of Pandaria - Classic:
 * Choose a timestamp format for chat notifications and the screenshot notification box. The default is YYYY-MM-DD with 24-hour time.
 * A configurable sound effect can be played after a screenshot has been taken.
 * After triggering an event, a delay can be set for creating the screenshot.
+* Reputation screenshots include the faction and new rank. Login and the first observation of a normal reputation or friendship faction establish a baseline without taking a screenshot. For major factions, the first reported renown increase also triggers a screenshot.
 * Boss killing will be saved and you can choose whether a screenshot should be taken again for a boss that has already been killed.
 * In Mists of Pandaria Classic and Retail, screenshots can optionally be taken for achievements already earned by another character.
 

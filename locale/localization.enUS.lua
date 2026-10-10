@@ -90,6 +90,8 @@ L["options.event.warband-collection.new-housing-item"] = "New Housing Item"
 L["options.event.other"] = "Other"
 L["options.event.other.login"] = "Player Login"
 L["options.event.other.level-up"] = "Level-Up"
+L["options.event.other.reputation"] = "Reputation Rank Increased"
+L["options.event.other.reputation.tooltip"] = "Take a screenshot when a reputation rank increases, including friendship and renown where available. Reputation points without a rank increase do not trigger a screenshot."
 L["options.event.other.level-up.time-played.name"] = "Show time played on the previous level"
 L["options.event.other.level-up.time-played.tooltip"] = "Shows the time played on the previous level on a separate chat line when a level-up screenshot is taken, even if the general level playtime output is disabled."
 L["options.event.other.death"] = "Player Death"
@@ -122,6 +124,9 @@ L["general.seconds-short"] = "sec"
 L["general.minutes-short"] = "min"
 
 -- Chat
+
+L["chat.event.reputation.new"] = "Screenshot taken - |cnGOLD_FONT_COLOR:Reputation Rank Increased|r - %s (%s)"
+L["chat.event.reputation.renown"] = "Renown %d"
 
 L["chat.notification.class"] = "Class: %s"
 L["chat.notification.time-played"] = "Total time played: %d days, %d hours, %d minutes, %d seconds"

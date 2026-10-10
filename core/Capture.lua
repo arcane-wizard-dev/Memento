@@ -290,6 +290,11 @@ local function LevelUpEventHandler(level, timePlayedOnPreviousLevel)
 	TakeScreenshot()
 end
 
+local function ReputationEventHandler(factionName, rankName)
+	Utils:PrintMessage(L["chat.event.reputation.new"]:format(factionName, rankName))
+	TakeScreenshot()
+end
+
 local function DeathEventHandler()
 	Utils:PrintMessage(L["chat.event.death.new"])
 	TakeScreenshot()
@@ -339,6 +344,7 @@ local HandlerTable = {
 	["NewHousingItemEventHandler"]      = NewHousingItemEventHandler,
 	["LoginEventHandler"]               = LoginEventHandler,
 	["LevelUpEventHandler"]             = LevelUpEventHandler,
+	["ReputationEventHandler"]          = ReputationEventHandler,
 	["DeathEventHandler"]               = DeathEventHandler,
 	["MythicEventHandler"]              = MythicEventHandler,
 	["PerksActivityEventHandler"]       = PerksActivityEventHandler,

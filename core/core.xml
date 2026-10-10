@@ -2,4 +2,5 @@
 ..\FrameXML\UI.xsd">
 	<Script file="Options.lua" />
 	<Script file="Capture.lua" />
+	<Script file="Reputation.lua" />
 </Ui>

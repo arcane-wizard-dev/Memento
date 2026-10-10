@@ -786,6 +786,26 @@ function Options:Initialize()
 		shownPredicate	= isOtherExpanded
 	})
 
+	AWL.Settings:AddCheckboxSliderCombo(category, layout, {
+		isNew = true,
+		variableTable = MEM.Settings.event,
+		checkboxSettingKey = addonName .. "_reputation-active",
+		checkboxVariableName = "reputation-active",
+		checkboxName = L["options.event.other.reputation"],
+		checkboxTooltip = L["options.event.other.reputation.tooltip"],
+		checkboxDefault = MEM.OPTIONS_DEFAULTS["event"]["reputation-active"],
+		sliderSettingKey = addonName .. "_reputation-delay",
+		sliderVariableName = "reputation-delay",
+		sliderName = L["options.event.general.delay.name"],
+		sliderTooltip = L["options.event.general.delay.tooltip"]:format(L["options.event.other.reputation"], MEM.OPTIONS_DEFAULTS["event"]["reputation-delay"]),
+		sliderDefault = MEM.OPTIONS_DEFAULTS["event"]["reputation-delay"],
+		sliderMin = 1,
+		sliderMax = 10,
+		sliderStep = 1,
+		sliderFormatter = FormatSeconds,
+		shownPredicate = isOtherExpanded
+	})
+
 	-- Death
 	local initializerDeath, settingDeath = AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 		variableTable			= MEM.Settings.event,

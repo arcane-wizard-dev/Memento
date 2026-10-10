@@ -84,6 +84,8 @@ L["options.event.warband-collection.new-housing-item"] = "Новый предм�
 L["options.event.other"] = "Прочее"
 L["options.event.other.login"] = "Вход в игру"
 L["options.event.other.level-up"] = "Получение уровня"
+L["options.event.other.reputation"] = "Повышение уровня репутации"
+L["options.event.other.reputation.tooltip"] = "Создаёт снимок экрана при повышении уровня репутации, включая дружбу и известность, если они доступны. Получение очков репутации без повышения уровня не создаёт снимок."
 L["options.event.other.level-up.time-played.name"] = "Показывать время на предыдущем уровне"
 L["options.event.other.level-up.time-played.tooltip"] = "При создании снимка экрана в момент получения уровня выводит время игры на предыдущем уровне отдельной строкой в чате, даже если общий вывод времени игры на уровне отключён."
 L["options.event.other.death"] = "Смерть персонажа"
@@ -116,6 +118,9 @@ L["general.seconds-short"] = "сек."
 L["general.minutes-short"] = "мин."
 
 -- Chat
+
+L["chat.event.reputation.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Повышение уровня репутации|r — %s (%s)"
+L["chat.event.reputation.renown"] = "Известность %d"
 
 L["chat.notification.class"] = "Класс: %s"
 L["chat.notification.time-played"] = "Общее время игры: %d дн., %d ч., %d мин., %d сек."
