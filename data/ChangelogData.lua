@@ -8,6 +8,13 @@ MEM.CHANGELOG = {
 		version = version,
 		date = buildDate ~= "" and buildDate or nil,
 		entries = {
+			"Added: New event 'Reputation rank increased' - A screenshot can now be taken automatically when a reputation, friendship, or renown rank increases"
+		}
+	},
+	{
+		version = "v2.33",
+		date = "2026-10-09",
+		entries = {
 			"Added: Option to hide the notification box in screenshots taken without the user interface",
 			"Added: Option to choose the timestamp format for chat notifications and the screenshot notification box",
 			"Added: ruRU localization",
@@ -81,16 +88,6 @@ MEM.CHANGELOG = {
 		date = "2026-08-30",
 		entries = {
 			"Minor code adjustments"
-		}
-	},
-	{
-		version = "v2.24",
-		date = "2026-08-18",
-		entries = {
-			"Added: Changelog window available from the options menu",
-			"Added: Changelog window available through the 'changelog' slash command",
-			"Removed: Version notice chat messages",
-			"Adapted to the latest version of Arcane Wizard: Library to ensure full compatibility"
 		}
 	}
 }
