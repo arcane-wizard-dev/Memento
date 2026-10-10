@@ -1,3 +1,6 @@
+**v2.34 (2026-10-10)**
+- Added: New event 'Reputation rank increased' - A screenshot can now be taken automatically when a reputation, friendship, or renown rank increases
+
 **v2.33 (2026-10-09)**
 - Added: Option to hide the notification box in screenshots taken without the user interface
 - Added: Option to choose the timestamp format for chat notifications and the screenshot notification box
