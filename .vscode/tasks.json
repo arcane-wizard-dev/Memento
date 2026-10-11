@@ -10,7 +10,7 @@
         "-ExecutionPolicy",
         "Bypass",
         "-File",
-        "${workspaceFolder}\\..\\toolkit\\local-build\\build-addon.ps1",
+        "${workspaceFolder}\\..\\build-tools\\local-build\\build-addon.ps1",
         "-ProjectRoot",
         "${workspaceFolder}"
       ],
