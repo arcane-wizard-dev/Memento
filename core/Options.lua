@@ -7,6 +7,8 @@ local Addon = AWL:GetAddon(addonName)
 -- Localization
 local L = MEM.Localization
 
+local TimestampConfig = MEM.UIConfig.Timestamp
+
 -- Current module
 local Options = MEM.Modules.Options
 
@@ -47,7 +49,7 @@ end
 
 local timestampFormatOptions = {}
 
-for _, formatData in ipairs(MEM.TIMESTAMP_FORMATS) do
+for _, formatData in ipairs(TimestampConfig.formats) do
 	timestampFormatOptions[#timestampFormatOptions + 1] = {
 		value = formatData.key,
 		label = L[formatData.labelKey]

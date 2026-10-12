@@ -3,6 +3,7 @@ local addonName, MEM = ...
 MEM.Settings = MEM.Settings or {}
 MEM.Data = MEM.Data or {}
 MEM.State = MEM.State or {}
+MEM.UIConfig = MEM.UIConfig or {}
 MEM.Modules = MEM.Modules or {}
 
 MEM.Modules.Capture = MEM.Modules.Capture or {}

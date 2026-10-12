@@ -2,7 +2,7 @@
 ..\FrameXML\UI.xsd">
 	<Script file="NamespaceData.lua" />
 	<Script file="OptionsData.lua" />
-	<Script file="TimestampData.lua" />
+	<Script file="ui/TimestampUIConfig.lua" />
 	<Script file="CommonData.lua" />
 	<Script file="ChangelogData.lua" />
 </Ui>

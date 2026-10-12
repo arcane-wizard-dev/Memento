@@ -7,6 +7,8 @@ local Addon = AWL:GetAddon(addonName)
 -- Localization
 local L = MEM.Localization
 
+local TimestampConfig = MEM.UIConfig.Timestamp
+
 -- Current module
 local Utils = MEM.Modules.Utils
 
@@ -23,8 +25,8 @@ end
 ------------------------
 
 function Utils:GetTimestampFormat()
-	local formatData = MEM.TIMESTAMP_FORMAT_BY_KEY[MEM.Settings.general["timestamp-format"]]
-		or MEM.TIMESTAMP_FORMAT_BY_KEY[MEM.OPTIONS_DEFAULTS.general["timestamp-format"]]
+	local formatData = TimestampConfig.formatsByKey[MEM.Settings.general["timestamp-format"]]
+		or TimestampConfig.formatsByKey[MEM.OPTIONS_DEFAULTS.general["timestamp-format"]]
 
 	return formatData.format
 end
