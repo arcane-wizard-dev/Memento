@@ -1,3 +1,6 @@
+**v2.35 (2026-10-12)**
+- Refactoring of the addon structure and source code
+
 **v2.34 (2026-10-10)**
 - Added: New event 'Reputation rank increased' - A screenshot can now be taken automatically when a reputation, friendship, or renown rank increases
 
