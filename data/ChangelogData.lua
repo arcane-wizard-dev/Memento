@@ -8,6 +8,13 @@ MEM.CHANGELOG = {
 		version = version,
 		date = buildDate ~= "" and buildDate or nil,
 		entries = {
+			"Refactoring of the addon structure and source code"
+		}
+	},
+	{
+		version = "v2.34",
+		date = "2026-10-10",
+		entries = {
 			"Added: New event 'Reputation rank increased' - A screenshot can now be taken automatically when a reputation, friendship, or renown rank increases"
 		}
 	},
@@ -81,13 +88,6 @@ MEM.CHANGELOG = {
 		date = "2026-09-06",
 		entries = {
 			"Added: TOC version for patch 12.1.5 [retail]"
-		}
-	},
-	{
-		version = "v2.25",
-		date = "2026-08-30",
-		entries = {
-			"Minor code adjustments"
 		}
 	}
 }
