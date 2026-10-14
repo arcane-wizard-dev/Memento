@@ -8,6 +8,13 @@ MEM.CHANGELOG = {
 		version = version,
 		date = buildDate ~= "" and buildDate or nil,
 		entries = {
+			"Fixed: Repeated error messages for missing translations"
+		}
+	},
+	{
+		version = "v2.35",
+		date = "2026-10-12",
+		entries = {
 			"Refactoring of the addon structure and source code"
 		}
 	},
@@ -81,13 +88,6 @@ MEM.CHANGELOG = {
 		date = "2026-09-13",
 		entries = {
 			"Updated: GitHub links following the organization rename to 'arcane-wizard-dev'"
-		}
-	},
-	{
-		version = "v2.26",
-		date = "2026-09-06",
-		entries = {
-			"Added: TOC version for patch 12.1.5 [retail]"
 		}
 	}
 }
