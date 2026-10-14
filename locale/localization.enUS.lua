@@ -2,6 +2,8 @@ local _, MEM = ...
 
 MEM.Localization = setmetatable({},{
 	__index=function(self,key)
+		rawset(self, key, key)
+
 		geterrorhandler()("Memento (Debug): Missing entry for '" .. tostring(key) .. "'")
 
 		return key
