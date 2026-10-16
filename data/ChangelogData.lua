@@ -4,6 +4,7 @@ local version = C_AddOns.GetAddOnMetadata(addonName, "Version") or ""
 local buildDate = C_AddOns.GetAddOnMetadata(addonName, "X-BuildDate") or ""
 
 MEM.CHANGELOG = {
+	notices = {},
 	{
 		version = version,
 		date = buildDate ~= "" and buildDate or nil,

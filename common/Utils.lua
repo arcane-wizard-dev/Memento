@@ -92,9 +92,9 @@ function Utils:PrintMessage(msg, previousLevel, timePlayedOnPreviousLevel)
 end
 
 function Utils:PrintDebug(msg)
-	if MEM.Settings.general["debug-mode"] then
-		PrintChatMessage(ORANGE_FONT_COLOR, addonName .. " (Debug)", msg)
-	end
+	if not MEM.Settings.general["debug-mode"] then return end
+
+	Addon:PrintDebug(msg)
 end
 
 function Utils:OpenSettings()
