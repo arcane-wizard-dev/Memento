@@ -14,6 +14,9 @@ Memento_Options_v6 = {
 		},
 		["general"] = {
 			["debug-mode"] = "obsolete-type",
+			["hide-ui-message"] = true,
+			["screenshot-message-locked"] = false,
+			["screenshot-message-position"] = {x = 0.5, y = 0.1},
 			["minimap-button"] = {
 				["hide"] = false,
 				["minimapPos"] = 90,
@@ -50,6 +53,9 @@ Memento_Options_v6 = {
 			},
 			["general"] = {
 				["debug-mode"] = "obsolete-type",
+				["hide-ui-message"] = true,
+				["screenshot-message-locked"] = false,
+				["screenshot-message-position"] = {x = 0, y = 0},
 				["minimap-button"] = {
 					["hide"] = true,
 					["minimapPos"] = 0,
@@ -71,6 +77,9 @@ Memento_Options_v6 = {
 			},
 			["general"] = {
 				["debug-mode"] = "obsolete-type",
+				["hide-ui-message"] = false,
+				["screenshot-message-locked"] = true,
+				["screenshot-message-position"] = {x = 0.8, y = 0.9},
 				["minimap-button"] = {
 					["hide"] = false,
 					["minimapPos"] = 270,

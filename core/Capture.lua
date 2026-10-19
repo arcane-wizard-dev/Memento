@@ -6,17 +6,17 @@ local AWL = ArcaneWizardLibrary
 -- Localization
 local L = MEM.Localization
 
+local CaptureConfig = MEM.UIConfig.Capture
+
 -- Current module
 local Capture = MEM.Modules.Capture
 
 -- Module imports
 local Utils = MEM.Modules.Utils
 
---------------
---- Frames ---
---------------
-
 local MessageFrame
+local captureQueue = {}
+local captureInProgress = false
 
 -----------------------
 --- Local Functions ---
@@ -25,24 +25,24 @@ local MessageFrame
 local function CreateMessageFrame()
 	local frame = CreateFrame("Frame")
 	frame:ClearAllPoints()
-	frame:SetPoint("BOTTOM", 0, 100)
-	frame:SetSize(164, 41)
+	frame:SetPoint(CaptureConfig.point, 0, CaptureConfig.offsetY)
+	frame:SetSize(CaptureConfig.width, CaptureConfig.height)
 
 	frame.background = frame:CreateTexture(nil, "BACKGROUND")
 	frame.background:ClearAllPoints()
 	frame.background:SetAllPoints(frame)
-	frame.background:SetTexture(612384)
+	frame.background:SetTexture(CaptureConfig.backgroundTexture)
 
-	frame.textTop = frame:CreateFontString(nil, "OVERLAY", "GameFontBlackTiny")
+	frame.textTop = frame:CreateFontString(nil, "OVERLAY", CaptureConfig.topFont)
 	frame.textTop:ClearAllPoints()
-	frame.textTop:SetPoint("CENTER", 0, 5)
-	frame.textTop:SetFont(tostring(frame.textTop:GetFont()), 7)
+	frame.textTop:SetPoint("CENTER", 0, CaptureConfig.topOffsetY)
+	frame.textTop:SetFont(tostring(frame.textTop:GetFont()), CaptureConfig.fontSize)
 	frame.textTop:SetText(L["capture.message"])
 
-	frame.textBottom = frame:CreateFontString(nil, "OVERLAY", "GameFontWhiteTiny")
+	frame.textBottom = frame:CreateFontString(nil, "OVERLAY", CaptureConfig.bottomFont)
 	frame.textBottom:ClearAllPoints()
-	frame.textBottom:SetPoint("CENTER", 0, -6)
-	frame.textBottom:SetFont(tostring(frame.textBottom:GetFont()), 7)
+	frame.textBottom:SetPoint("CENTER", 0, CaptureConfig.bottomOffsetY)
+	frame.textBottom:SetFont(tostring(frame.textBottom:GetFont()), CaptureConfig.fontSize)
 	frame.textBottom:SetText(tostring(date(Utils:GetTimestampFormat(), GetServerTime())))
 
 	return frame
@@ -95,66 +95,83 @@ local function PlayScreenshotSound(ignoreSetting, soundKey)
 	end
 end
 
-local function TakeScreenshot()
-	if MEM.Settings.general["hide-ui"] then
-		if not InCombatLockdown() then
-			local frame
+local function ProcessCaptureQueue()
+	if captureInProgress or #captureQueue == 0 then return end
 
-			local status, err = pcall(function ()
-				UIParent:Hide()
+	local request = table.remove(captureQueue, 1)
+	local hiddenUI = false
+	local frame
+	captureInProgress = true
 
-				if MEM.Settings.general["hide-ui-message"] then
-					frame = UpdateMessageFrame()
-					frame:Show()
-				end
+	local function FinishCapture()
+		if hiddenUI then
+			UIParent:Show()
+		end
+		if frame then
+			frame:Hide()
+		end
+		captureInProgress = false
+		ProcessCaptureQueue()
+	end
 
-				C_Timer.After(0.1, function()
-					Screenshot()
-					PlayScreenshotSound()
-					Utils:PrintDebug("Screenshot without UI taken.")
-				end)
-
-				C_Timer.After(0.2, function()
-					UIParent:Show()
-
-					if frame then
-						frame:Hide()
-					end
-				end)
-
-			end)
-
-			if not status then
-				UIParent:Show()
-
-				if frame then
-					frame:Hide()
-				end
-
-				Utils:PrintDebug(string.format(
-					"Method TakeScreenshot() (without UI) aborted with exception: %s",
-					tostring(err)
-				))
-
-				Screenshot()
-				PlayScreenshotSound()
-
-				Utils:PrintDebug("Screenshot taken.")
-			end
-		else
-			Utils:PrintDebug("No screenshot is possible in combat without ui.")
-
+	local function RecordScreenshot()
+		local status, err = pcall(function()
 			Screenshot()
 			PlayScreenshotSound()
-
+		end)
+		if not status then
+			Utils:PrintDebug("Screenshot failed: " .. tostring(err))
+		else
 			Utils:PrintDebug("Screenshot taken.")
 		end
-	else
-		Screenshot()
-		PlayScreenshotSound()
-
-		Utils:PrintDebug("Screenshot taken.")
 	end
+
+	local status, err = pcall(function()
+		if request.hideUI and not InCombatLockdown() then
+			if UIParent:IsShown() then
+				hiddenUI = true
+				UIParent:Hide()
+			end
+			if request.showMessage then
+				frame = UpdateMessageFrame()
+				frame:Show()
+			end
+		end
+	end)
+
+	if not status then
+		Utils:PrintDebug("Screenshot preparation failed: " .. tostring(err))
+		if hiddenUI then
+			UIParent:Show()
+			hiddenUI = false
+		end
+		if frame then
+			frame:Hide()
+		end
+		RecordScreenshot()
+		FinishCapture()
+	elseif hiddenUI or frame then
+		C_Timer.After(MEM.SCREENSHOT_RENDER_DELAY, function()
+			RecordScreenshot()
+			C_Timer.After(MEM.SCREENSHOT_RESTORE_DELAY, FinishCapture)
+		end)
+	else
+		RecordScreenshot()
+		FinishCapture()
+	end
+end
+
+local function TakeScreenshot()
+	captureQueue[#captureQueue + 1] = {
+		hideUI = MEM.Settings.general["hide-ui"],
+		showMessage = MEM.Settings.general["hide-ui-message"]
+	}
+	ProcessCaptureQueue()
+end
+
+local function NotifyScreenshot(message, previousLevel, timePlayedOnPreviousLevel)
+	Utils:PrintMessage(message, previousLevel, timePlayedOnPreviousLevel)
+	TakeScreenshot()
 end
 
 local function AchievementPersonalEventHandler(achievementID, alreadyEarned)
@@ -162,11 +179,9 @@ local function AchievementPersonalEventHandler(achievementID, alreadyEarned)
 
 	if achievementLink then
 		if not alreadyEarned then
-			Utils:PrintMessage(L["chat.event.achievement.personal.new"]:format(achievementLink))
-			TakeScreenshot()
+			NotifyScreenshot(L["chat.event.achievement.personal.new"]:format(achievementLink))
 		elseif MEM.Settings.event["achievement-personal-exist"] then
-			Utils:PrintMessage(L["chat.event.achievement.personal.exist"]:format(achievementLink))
-			TakeScreenshot()
+			NotifyScreenshot(L["chat.event.achievement.personal.exist"]:format(achievementLink))
 		else
 			Utils:PrintDebug(string.format(
 				"The achievement %s has already been reached by another character. No screenshot requested.",
@@ -177,11 +192,9 @@ local function AchievementPersonalEventHandler(achievementID, alreadyEarned)
 		Utils:PrintDebug("Unknown AchievementLink. (nil value / unknown ID)")
 
 		if not alreadyEarned then
-			Utils:PrintMessage(L["chat.event.achievement.personal.no-link.new"])
-			TakeScreenshot()
+			NotifyScreenshot(L["chat.event.achievement.personal.no-link.new"])
 		elseif MEM.Settings.event["achievement-personal-exist"] then
-			Utils:PrintMessage(L["chat.event.achievement.personal.no-link.exist"])
-			TakeScreenshot()
+			NotifyScreenshot(L["chat.event.achievement.personal.no-link.exist"])
 		else
 			Utils:PrintDebug("The achievement has already been reached by another character. No screenshot requested.")
 		end
@@ -191,26 +204,22 @@ end
 local function AchievementGuildEventHandler(achievementID)
 	local name = select(2, GetAchievementInfo(achievementID))
 
-	Utils:PrintMessage(L["chat.event.achievement.guild.new"]:format(name))
-	TakeScreenshot()
+	NotifyScreenshot(L["chat.event.achievement.guild.new"]:format(name))
 end
 
 local function CriteriaEventHandler(achievementID, description)
 	local achievementLink = GetAchievementLink(achievementID)
 
 	if achievementLink then
-		Utils:PrintMessage(L["chat.event.achievement.criteria.new"]:format(achievementLink, description))
+		NotifyScreenshot(L["chat.event.achievement.criteria.new"]:format(achievementLink, description))
 	else
 		Utils:PrintDebug("Unknown AchievementLink. (nil value / unknown ID)")
-		Utils:PrintMessage(L["chat.event.achievement.criteria.no-link.new"])
+		NotifyScreenshot(L["chat.event.achievement.criteria.no-link.new"])
 	end
-
-	TakeScreenshot()
 end
 
 local function EncounterVictoryEventHandler(encounterName, difficultyName, difficulty, encounterID)
-	Utils:PrintMessage(L["chat.event.encounter.victory.new"]:format(encounterName, difficultyName))
-	TakeScreenshot()
+	NotifyScreenshot(L["chat.event.encounter.victory.new"]:format(encounterName, difficultyName))
 
 	if not MEM.Data.bossKill[difficulty] then
 		MEM.Data.bossKill[difficulty] = {}
@@ -220,58 +229,47 @@ local function EncounterVictoryEventHandler(encounterName, difficultyName, diffi
 end
 
 local function EncounterWipeEventHandler(encounterName, difficultyName)
-	Utils:PrintMessage(L["chat.event.encounter.wipe.new"]:format(encounterName, difficultyName))
-	TakeScreenshot()
+	NotifyScreenshot(L["chat.event.encounter.wipe.new"]:format(encounterName, difficultyName))
 end
 
 local function PvPDuelEventHandler()
-	Utils:PrintMessage(L["chat.event.pvp.duel.new"])
-	TakeScreenshot()
+	NotifyScreenshot(L["chat.event.pvp.duel.new"])
 end
 
 local function PvPArenaEventHandler()
-	Utils:PrintMessage(L["chat.event.pvp.arena.new"])
-	TakeScreenshot()
+	NotifyScreenshot(L["chat.event.pvp.arena.new"])
 end
 
 local function PvPBattlegroundEventHandler()
-	Utils:PrintMessage(L["chat.event.pvp.battleground.new"])
-	TakeScreenshot()
+	NotifyScreenshot(L["chat.event.pvp.battleground.new"])
 end
 
 local function PvPBrawlEventHandler()
-	Utils:PrintMessage(L["chat.event.pvp.brawl.new"])
-	TakeScreenshot()
+	NotifyScreenshot(L["chat.event.pvp.brawl.new"])
 end
 
 local function NewPetEventHandler()
-	Utils:PrintMessage(L["chat.event.warband-collection.new-pet.new"])
-	TakeScreenshot()
+	NotifyScreenshot(L["chat.event.warband-collection.new-pet.new"])
 end
 
 local function NewMountEventHandler()
-	Utils:PrintMessage(L["chat.event.warband-collection.new-mount.new"])
-	TakeScreenshot()
+	NotifyScreenshot(L["chat.event.warband-collection.new-mount.new"])
 end
 
 local function NewToyEventHandler()
-	Utils:PrintMessage(L["chat.event.warband-collection.new-toy.new"])
-	TakeScreenshot()
+	NotifyScreenshot(L["chat.event.warband-collection.new-toy.new"])
 end
 
 local function NewRecipeEventHandler()
-	Utils:PrintMessage(L["chat.event.warband-collection.new-recipe.new"])
-	TakeScreenshot()
+	NotifyScreenshot(L["chat.event.warband-collection.new-recipe.new"])
 end
 
 local function NewHousingItemEventHandler()
-	Utils:PrintMessage(L["chat.event.warband-collection.new-housing-item.new"])
-	TakeScreenshot()
+	NotifyScreenshot(L["chat.event.warband-collection.new-housing-item.new"])
 end
 
 local function LoginEventHandler()
-	Utils:PrintMessage(L["chat.event.login.new"])
-	TakeScreenshot()
+	NotifyScreenshot(L["chat.event.login.new"])
 end
 
 local function LevelUpEventHandler(level, timePlayedOnPreviousLevel)
@@ -284,47 +282,42 @@ local function LevelUpEventHandler(level, timePlayedOnPreviousLevel)
 	end
 
 	if message then
-		Utils:PrintMessage(message, level - 1, timePlayedOnPreviousLevel)
+		NotifyScreenshot(message, level - 1, timePlayedOnPreviousLevel)
+	else
+		TakeScreenshot()
 	end
-
-	TakeScreenshot()
 end
 
 local function ReputationEventHandler(factionName, rankName)
-	Utils:PrintMessage(L["chat.event.reputation.new"]:format(factionName, rankName))
-	TakeScreenshot()
+	NotifyScreenshot(L["chat.event.reputation.new"]:format(factionName, rankName))
 end
 
 local function DeathEventHandler()
-	Utils:PrintMessage(L["chat.event.death.new"])
-	TakeScreenshot()
+	NotifyScreenshot(L["chat.event.death.new"])
 end
 
 local function MythicEventHandler()
-	Utils:PrintMessage(L["chat.event.mythic.new"])
-	TakeScreenshot()
+	NotifyScreenshot(L["chat.event.mythic.new"])
 end
 
 local function PerksActivityEventHandler()
-	Utils:PrintMessage(L["chat.event.perks-activity.new"])
-	TakeScreenshot()
+	NotifyScreenshot(L["chat.event.perks-activity.new"])
 end
 
 local function LootToastEventHandler(typeIdentifier, itemLink, quantity)
 	if typeIdentifier == MEM.LOOT_TOAST_TYPE.ITEM then
-		Utils:PrintMessage(L["chat.event.loot-toast.item.new"]:format(itemLink or UNKNOWN))
+		NotifyScreenshot(L["chat.event.loot-toast.item.new"]:format(itemLink or UNKNOWN))
 	elseif typeIdentifier == MEM.LOOT_TOAST_TYPE.MONEY then
-		Utils:PrintMessage(L["chat.event.loot-toast.money.new"]:format(GetMoneyString(quantity or 0, true)))
+		NotifyScreenshot(L["chat.event.loot-toast.money.new"]:format(GetMoneyString(quantity or 0, true)))
 	elseif typeIdentifier == MEM.LOOT_TOAST_TYPE.CURRENCY then
-		Utils:PrintMessage(L["chat.event.loot-toast.currency.new"]:format(itemLink or UNKNOWN, quantity or 0))
+		NotifyScreenshot(L["chat.event.loot-toast.currency.new"]:format(itemLink or UNKNOWN, quantity or 0))
+	else
+		TakeScreenshot()
 	end
-
-	TakeScreenshot()
 end
 
 local function IntervalEventHandler()
-	Utils:PrintMessage(L["chat.event.interval.new"])
-	TakeScreenshot()
+	NotifyScreenshot(L["chat.event.interval.new"])
 end
 
 local HandlerTable = {

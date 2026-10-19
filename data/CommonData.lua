@@ -2,6 +2,20 @@ local addonName, MEM = ...
 
 -- Capture
 MEM.CAPTURE_DELAY_OFFSET = 0.1
+MEM.SCREENSHOT_RENDER_DELAY = 0.1
+MEM.SCREENSHOT_RESTORE_DELAY = 0.1
+
+MEM.SCREENSHOT_FORMATS = {
+	{value = "jpeg", label = "JPEG (.jpg)"},
+	{value = "png", label = "PNG (.png)"},
+	{value = "tga", label = "TGA (.tga)"}
+}
+
+MEM.SCREENSHOT_QUALITY = {
+	minimum = 1,
+	maximum = 10,
+	default = 3
+}
 
 -- Loot Toast
 MEM.LOOT_TOAST_ITEM_LOAD_RETRY_DELAY = 0.2

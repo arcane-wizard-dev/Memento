@@ -508,7 +508,7 @@ function MementoFrame:BOSS_KILL(_, encounterID, encounterName)
 			Utils:PrintDebug("World boss already killed. No screenshot requested.")
 		else
 			ScheduleScreenshot("EncounterVictoryEventHandler", MEM.Settings.event["encounter-victory-world-delay"] + MEM.CAPTURE_DELAY_OFFSET,
-				encounterName, L["options.event.encounter.world"], "W", encounterID)
+				encounterName, L["options.event.pve.world"], "W", encounterID)
 		end
 	else
 		Utils:PrintDebug("Event 'BOSS_KILL' completed. No screenshot requested.")

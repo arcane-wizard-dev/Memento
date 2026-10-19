@@ -2,4 +2,5 @@
 ### [@project-version@](https://github.com/arcane-wizard-dev/Memento/tree/@project-version@) (@build-date@)
 [Full Changelog](@full-changelog@) - [Previous Releases](https://github.com/arcane-wizard-dev/Memento/releases)
 
-- Adapted to the latest version of Arcane Wizard: Library to ensure full compatibility
+- Added: Options to choose the screenshot file format and JPEG quality
+- Changed: Regrouped screenshot events in the options menu

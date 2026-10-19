@@ -60,10 +60,10 @@ Additional events in Mists of Pandaria - Classic:
 
 * Each event can be activated separately.
 * The user interface can be automatically hidden for the screenshot, with an optional notification box showing a timestamp (Note: The user interface cannot be hidden automatically during combat).
+* <sup>✨ NEW</sup> Choose JPEG, PNG, or TGA and adjust JPEG quality.
 * Choose a timestamp format for chat notifications and the screenshot notification box. The default is YYYY-MM-DD with 24-hour time.
 * A configurable sound effect can be played after a screenshot has been taken.
 * After triggering an event, a delay can be set for creating the screenshot.
-* Reputation screenshots include the faction and new rank. Login and the first observation of a normal reputation or friendship faction establish a baseline without taking a screenshot. For major factions, the first reported renown increase also triggers a screenshot.
 * Boss killing will be saved and you can choose whether a screenshot should be taken again for a boss that has already been killed.
 * In Mists of Pandaria Classic and Retail, screenshots can optionally be taken for achievements already earned by another character.
 

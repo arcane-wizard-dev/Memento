@@ -3,6 +3,7 @@
 	<Script file="NamespaceData.lua" />
 	<Script file="OptionsData.lua" />
 	<Script file="ui/TimestampUIConfig.lua" />
+	<Script file="ui/CaptureUIConfig.lua" />
 	<Script file="CommonData.lua" />
 	<Script file="ChangelogData.lua" />
 </Ui>
