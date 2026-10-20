@@ -123,14 +123,21 @@ L["minimap-button.tooltip"] = "|cnLINK_FONT_COLOR:Щелкните правой 
 L["general.seconds-short"] = "сек."
 L["general.minutes-short"] = "мин."
 
--- Chat
-
-L["chat.event.reputation.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Повышение уровня репутации|r — %s (%s)"
-L["chat.event.reputation.renown"] = "Известность %d"
+-- Chat Notifications
 
 L["chat.notification.class"] = "Класс: %s"
 L["chat.notification.time-played"] = "Общее время игры: %d дн., %d ч., %d мин., %d сек."
 L["chat.notification.level-time-played"] = "Время игры на текущем уровне: %d дн., %d ч., %d мин., %d сек."
+
+-- Event Messages
+
+L["chat.event.login.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Вход в игру|r"
+L["chat.event.level-up.retail.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Получение уровня|r — |cffFF4E00[Уровень %1$s]|r"
+L["chat.event.level-up.classic.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Получение уровня|r — |cffFF4E00[Уровень %1$s]|r"
+L["chat.event.level-up.time-played"] = "Время игры на уровне %d: %d дн., %d ч., %d мин., %d сек."
+L["chat.event.death.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Смерть персонажа|r"
+L["chat.event.reputation.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Повышение уровня репутации|r — %s (%s)"
+L["chat.event.reputation.renown"] = "Известность %d"
 
 L["chat.event.achievement.personal.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Личное достижение|r — %s"
 L["chat.event.achievement.personal.exist"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Личное достижение|r — %s (уже получено другим персонажем)"
@@ -142,6 +149,7 @@ L["chat.event.achievement.guild.new"] = "Снимок экрана создан 
 
 L["chat.event.encounter.victory.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Бой с боссом — Победа|r — %s (%s)"
 L["chat.event.encounter.wipe.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Бой с боссом — Поражение|r — %s (%s)"
+L["chat.event.mythic.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Подземелье с ключом завершено|r"
 
 L["chat.event.pvp.duel.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:PvP — Дуэль завершена|r"
 L["chat.event.pvp.arena.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:PvP — Бой на арене завершён|r"
@@ -154,17 +162,11 @@ L["chat.event.warband-collection.new-toy.new"] = "Снимок экрана со
 L["chat.event.warband-collection.new-recipe.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Новый рецепт|r"
 L["chat.event.warband-collection.new-housing-item.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Новый предмет для дома|r"
 
-L["chat.event.login.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Вход в игру|r"
-L["chat.event.level-up.retail.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Получение уровня|r — |cffFF4E00[Уровень %1$s]|r"
-L["chat.event.level-up.classic.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Получение уровня|r — |cffFF4E00[Уровень %1$s]|r"
-L["chat.event.level-up.time-played"] = "Время игры на уровне %d: %d дн., %d ч., %d мин., %d сек."
-L["chat.event.death.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Смерть персонажа|r"
-L["chat.event.mythic.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Подземелье с ключом завершено|r"
+L["chat.event.interval.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Снимок по интервалу|r"
 L["chat.event.perks-activity.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Задача журнала путешественника завершена|r"
 L["chat.event.loot-toast.item.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Особая добыча — Предмет|r — %s"
 L["chat.event.loot-toast.money.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Особая добыча — Деньги|r — %s"
 L["chat.event.loot-toast.currency.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Особая добыча — Валюта|r — %s x%d"
-L["chat.event.interval.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Снимок по интервалу|r"
 
 -- Capture
 

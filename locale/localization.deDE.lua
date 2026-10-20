@@ -123,14 +123,21 @@ L["minimap-button.tooltip"] = "|cnLINK_FONT_COLOR:Rechtsklick|r zum Öffnen der 
 L["general.seconds-short"] = "Sek."
 L["general.minutes-short"] = "Min."
 
--- Chat
-
-L["chat.event.reputation.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:Rufstufenaufstieg|r - %s (%s)"
-L["chat.event.reputation.renown"] = "Ruhm %d"
+-- Chat Notifications
 
 L["chat.notification.class"] = "Klasse: %s"
 L["chat.notification.time-played"] = "Gesamtspielzeit: %d Tage, %d Stunden, %d Minuten, %d Sekunden"
 L["chat.notification.level-time-played"] = "Spielzeit auf aktueller Stufe: %d Tage, %d Stunden, %d Minuten, %d Sekunden"
+
+-- Event Messages
+
+L["chat.event.login.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:Spielerlogin|r"
+L["chat.event.level-up.retail.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:Stufenaufstieg|r - |cffFF4E00[Stufe %1$s]|r"
+L["chat.event.level-up.classic.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:Stufenaufstieg|r - |cffFF4E00[Stufe %1$s]|r"
+L["chat.event.level-up.time-played"] = "Spielzeit auf Stufe %d: %d Tage, %d Stunden, %d Minuten, %d Sekunden"
+L["chat.event.death.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:Spielertod|r"
+L["chat.event.reputation.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:Rufstufenaufstieg|r - %s (%s)"
+L["chat.event.reputation.renown"] = "Ruhm %d"
 
 L["chat.event.achievement.personal.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:persönlicher Erfolg|r - %s"
 L["chat.event.achievement.personal.exist"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:persönlicher Erfolg|r - %s (wurde bereits von einem anderen Charakter erzielt)"
@@ -142,6 +149,7 @@ L["chat.event.achievement.guild.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLO
 
 L["chat.event.encounter.victory.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:Bosskampf - Sieg|r - %s (%s)"
 L["chat.event.encounter.wipe.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:Bosskampf - Niederlage|r - %s (%s)"
+L["chat.event.mythic.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:Abschluss Mythic+ Dungeon|r"
 
 L["chat.event.pvp.duel.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:PvP - Duell beendet|r"
 L["chat.event.pvp.arena.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:PvP - Arena abgeschlossen|r"
@@ -154,17 +162,11 @@ L["chat.event.warband-collection.new-toy.new"] = "Screenshot erstellt - |cnGOLD_
 L["chat.event.warband-collection.new-recipe.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:neues Rezept|r"
 L["chat.event.warband-collection.new-housing-item.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:neuer Behausungsgegenstand|r"
 
-L["chat.event.login.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:Spielerlogin|r"
-L["chat.event.level-up.retail.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:Stufenaufstieg|r - |cffFF4E00[Stufe %1$s]|r"
-L["chat.event.level-up.classic.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:Stufenaufstieg|r - |cffFF4E00[Stufe %1$s]|r"
-L["chat.event.level-up.time-played"] = "Spielzeit auf Stufe %d: %d Tage, %d Stunden, %d Minuten, %d Sekunden"
-L["chat.event.death.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:Spielertod|r"
-L["chat.event.mythic.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:Abschluss Mythic+ Dungeon|r"
+L["chat.event.interval.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:Reguläres Intervall|r"
 L["chat.event.perks-activity.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:Reisetagebuch-Aktivität abgeschlossen|r"
 L["chat.event.loot-toast.item.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:besondere Beute - Gegenstand|r - %s"
 L["chat.event.loot-toast.money.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:besondere Beute - Geld|r - %s"
 L["chat.event.loot-toast.currency.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:besondere Beute - Währung|r - %s x%d"
-L["chat.event.interval.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:Reguläres Intervall|r"
 
 -- Capture
 

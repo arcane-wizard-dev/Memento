@@ -19,7 +19,7 @@ Individual features and display options can be configured in the addon settings.
 ### Retail
 
 * Capture level-ups, deaths, and logins.
-* <sup>✨ NEW</sup> Capture reputation, friendship, and renown rank increases.
+* <sup>✨ NEW</sup> Capture reputation, friendship, and major faction renown rank increases.
 * Capture personal and guild achievements, and achievement criteria.
 * <sup>✨ NEW</sup> Capture world boss victories.
 * Capture boss victories and wipes in dungeons, raids, and scenarios.
@@ -33,7 +33,7 @@ Individual features and display options can be configured in the addon settings.
 ### Forever
 
 * Capture level-ups, deaths, and logins.
-* <sup>✨ NEW</sup> Capture reputation and renown rank increases.
+* <sup>✨ NEW</sup> Capture reputation and major faction renown rank increases.
 * Capture personal achievements.
 * Capture boss victories and wipes in dungeons and raids.
 * Capture PvP events in duels and battlegrounds.
@@ -64,7 +64,7 @@ Additional events in Mists of Pandaria - Classic:
 * Choose a timestamp format for chat notifications and the screenshot notification box. The default is YYYY-MM-DD with 24-hour time.
 * A configurable sound effect can be played after a screenshot has been taken.
 * After triggering an event, a delay can be set for creating the screenshot.
-* Boss killing will be saved and you can choose whether a screenshot should be taken again for a boss that has already been killed.
+* In Retail and Forever, boss victories are saved, and you can choose whether to take screenshots again for bosses you have already defeated.
 * In Mists of Pandaria Classic and Retail, screenshots can optionally be taken for achievements already earned by another character.
 
 ## Supported Languages & Flavors
