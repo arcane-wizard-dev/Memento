@@ -1,3 +1,7 @@
+**v2.38 (2026-10-21)**
+- Added: Options to choose the screenshot file format and JPEG quality
+- Changed: Regrouped screenshot events in the options menu
+
 **v2.37 (2026-10-16)**
 - Adapted to the latest version of Arcane Wizard: Library to ensure full compatibility
 
