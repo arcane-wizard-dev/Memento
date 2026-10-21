@@ -61,7 +61,7 @@ Additional events in Mists of Pandaria - Classic:
 * Each event can be activated separately.
 * The user interface can be automatically hidden for the screenshot, with an optional notification box showing a timestamp (Note: The user interface cannot be hidden automatically during combat).
 * <sup>✨ NEW</sup> Choose JPEG, PNG, or TGA and adjust JPEG quality.
-* Choose a timestamp format for chat notifications and the screenshot notification box. The default is YYYY-MM-DD with 24-hour time.
+* Choose a timestamp format for chat notifications and the screenshot notification box.
 * A configurable sound effect can be played after a screenshot has been taken.
 * After triggering an event, a delay can be set for creating the screenshot.
 * In Retail and Forever, boss victories are saved, and you can choose whether to take screenshots again for bosses you have already defeated.
