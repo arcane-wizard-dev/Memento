@@ -19,7 +19,7 @@ Individual features and display options can be configured in the addon settings.
 ### Retail
 
 * Capture level-ups, deaths, and logins.
-* <sup>✨ NEW</sup> Capture reputation, friendship, and major faction renown rank increases.
+* <sup>✨ NEW</sup> Capture reputation rank increases.
 * Capture personal and guild achievements, and achievement criteria.
 * <sup>✨ NEW</sup> Capture world boss victories.
 * Capture boss victories and wipes in dungeons, raids, and scenarios.
@@ -33,7 +33,7 @@ Individual features and display options can be configured in the addon settings.
 ### Forever
 
 * Capture level-ups, deaths, and logins.
-* <sup>✨ NEW</sup> Capture reputation and major faction renown rank increases.
+* <sup>✨ NEW</sup> Capture reputation rank increases.
 * Capture personal achievements.
 * Capture boss victories and wipes in dungeons and raids.
 * Capture PvP events in duels and battlegrounds.
@@ -52,7 +52,6 @@ Shared by Classic, Burning Crusade - Classic Anniversary Edition, and Mists of P
 
 Additional events in Mists of Pandaria - Classic:
 
-* <sup>✨ NEW</sup> Capture friendship rank increases.
 * Capture personal and guild achievements.
 * Capture new pets, mounts, and toys.
 
@@ -70,7 +69,7 @@ Additional events in Mists of Pandaria - Classic:
 ## Supported Languages & Flavors
 
 * Languages: English, German, Russian
-* Flavors: Retail, Forever, Classic, Burning Crusade - Classic Anniversary Edition, Mists of Pandaria - Classic
+* Flavors: Classic, Burning Crusade - Classic Anniversary Edition, Mists of Pandaria - Classic, Forever, Retail
 
 ## Installation & Quick Start
 
