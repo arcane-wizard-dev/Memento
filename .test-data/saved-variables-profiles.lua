@@ -5,6 +5,9 @@
 Memento_Options_v6 = {
 	["account"] = {
 		["event"] = {
+			["zone-active"] = true,
+			["zone-delay"] = 2,
+			["zone-type"] = "instance",
 			["achievement-criteria-active"] = false,
 			["achievement-criteria-delay"] = 3,
 			["achievement-guild-active"] = true,
@@ -109,6 +112,9 @@ Memento_Options_v6 = {
 	["profiles"] = {
 		["Player-TEST-CURRENT"] = {
 			["event"] = {
+				["zone-active"] = false,
+				["zone-delay"] = 2,
+				["zone-type"] = "zone",
 				["achievement-criteria-active"] = false,
 				["achievement-criteria-delay"] = 3,
 				["achievement-guild-active"] = true,
@@ -199,6 +205,9 @@ Memento_Options_v6 = {
 		},
 		["Player-TEST-OFFLINE"] = {
 			["event"] = {
+				["zone-active"] = true,
+				["zone-delay"] = 5,
+				["zone-type"] = "both",
 				["achievement-criteria-active"] = false,
 				["achievement-criteria-delay"] = 3,
 				["achievement-guild-active"] = true,
@@ -288,6 +297,11 @@ Memento_Options_v6 = {
 			},
 		},
 	},
+}
+
+Memento_DataZone_v3 = {
+	zone = {[37] = true, [84] = true},
+	instance = {[36] = true},
 }
 
 Memento_DataBossKill = {

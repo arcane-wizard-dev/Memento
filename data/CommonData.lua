@@ -1,5 +1,7 @@
 local addonName, MEM = ...
 
+if MEM.State and MEM.State.libraryIncompatible then return end
+
 -- Capture
 MEM.CAPTURE_DELAY_OFFSET = 0.1
 MEM.SCREENSHOT_RENDER_DELAY = 0.1
@@ -15,6 +17,16 @@ MEM.SCREENSHOT_QUALITY = {
 	minimum = 1,
 	maximum = 10,
 	default = 3
+}
+
+MEM.ZONE_DATA = {
+	instanceTypes = {
+		party = true,
+		raid = true,
+		scenario = true,
+		pvp = true,
+		arena = true
+	}
 }
 
 -- Loot Toast

@@ -1,5 +1,7 @@
 local addonName, MEM = ...
 
+if MEM.State and MEM.State.libraryIncompatible then return end
+
 -- Library
 local AWL = ArcaneWizardLibrary
 local Addon = AWL:GetAddon(addonName)
@@ -129,6 +131,20 @@ function Utils:InitializeDatabase()
 	end
 
 	MEM.Data.bossKill = Memento_DataBossKill
+
+	if type(Memento_DataZone_v3) ~= "table" then
+		Memento_DataZone_v3 = {}
+	end
+
+	if type(Memento_DataZone_v3.zone) ~= "table" then
+		Memento_DataZone_v3.zone = {}
+	end
+
+	if type(Memento_DataZone_v3.instance) ~= "table" then
+		Memento_DataZone_v3.instance = {}
+	end
+
+	MEM.Data.zone = Memento_DataZone_v3
 
 	return dbInit
 end

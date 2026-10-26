@@ -1,5 +1,7 @@
 local _, MEM = ...
 
+if MEM.State and MEM.State.libraryIncompatible then return end
+
 if GetLocale() ~= "deDE" then return end
 
 local L = MEM.Localization
@@ -53,6 +55,13 @@ L["options.event"] = "Screenshots"
 
 L["options.event.character"] = "Charakter"
 L["options.event.character.login"] = "Spielerlogin"
+L["options.event.character.zone"] = "Neues Gebiet"
+L["options.event.character.zone.tooltip"] = "Erstellt einen Screenshot, wenn dieser Charakter ein neues Gebiet betritt. Besuchte Gebiete werden für jeden Charakter getrennt gespeichert, auch wenn dieses Ereignis deaktiviert ist."
+L["options.event.character.zone.type.name"] = "Gebiete"
+L["options.event.character.zone.type.tooltip"] = "Wähle, für welche neuen Gebiete ein Screenshot erstellt wird.\n\n|cnHIGHLIGHT_FONT_COLOR:Zone (offene Welt):|r Nur Zonen der offenen Welt.\n\n|cnHIGHLIGHT_FONT_COLOR:Instanz:|r Nur Dungeons, Schlachtzüge, Szenarien, Schlachtfelder und Arenen.\n\n|cnHIGHLIGHT_FONT_COLOR:Beides:|r Zonen der offenen Welt und Instanzen.\n\nBesuchte Gebiete werden unabhängig von dieser Auswahl gespeichert. Etagen und Schwierigkeitsgrade derselben Instanz zählen als ein Gebiet."
+L["options.event.character.zone.type.zone"] = "Zone (offene Welt)"
+L["options.event.character.zone.type.instance"] = "Instanz"
+L["options.event.character.zone.type.both"] = "Beides"
 L["options.event.character.level-up"] = "Stufenaufstieg"
 L["options.event.character.level-up.time-played.name"] = "Spielzeit der vorherigen Stufe anzeigen"
 L["options.event.character.level-up.time-played.tooltip"] = "Zeigt die Spielzeit der vorherigen Stufe als eigene Chatzeile an, wenn ein Screenshot beim Stufenaufstieg erstellt wird, auch wenn die allgemeine Stufenzeitanzeige deaktiviert ist."
@@ -132,6 +141,7 @@ L["chat.notification.level-time-played"] = "Spielzeit auf aktueller Stufe: %d Ta
 -- Event Messages
 
 L["chat.event.login.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:Spielerlogin|r"
+L["chat.event.zone.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:Neues Gebiet|r - %s"
 L["chat.event.level-up.retail.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:Stufenaufstieg|r - |cffFF4E00[Stufe %1$s]|r"
 L["chat.event.level-up.classic.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:Stufenaufstieg|r - |cffFF4E00[Stufe %1$s]|r"
 L["chat.event.level-up.time-played"] = "Spielzeit auf Stufe %d: %d Tage, %d Stunden, %d Minuten, %d Sekunden"

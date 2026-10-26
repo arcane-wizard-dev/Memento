@@ -1,5 +1,7 @@
 local addonName, MEM = ...
 
+if MEM.State and MEM.State.libraryIncompatible then return end
+
 -- Library
 local AWL = ArcaneWizardLibrary
 local Addon = AWL:GetAddon(addonName)
@@ -12,6 +14,8 @@ local Capture = MEM.Modules.Capture
 local Options = MEM.Modules.Options
 local Reputation = MEM.Modules.Reputation
 local Utils = MEM.Modules.Utils
+
+local ZoneData = MEM.ZONE_DATA
 
 -- Variables
 local isInitialized = false
@@ -41,6 +45,27 @@ end
 local function ScheduleScreenshot(handler, delay, ...)
 	TimePlayed()
 	Capture:ScheduleTimer(handler, delay, ...)
+end
+
+local function GetCurrentArea()
+	local name, instanceType, _, _, _, _, _, instanceID = GetInstanceInfo()
+
+	if not instanceType or instanceType == "" then return nil end
+
+	if instanceType ~= "none" then
+		if not ZoneData.instanceTypes[instanceType] then return nil end
+		if not instanceID or instanceID <= 0 or not name or name == "" then return nil end
+
+		return "instance", instanceID, name
+	end
+
+	local mapID = C_Map.GetBestMapForUnit("player")
+	if not mapID or mapID <= 0 then return nil end
+
+	local info = MapUtil.GetMapParentInfo(mapID, Enum.UIMapType.Zone)
+	if not info or not info.mapID or info.mapID <= 0 or not info.name or info.name == "" then return nil end
+
+	return "zone", info.mapID, info.name
 end
 
 local function ScheduleReputationScreenshot(factionName, rankName)
@@ -429,6 +454,34 @@ function MementoFrame:PLAYER_ENTERING_WORLD(_, isInitialLogin, isReloadingUi)
 	end
 end
 
+function MementoFrame:ZONE_CHANGED_NEW_AREA()
+	Utils:PrintDebug("Event 'ZONE_CHANGED_NEW_AREA' fired. No payload.")
+
+	local kind, id, name = GetCurrentArea()
+
+	if not kind or not id then
+		Utils:PrintDebug("Unknown area. No screenshot requested.")
+		return
+	end
+
+	if MEM.Data.zone[kind][id] then
+		Utils:PrintDebug("Area already visited. No screenshot requested.")
+		return
+	end
+
+	MEM.Data.zone[kind][id] = true
+
+	local settings = MEM.Settings.event
+
+	if not settings["zone-active"] then
+		Utils:PrintDebug("Event 'ZONE_CHANGED_NEW_AREA' completed. No screenshot requested.")
+	elseif settings["zone-type"] ~= "both" and settings["zone-type"] ~= kind then
+		Utils:PrintDebug("Player entered the wrong area. No screenshot requested.")
+	else
+		ScheduleScreenshot("ZoneEventHandler", settings["zone-delay"] + MEM.CAPTURE_DELAY_OFFSET, name)
+	end
+end
+
 function MementoFrame:PLAYER_DEAD(_)
 	Utils:PrintDebug("Event 'PLAYER_DEAD' fired. No payload.")
 
@@ -455,12 +508,12 @@ function MementoFrame:PLAYER_LEVEL_UP(_, level)
 		tostring(level)
 	))
 
+	TimePlayed()
+
+	local timePlayedOnPreviousLevel = MEM.State.timePlayedThisLevel
+	MEM.State.timePlayedThisLevel = 0
+
 	if MEM.Settings.event["level-up-active"] then
-		TimePlayed()
-
-		local timePlayedOnPreviousLevel = MEM.State.timePlayedThisLevel
-		MEM.State.timePlayedThisLevel = 0
-
 		Capture:ScheduleTimer("LevelUpEventHandler", MEM.Settings.event["level-up-delay"] + MEM.CAPTURE_DELAY_OFFSET, level, timePlayedOnPreviousLevel)
 	else
 		Utils:PrintDebug("Event 'PLAYER_LEVEL_UP' completed. No screenshot requested.")
@@ -643,6 +696,7 @@ elseif AWL.GAME_TYPE_RETAIL then
 end
 
 MementoFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
+MementoFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 MementoFrame:RegisterEvent("PLAYER_DEAD")
 MementoFrame:RegisterEvent("PLAYER_LEVEL_UP")
 MementoFrame:RegisterEvent("FACTION_STANDING_CHANGED")

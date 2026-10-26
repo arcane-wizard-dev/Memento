@@ -1,5 +1,7 @@
 local _, MEM = ...
 
+if MEM.State and MEM.State.libraryIncompatible then return end
+
 MEM.UIConfig.Timestamp = {
 	formats = {
 		{

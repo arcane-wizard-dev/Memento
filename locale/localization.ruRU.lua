@@ -1,5 +1,7 @@
 local _, MEM = ...
 
+if MEM.State and MEM.State.libraryIncompatible then return end
+
 if GetLocale() ~= "ruRU" then return end
 
 local L = MEM.Localization
@@ -53,6 +55,13 @@ L["options.event"] = "Снимки экрана"
 
 L["options.event.character"] = "Персонаж"
 L["options.event.character.login"] = "Вход в игру"
+L["options.event.character.zone"] = "Новая область"
+L["options.event.character.zone.tooltip"] = "Создаёт снимок экрана, когда этот персонаж входит в новую область. Посещённые области сохраняются отдельно для каждого персонажа, даже если это событие отключено."
+L["options.event.character.zone.type.name"] = "Области"
+L["options.event.character.zone.type.tooltip"] = "Выберите, при входе в какие новые области создавать снимок экрана.\n\n|cnHIGHLIGHT_FONT_COLOR:Зона (открытый мир):|r Только зоны открытого мира.\n\n|cnHIGHLIGHT_FONT_COLOR:Инстанс:|r Только подземелья, рейды, сценарии, поля боя и арены.\n\n|cnHIGHLIGHT_FONT_COLOR:Оба типа:|r Зоны открытого мира и инстансы.\n\nПосещённые области сохраняются независимо от выбора. Этажи и уровни сложности одного инстанса учитываются как одна область."
+L["options.event.character.zone.type.zone"] = "Зона (открытый мир)"
+L["options.event.character.zone.type.instance"] = "Инстанс"
+L["options.event.character.zone.type.both"] = "Оба типа"
 L["options.event.character.level-up"] = "Получение уровня"
 L["options.event.character.level-up.time-played.name"] = "Показывать время на предыдущем уровне"
 L["options.event.character.level-up.time-played.tooltip"] = "При создании снимка экрана в момент получения уровня выводит время игры на предыдущем уровне отдельной строкой в чате, даже если общий вывод времени игры на уровне отключён."
@@ -132,6 +141,7 @@ L["chat.notification.level-time-played"] = "Время игры на текущ�
 -- Event Messages
 
 L["chat.event.login.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Вход в игру|r"
+L["chat.event.zone.new"] = "Снимок экрана создан - |cnGOLD_FONT_COLOR:Новая область|r - %s"
 L["chat.event.level-up.retail.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Получение уровня|r — |cffFF4E00[Уровень %1$s]|r"
 L["chat.event.level-up.classic.new"] = "Снимок экрана создан — |cnGOLD_FONT_COLOR:Получение уровня|r — |cffFF4E00[Уровень %1$s]|r"
 L["chat.event.level-up.time-played"] = "Время игры на уровне %d: %d дн., %d ч., %d мин., %d сек."

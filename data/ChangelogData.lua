@@ -1,10 +1,13 @@
 local addonName, MEM = ...
 
+if MEM.State and MEM.State.libraryIncompatible then return end
+
 local version = C_AddOns.GetAddOnMetadata(addonName, "Version") or ""
 local buildDate = C_AddOns.GetAddOnMetadata(addonName, "X-BuildDate") or ""
 
 MEM.CHANGELOG = {
 	notices = {},
+	-- BEGIN GENERATED CHANGELOG
 	{
 		version = version,
 		date = buildDate ~= "" and buildDate or nil,
@@ -90,4 +93,5 @@ MEM.CHANGELOG = {
 			"Minor code adjustments"
 		}
 	}
+	-- END GENERATED CHANGELOG
 }

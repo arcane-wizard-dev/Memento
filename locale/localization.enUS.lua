@@ -1,5 +1,7 @@
 local _, MEM = ...
 
+if MEM.State and MEM.State.libraryIncompatible then return end
+
 MEM.Localization = setmetatable({},{
 	__index=function(self,key)
 		rawset(self, key, key)
@@ -61,6 +63,13 @@ L["options.event"] = "Screenshots"
 
 L["options.event.character"] = "Character"
 L["options.event.character.login"] = "Player Login"
+L["options.event.character.zone"] = "New area"
+L["options.event.character.zone.tooltip"] = "Take a screenshot when this character enters a new area. Visited areas are saved separately for each character, even while this event is disabled."
+L["options.event.character.zone.type.name"] = "Areas"
+L["options.event.character.zone.type.tooltip"] = "Choose which new areas trigger a screenshot.\n\n|cnHIGHLIGHT_FONT_COLOR:Zone (open world):|r Only open-world zones.\n\n|cnHIGHLIGHT_FONT_COLOR:Instance:|r Only dungeons, raids, scenarios, battlegrounds and arenas.\n\n|cnHIGHLIGHT_FONT_COLOR:Both:|r Open-world zones and instances.\n\nVisited areas are saved regardless of this selection. Floors and difficulties of the same instance count as one area."
+L["options.event.character.zone.type.zone"] = "Zone (open world)"
+L["options.event.character.zone.type.instance"] = "Instance"
+L["options.event.character.zone.type.both"] = "Both"
 L["options.event.character.level-up"] = "Level-Up"
 L["options.event.character.level-up.time-played.name"] = "Show time played on the previous level"
 L["options.event.character.level-up.time-played.tooltip"] = "Shows the time played on the previous level on a separate chat line when a level-up screenshot is taken, even if the general level playtime output is disabled."
@@ -140,6 +149,7 @@ L["chat.notification.level-time-played"] = "Time played on current level: %d day
 -- Event Messages
 
 L["chat.event.login.new"] = "Screenshot taken - |cnGOLD_FONT_COLOR:Player Login|r"
+L["chat.event.zone.new"] = "Screenshot taken - |cnGOLD_FONT_COLOR:New Area|r - %s"
 L["chat.event.level-up.retail.new"] = "Screenshot taken - |cnGOLD_FONT_COLOR:Level-Up|r - |cffFF4E00[Level %1$s]|r"
 L["chat.event.level-up.classic.new"] = "Screenshot taken - |cnGOLD_FONT_COLOR:Level-Up|r - |cffFF4E00[Level %1$s]|r"
 L["chat.event.level-up.time-played"] = "Time played on level %d: %d days, %d hours, %d minutes, %d seconds"

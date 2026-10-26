@@ -8,6 +8,7 @@
 ## DefaultState: enabled
 
 ## Dependencies: ArcaneWizardLibrary
+## X-Library-Revision: 1
 
 ## Notes: This addon automatically takes screenshots of meaningful gameplay events and personal milestones.
 ## Notes-deDE: Dieses Addon macht automatisch Screenshots von bedeutenden Spielereignissen und persönlichen Meilensteinen.
@@ -15,7 +16,7 @@
 
 ## LoadSavedVariablesFirst: 1
 ## SavedVariables: Memento_Options_v6
-## SavedVariablesPerCharacter: Memento_DataBossKill
+## SavedVariablesPerCharacter: Memento_DataBossKill, Memento_DataZone_v3
 
 ## AddonCompartmentFuncOnEnter: Memento_CompartmentOnEnter
 ## AddonCompartmentFuncOnLeave: Memento_CompartmentOnLeave
@@ -27,5 +28,6 @@
 ## X-Curseforge: https://www.curseforge.com/wow/addons/memento
 ## X-Wago: https://addons.wago.io/addons/memento
 
+LibraryCompatibility.lua
 Memento.xml
 Memento.lua

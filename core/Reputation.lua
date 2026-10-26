@@ -1,5 +1,7 @@
 local _, MEM = ...
 
+if MEM.State and MEM.State.libraryIncompatible then return end
+
 local AWL = ArcaneWizardLibrary
 local Reputation = MEM.Modules.Reputation
 local L = MEM.Localization

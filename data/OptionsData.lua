@@ -1,5 +1,7 @@
 local _, MEM = ...
 
+if MEM.State and MEM.State.libraryIncompatible then return end
+
 MEM.OPTIONS_DEFAULTS = {
 	["general"] = {
 		["minimap-button"] = {
@@ -23,6 +25,9 @@ MEM.OPTIONS_DEFAULTS = {
 	["event"] = {
 		["login-active"] = false,
 		["login-delay"] = 5,
+		["zone-active"] = false,
+		["zone-delay"] = 2,
+		["zone-type"] = "both",
 		["level-up-active"] = true,
 		["level-up-delay"] = 5,
 		["level-up-time-played"] = false,

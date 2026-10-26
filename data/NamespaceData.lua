@@ -1,5 +1,7 @@
 local addonName, MEM = ...
 
+if MEM.State and MEM.State.libraryIncompatible then return end
+
 MEM.Settings = MEM.Settings or {}
 MEM.Data = MEM.Data or {}
 MEM.State = MEM.State or {}

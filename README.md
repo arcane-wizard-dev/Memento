@@ -4,13 +4,13 @@
 
 _Capture the moments that matter._
 
-Memento is a World of Warcraft addon that automatically takes screenshots of meaningful gameplay events and personal milestones. It supports a wide variety of triggers, ensuring you never miss a great shot again.
+Memento is a World of Warcraft addon that automatically takes screenshots of selected moments, such as level-ups, boss kills, achievements, new mounts and first visits to zones or instances. Available triggers depend on your WoW version.
 
 > ⚠️ **Important!** This addon requires **Arcane Wizard: Library**. See Installation & Quick Start for installation details.
 
 ## Key Feature
 
-**Automated Screenshots** - Automatically captures images based on customizable in-game events so you can focus entirely on your gameplay.
+**Automated Screenshots** - Choose which events trigger screenshots and set a suitable delay for each, so you can keep playing.
 
 ## Features
 
@@ -19,12 +19,13 @@ Individual features and display options can be configured in the addon settings.
 ### Retail
 
 * Capture level-ups, deaths, and logins.
-* <sup>✨ NEW</sup> Capture reputation rank increases.
+* <sup>✨ NEW</sup> Capture first visits to open-world zones, supported instances (dungeons, raids, battlegrounds, and arenas), or both, with visited areas saved per character.
+* Capture reputation rank increases.
 * Capture personal and guild achievements, and achievement criteria.
-* <sup>✨ NEW</sup> Capture world boss victories.
+* Capture world boss victories.
 * Capture boss victories and wipes in dungeons, raids, and scenarios.
 * Capture Mythic+ dungeon completions.
-* <sup>✨ NEW</sup> Capture completed Traveler's Log activities.
+* Capture completed Traveler's Log activities.
 * Capture PvP events in duels, battlegrounds, arenas, and brawls.
 * Capture new pets, mounts, toys, recipes, and housing items.
 * Capture special loot: items, money, and currencies.
@@ -33,7 +34,8 @@ Individual features and display options can be configured in the addon settings.
 ### Forever
 
 * Capture level-ups, deaths, and logins.
-* <sup>✨ NEW</sup> Capture reputation rank increases.
+* <sup>✨ NEW</sup> Capture first visits to open-world zones, supported instances (dungeons, raids, battlegrounds, and arenas), or both, with visited areas saved per character.
+* Capture reputation rank increases.
 * Capture personal achievements.
 * Capture boss victories and wipes in dungeons and raids.
 * Capture PvP events in duels and battlegrounds.
@@ -45,7 +47,8 @@ Individual features and display options can be configured in the addon settings.
 Shared by Classic, Burning Crusade - Classic Anniversary Edition, and Mists of Pandaria - Classic:
 
 * Capture level-ups, deaths, and logins.
-* <sup>✨ NEW</sup> Capture reputation rank increases.
+* <sup>✨ NEW</sup> Capture first visits to open-world zones, supported instances (dungeons, raids, battlegrounds, and arenas), or both, with visited areas saved per character.
+* Capture reputation rank increases.
 * Capture completed duels.
 * Capture newly learned recipes.
 * Take screenshots at regular intervals.
@@ -59,7 +62,7 @@ Additional events in Mists of Pandaria - Classic:
 
 * Each event can be activated separately.
 * The user interface can be automatically hidden for the screenshot, with an optional notification box showing a timestamp (Note: The user interface cannot be hidden automatically during combat).
-* <sup>✨ NEW</sup> Choose JPEG, PNG, or TGA and adjust JPEG quality.
+* Choose JPEG, PNG, or TGA and adjust JPEG quality.
 * Choose a timestamp format for chat notifications and the screenshot notification box.
 * A configurable sound effect can be played after a screenshot has been taken.
 * After triggering an event, a delay can be set for creating the screenshot.

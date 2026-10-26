@@ -1,5 +1,7 @@
 local _, MEM = ...
 
+if MEM.State and MEM.State.libraryIncompatible then return end
+
 -- Library
 local AWL = ArcaneWizardLibrary
 
@@ -272,6 +274,10 @@ local function LoginEventHandler()
 	NotifyScreenshot(L["chat.event.login.new"])
 end
 
+local function ZoneEventHandler(name)
+	NotifyScreenshot(L["chat.event.zone.new"]:format(name))
+end
+
 local function LevelUpEventHandler(level, timePlayedOnPreviousLevel)
 	local message
 
@@ -336,6 +342,7 @@ local HandlerTable = {
 	["NewRecipeEventHandler"]           = NewRecipeEventHandler,
 	["NewHousingItemEventHandler"]      = NewHousingItemEventHandler,
 	["LoginEventHandler"]               = LoginEventHandler,
+	["ZoneEventHandler"]                = ZoneEventHandler,
 	["LevelUpEventHandler"]             = LevelUpEventHandler,
 	["ReputationEventHandler"]          = ReputationEventHandler,
 	["DeathEventHandler"]               = DeathEventHandler,
