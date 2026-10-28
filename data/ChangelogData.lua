@@ -12,6 +12,18 @@ MEM.CHANGELOG = {
 		version = version,
 		date = buildDate ~= "" and buildDate or nil,
 		entries = {
+			"Added: Startup check for the minimum required Library revision",
+			"Added: New event 'New area entered' - A screenshot can now be taken automatically when a character first enters an open-world zone or instance, with a choice of zones, instances or both",
+			"Updated: deDE, enUS, ruRU localizations",
+			"Updated: Addon description",
+			"Fixed: Playtime for the current level now resets when leveling up even if level-up screenshots are disabled",
+			"Minor code adjustments"
+		}
+	},
+	{
+		version = "v2.38",
+		date = "2026-10-21",
+		entries = {
 			"Added: Options to choose the screenshot file format and JPEG quality",
 			"Changed: Regrouped screenshot events in the options menu"
 		}
@@ -83,14 +95,6 @@ MEM.CHANGELOG = {
 		entries = {
 			"Updated: Compatibility with the beta client [forever]",
 			"Adapted to the latest version of Arcane Wizard: Library to ensure full compatibility"
-		}
-	},
-	{
-		version = "v2.29",
-		date = "2026-09-22",
-		entries = {
-			"Adapted to the latest version of Arcane Wizard: Library to ensure full compatibility",
-			"Minor code adjustments"
 		}
 	}
 	-- END GENERATED CHANGELOG
