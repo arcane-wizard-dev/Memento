@@ -19,9 +19,9 @@ Individual features and display options can be configured in the addon settings.
 ### Retail
 
 * Captures level-ups, deaths, and logins.
-* <sup>✨ NEW</sup> Capture first visits to open-world zones, supported instances (dungeons, raids, scenarios, battlegrounds, and arenas), or both, with visited areas saved per character.
-* Captures reputation rank and renown increases.
-* Captures personal and guild achievements, and achievement criteria.
+* <sup>✨ NEW</sup> Captures first visits to open-world zones, supported instances (dungeons, raids, scenarios, battlegrounds, and arenas), or both, with visited areas saved per character.
+* Captures reputation rank and Renown increases.
+* Captures personal achievements, guild achievements, and achievement criteria.
 * Captures world boss victories.
 * Captures boss victories and wipes in dungeons, raids, and scenarios.
 * Captures Mythic+ dungeon completions.
@@ -29,29 +29,29 @@ Individual features and display options can be configured in the addon settings.
 * Captures PvP events in duels, battlegrounds, arenas, and brawls.
 * Captures new pets, mounts, toys, recipes, and housing decor.
 * Captures special loot: items, gold, and currencies.
-* Take screenshots at regular intervals.
+* Takes screenshots at regular intervals.
 
 ### Forever
 
 * Captures level-ups, deaths, and logins.
-* <sup>✨ NEW</sup> Capture first visits to open-world zones, supported instances (dungeons, raids, scenarios, battlegrounds, and arenas), or both, with visited areas saved per character.
+* <sup>✨ NEW</sup> Captures first visits to open-world zones, supported instances (dungeons, raids, scenarios, battlegrounds, and arenas), or both, with visited areas saved per character.
 * Captures reputation rank increases.
 * Captures personal achievements.
 * Captures boss victories and wipes in dungeons and raids.
 * Captures PvP events in duels and battlegrounds.
 * Captures new pets and recipes.
-* Take screenshots at regular intervals.
+* Takes screenshots at regular intervals.
 
 ### Classic
 
 Shared by Classic, Burning Crusade - Classic Anniversary Edition, and Mists of Pandaria - Classic:
 
 * Captures level-ups, deaths, and logins.
-* <sup>✨ NEW</sup> Capture first visits to open-world zones, supported instances (dungeons, raids, scenarios, battlegrounds, and arenas), or both, with visited areas saved per character.
+* <sup>✨ NEW</sup> Captures first visits to open-world zones, supported instances (dungeons, raids, scenarios, battlegrounds, and arenas), or both, with visited areas saved per character.
 * Captures reputation rank increases.
 * Captures completed duels.
 * Captures newly learned recipes.
-* Take screenshots at regular intervals.
+* Takes screenshots at regular intervals.
 
 Additional events in Mists of Pandaria - Classic:
 
@@ -61,7 +61,7 @@ Additional events in Mists of Pandaria - Classic:
 ### Capture Settings
 
 * Each event can be activated separately.
-* The user interface can be hidden automatically for the screenshot, with an optional notification box showing a timestamp. The interface cannot be hidden during combat.
+* Can automatically hide the user interface for screenshots outside combat, with an optional notification box showing a timestamp.
 * Supports JPEG, PNG, and TGA with adjustable JPEG quality.
 * Offers several timestamp formats for chat notifications and the screenshot notification box.
 * A configurable sound effect can be played after a screenshot has been taken.
