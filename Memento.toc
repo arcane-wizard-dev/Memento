@@ -10,9 +10,9 @@
 ## Dependencies: ArcaneWizardLibrary
 ## X-Library-Revision: 1
 
-## Notes: This addon preserves memories of adventures with automatic screenshots. It captures selected moments, and the capture process can be adapted to personal preferences.
-## Notes-deDE: Dieses Addon hält Erinnerungen an die eigenen Abenteuer mit automatischen Screenshots fest. Es nimmt ausgewählte Momente auf, und der Aufnahmevorgang lässt sich an eigene Vorlieben anpassen.
-## Notes-ruRU: Этот аддон сохраняет воспоминания о приключениях с помощью автоматических снимков экрана. Он запечатлевает выбранные моменты и позволяет настроить процесс съёмки под личные предпочтения.
+## Notes: This addon automatically takes screenshots of selected gameplay moments. You decide which events trigger a screenshot and how the screenshots are taken.
+## Notes-deDE: Dieses Addon hält ausgewählte Spielmomente automatisch als Screenshots fest. Du bestimmst, welche Ereignisse eine Aufnahme auslösen und wie die Screenshots erstellt werden.
+## Notes-ruRU: Этот аддон автоматически создаёт снимки экрана в выбранные игровые моменты. События, запускающие съёмку, и параметры создания снимков можно настроить.
 
 ## LoadSavedVariablesFirst: 1
 ## SavedVariables: Memento_Options_v6
