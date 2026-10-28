@@ -9,10 +9,11 @@ local Addon = AWL:GetAddon(addonName)
 -- Localization
 local L = MEM.Localization
 
-local TimestampConfig = MEM.UIConfig.Timestamp
-
 -- Current module
 local Utils = MEM.Modules.Utils
+
+-- Module imports
+local TimestampConfig = MEM.UIConfig.Timestamp
 
 -----------------------
 --- Local Functions ---

@@ -4,13 +4,13 @@
 
 _Capture the moments that matter._
 
-Memento is a World of Warcraft addon that automatically takes screenshots of selected moments, such as level-ups, boss kills, achievements, new mounts and first visits to zones or instances. Available triggers depend on your WoW version.
+Memento is a World of Warcraft addon that preserves memories of adventures with automatic screenshots. It captures selected moments, and the capture process can be adapted to personal preferences.
 
 > ⚠️ **Important!** This addon requires **Arcane Wizard: Library**. See Installation & Quick Start for installation details.
 
 ## Key Feature
 
-**Automated Screenshots** - Choose which events trigger screenshots and set a suitable delay for each, so you can keep playing.
+**Automated Screenshots** - Captures selected moments automatically, and the way screenshots are taken can be adjusted to fit any play style.
 
 ## Features
 
@@ -18,56 +18,56 @@ Individual features and display options can be configured in the addon settings.
 
 ### Retail
 
-* Capture level-ups, deaths, and logins.
-* <sup>✨ NEW</sup> Capture first visits to open-world zones, supported instances (dungeons, raids, battlegrounds, and arenas), or both, with visited areas saved per character.
-* Capture reputation rank increases.
-* Capture personal and guild achievements, and achievement criteria.
-* Capture world boss victories.
-* Capture boss victories and wipes in dungeons, raids, and scenarios.
-* Capture Mythic+ dungeon completions.
-* Capture completed Traveler's Log activities.
-* Capture PvP events in duels, battlegrounds, arenas, and brawls.
-* Capture new pets, mounts, toys, recipes, and housing items.
-* Capture special loot: items, money, and currencies.
+* Captures level-ups, deaths, and logins.
+* <sup>✨ NEW</sup> Capture first visits to open-world zones, supported instances (dungeons, raids, scenarios, battlegrounds, and arenas), or both, with visited areas saved per character.
+* Captures reputation rank and renown increases.
+* Captures personal and guild achievements, and achievement criteria.
+* Captures world boss victories.
+* Captures boss victories and wipes in dungeons, raids, and scenarios.
+* Captures Mythic+ dungeon completions.
+* Captures completed Traveler's Log activities.
+* Captures PvP events in duels, battlegrounds, arenas, and brawls.
+* Captures new pets, mounts, toys, recipes, and housing decor.
+* Captures special loot: items, gold, and currencies.
 * Take screenshots at regular intervals.
 
 ### Forever
 
-* Capture level-ups, deaths, and logins.
-* <sup>✨ NEW</sup> Capture first visits to open-world zones, supported instances (dungeons, raids, battlegrounds, and arenas), or both, with visited areas saved per character.
-* Capture reputation rank increases.
-* Capture personal achievements.
-* Capture boss victories and wipes in dungeons and raids.
-* Capture PvP events in duels and battlegrounds.
-* Capture new pets and recipes.
+* Captures level-ups, deaths, and logins.
+* <sup>✨ NEW</sup> Capture first visits to open-world zones, supported instances (dungeons, raids, scenarios, battlegrounds, and arenas), or both, with visited areas saved per character.
+* Captures reputation rank increases.
+* Captures personal achievements.
+* Captures boss victories and wipes in dungeons and raids.
+* Captures PvP events in duels and battlegrounds.
+* Captures new pets and recipes.
 * Take screenshots at regular intervals.
 
 ### Classic
 
 Shared by Classic, Burning Crusade - Classic Anniversary Edition, and Mists of Pandaria - Classic:
 
-* Capture level-ups, deaths, and logins.
-* <sup>✨ NEW</sup> Capture first visits to open-world zones, supported instances (dungeons, raids, battlegrounds, and arenas), or both, with visited areas saved per character.
-* Capture reputation rank increases.
-* Capture completed duels.
-* Capture newly learned recipes.
+* Captures level-ups, deaths, and logins.
+* <sup>✨ NEW</sup> Capture first visits to open-world zones, supported instances (dungeons, raids, scenarios, battlegrounds, and arenas), or both, with visited areas saved per character.
+* Captures reputation rank increases.
+* Captures completed duels.
+* Captures newly learned recipes.
 * Take screenshots at regular intervals.
 
 Additional events in Mists of Pandaria - Classic:
 
-* Capture personal and guild achievements.
-* Capture new pets, mounts, and toys.
+* Captures personal and guild achievements.
+* Captures new pets, mounts, and toys.
 
 ### Capture Settings
 
 * Each event can be activated separately.
-* The user interface can be automatically hidden for the screenshot, with an optional notification box showing a timestamp (Note: The user interface cannot be hidden automatically during combat).
-* Choose JPEG, PNG, or TGA and adjust JPEG quality.
-* Choose a timestamp format for chat notifications and the screenshot notification box.
+* The user interface can be hidden automatically for the screenshot, with an optional notification box showing a timestamp. The interface cannot be hidden during combat.
+* Supports JPEG, PNG, and TGA with adjustable JPEG quality.
+* Offers several timestamp formats for chat notifications and the screenshot notification box.
 * A configurable sound effect can be played after a screenshot has been taken.
-* After triggering an event, a delay can be set for creating the screenshot.
-* In Retail and Forever, boss victories are saved, and you can choose whether to take screenshots again for bosses you have already defeated.
-* In Mists of Pandaria Classic and Retail, screenshots can optionally be taken for achievements already earned by another character.
+* Adds an adjustable delay between the event and the screenshot.
+* In Retail and Forever, boss victories are saved, and screenshots can optionally be limited to the first victory per boss.
+* In Mists of Pandaria - Classic and Retail, screenshots can optionally be taken for achievements already earned by another character.
 
 ## Supported Languages & Flavors
 
@@ -76,16 +76,16 @@ Additional events in Mists of Pandaria - Classic:
 
 ## Installation & Quick Start
 
-> **Required Dependency:** This addon requires the **Arcane Wizard: Library**. If you install Memento via the CurseForge client, the library will be downloaded automatically. If you install the addon manually, via Wago, or through another third-party updater that does not resolve dependencies, you must download and enable the library separately.
+> **Required Dependency:** This addon requires **Arcane Wizard: Library**. If you install Memento via the CurseForge client, the library will be downloaded automatically. If you install the addon manually, via Wago, or through another third-party updater that does not resolve dependencies, you must download and enable the library separately.
 
-To manage the addon, use the following commands in your chat and press enter:
+To manage the addon, type the following commands in chat and press Enter:
 
 * Type `/mem` or `/memento` to access the addon options menu.
 * Type `/mem changelog` or `/memento changelog` to open the changelog.
 
 ## Bugs & Feedback
 
-If you find a bug or have a suggestion, please use the GitHub Issues or the CurseForge comments.
+If you find a bug or have a suggestion, please open a GitHub issue or leave a comment on CurseForge.
 
 ## Translation Support
 

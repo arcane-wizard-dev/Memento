@@ -164,7 +164,7 @@ function MementoFrame:ADDON_LOADED(_, addOnName)
 	Addon:OpenSettingsOnLoading()
 
 	sessionStartTime = GetTime()
-	C_Timer.NewTicker(60, CheckInterval)
+	C_Timer.NewTicker(MEM.INTERVAL_CHECK_SECONDS, CheckInterval)
 
 	isInitialized = true
 
@@ -429,7 +429,7 @@ end
 function MementoFrame:NEW_HOUSING_ITEM_ACQUIRED(_, itemType, itemName, icon)
 	Utils:PrintDebug(string.format(
 		"Event 'NEW_HOUSING_ITEM_ACQUIRED' fired. Payload: itemType=%s, itemName=%s, icon=%s",
-		tostring(itemType),	tostring(itemName),	tostring(icon)
+		tostring(itemType), tostring(itemName), tostring(icon)
 	))
 
 	if MEM.Settings.event["collection-housing-active"] then
@@ -571,7 +571,7 @@ end
 function MementoFrame:ENCOUNTER_END(_, encounterID, encounterName, difficultyID, groupSize, success)
 	Utils:PrintDebug(string.format(
 		"Event 'ENCOUNTER_END' fired. Payload: encounterID=%s, encounterName=%s, difficultyID=%s, groupSize=%s, success=%s",
-		tostring(encounterID), tostring(encounterName),	tostring(difficultyID),	tostring(groupSize), tostring(success)
+		tostring(encounterID), tostring(encounterName), tostring(difficultyID), tostring(groupSize), tostring(success)
 	))
 
 	if not IsInInstance() then
@@ -585,17 +585,17 @@ function MementoFrame:ENCOUNTER_END(_, encounterID, encounterName, difficultyID,
 
 	if groupType == "party" or groupType == "raid" or (groupType == "scenario" and AWL.GAME_TYPE_RETAIL) then
 		if success == 1 then
-			local isActive = (groupType == "party" and MEM.Settings.event["encounter-victory-party-active"]) or
-								(groupType == "raid" and MEM.Settings.event["encounter-victory-raid-active"]) or
-								(groupType == "scenario" and MEM.Settings.event["encounter-victory-scenario-active"])
+			local isActive = (groupType == "party" and MEM.Settings.event["encounter-victory-party-active"])
+				or (groupType == "raid" and MEM.Settings.event["encounter-victory-raid-active"])
+				or (groupType == "scenario" and MEM.Settings.event["encounter-victory-scenario-active"])
 
-			local delay = (groupType == "party" and MEM.Settings.event["encounter-victory-party-delay"]) or
-							(groupType == "raid" and MEM.Settings.event["encounter-victory-raid-delay"]) or
-							(groupType == "scenario" and MEM.Settings.event["encounter-victory-scenario-delay"])
+			local delay = (groupType == "party" and MEM.Settings.event["encounter-victory-party-delay"])
+				or (groupType == "raid" and MEM.Settings.event["encounter-victory-raid-delay"])
+				or (groupType == "scenario" and MEM.Settings.event["encounter-victory-scenario-delay"])
 
-			local firstOnly = (groupType == "party" and MEM.Settings.event["encounter-victory-party-first"]) or
-								(groupType == "raid" and MEM.Settings.event["encounter-victory-raid-first"]) or
-								(groupType == "scenario" and MEM.Settings.event["encounter-victory-scenario-first"])
+			local firstOnly = (groupType == "party" and MEM.Settings.event["encounter-victory-party-first"])
+				or (groupType == "raid" and MEM.Settings.event["encounter-victory-raid-first"])
+				or (groupType == "scenario" and MEM.Settings.event["encounter-victory-scenario-first"])
 
 			if isActive then
 				if not MEM.Data.bossKill[difficulty] then
@@ -611,13 +611,13 @@ function MementoFrame:ENCOUNTER_END(_, encounterID, encounterName, difficultyID,
 				Utils:PrintDebug("Event 'ENCOUNTER_END' (Victory) completed. No screenshot requested.")
 			end
 		else
-			local isActive = (groupType == "party" and MEM.Settings.event["encounter-wipe-party-active"]) or
-								(groupType == "raid" and MEM.Settings.event["encounter-wipe-raid-active"]) or
-								(groupType == "scenario" and MEM.Settings.event["encounter-wipe-scenario-active"])
+			local isActive = (groupType == "party" and MEM.Settings.event["encounter-wipe-party-active"])
+				or (groupType == "raid" and MEM.Settings.event["encounter-wipe-raid-active"])
+				or (groupType == "scenario" and MEM.Settings.event["encounter-wipe-scenario-active"])
 
-			local delay = (groupType == "party" and MEM.Settings.event["encounter-wipe-party-delay"]) or
-							(groupType == "raid" and MEM.Settings.event["encounter-wipe-raid-delay"]) or
-							(groupType == "scenario" and MEM.Settings.event["encounter-wipe-scenario-delay"])
+			local delay = (groupType == "party" and MEM.Settings.event["encounter-wipe-party-delay"])
+				or (groupType == "raid" and MEM.Settings.event["encounter-wipe-raid-delay"])
+				or (groupType == "scenario" and MEM.Settings.event["encounter-wipe-scenario-delay"])
 
 			if isActive then
 				ScheduleScreenshot("EncounterWipeEventHandler", delay + MEM.CAPTURE_DELAY_OFFSET, encounterName, difficultyName)
@@ -646,7 +646,7 @@ end
 function MementoFrame:NEW_RECIPE_LEARNED(_, recipeID, recipeLevel, baseRecipeID)
 	Utils:PrintDebug(string.format(
 		"Event 'NEW_RECIPE_LEARNED' fired. Payload: recipeID=%s, recipeLevel=%s, baseRecipeID=%s",
-		tostring(recipeID),	tostring(recipeLevel), tostring(baseRecipeID)
+		tostring(recipeID), tostring(recipeLevel), tostring(baseRecipeID)
 	))
 
 	if MEM.Settings.event["collection-recipe-active"] then

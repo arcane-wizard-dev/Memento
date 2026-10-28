@@ -4,6 +4,7 @@ if MEM.State and MEM.State.libraryIncompatible then return end
 
 -- Capture
 MEM.CAPTURE_DELAY_OFFSET = 0.1
+MEM.INTERVAL_CHECK_SECONDS = 60
 MEM.SCREENSHOT_RENDER_DELAY = 0.1
 MEM.SCREENSHOT_RESTORE_DELAY = 0.1
 

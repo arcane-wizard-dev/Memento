@@ -9,12 +9,11 @@ local Addon = AWL:GetAddon(addonName)
 -- Localization
 local L = MEM.Localization
 
-local TimestampConfig = MEM.UIConfig.Timestamp
-
 -- Current module
 local Options = MEM.Modules.Options
 
 -- Module imports
+local TimestampConfig = MEM.UIConfig.Timestamp
 local Capture = MEM.Modules.Capture
 local Utils = MEM.Modules.Utils
 
@@ -279,7 +278,7 @@ function Options:Initialize()
 		checkboxSettingKey		= addonName .. "_login-active",
 		checkboxVariableName	= "login-active",
 		checkboxName			= L["options.event.character.login"],
-		checkboxTooltip			= L["options.event.general.active.tooltip"]:format(L["options.event.character.login"]),
+		checkboxTooltip			= L["options.event.character.login.tooltip"],
 		checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["login-active"],
 
 		sliderSettingKey		= addonName .. "_login-delay",
@@ -338,7 +337,7 @@ function Options:Initialize()
 		checkboxSettingKey		= addonName .. "_level-up-active",
 		checkboxVariableName	= "level-up-active",
 		checkboxName			= L["options.event.character.level-up"],
-		checkboxTooltip			= L["options.event.general.active.tooltip"]:format(L["options.event.character.level-up"]),
+		checkboxTooltip			= L["options.event.character.level-up.tooltip"],
 		checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["level-up-active"],
 
 		sliderSettingKey		= addonName .. "_level-up-delay",
@@ -393,7 +392,7 @@ function Options:Initialize()
 		checkboxSettingKey		= addonName .. "_death-active",
 		checkboxVariableName	= "death-active",
 		checkboxName			= L["options.event.character.death"],
-		checkboxTooltip			= L["options.event.general.active.tooltip"]:format(L["options.event.character.death"]),
+		checkboxTooltip			= L["options.event.character.death.tooltip"],
 		checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["death-active"],
 
 		sliderSettingKey		= addonName .. "_death-delay",
@@ -436,7 +435,7 @@ function Options:Initialize()
 			checkboxSettingKey		= addonName .. "_achievement-personal-active",
 			checkboxVariableName	= "achievement-personal-active",
 			checkboxName			= L["options.event.achievement.personal"],
-			checkboxTooltip			= L["options.event.general.active.tooltip"]:format(L["options.event.achievement.personal"]),
+			checkboxTooltip			= L["options.event.achievement.personal.tooltip"],
 			checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["achievement-personal-active"],
 
 			sliderSettingKey		= addonName .. "_achievement-personal-delay",
@@ -477,7 +476,7 @@ function Options:Initialize()
 				checkboxSettingKey		= addonName .. "_achievement-criteria-active",
 				checkboxVariableName	= "achievement-criteria-active",
 				checkboxName			= L["options.event.achievement.criteria"],
-				checkboxTooltip			= L["options.event.general.active.tooltip"]:format(L["options.event.achievement.criteria"]),
+				checkboxTooltip			= L["options.event.achievement.criteria.tooltip"],
 				checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["achievement-criteria-active"],
 
 				sliderSettingKey		= addonName .. "_achievement-criteria-delay",
@@ -504,7 +503,7 @@ function Options:Initialize()
 				checkboxSettingKey		= addonName .. "_achievement-guild-active",
 				checkboxVariableName	= "achievement-guild-active",
 				checkboxName			= L["options.event.achievement.guild"],
-				checkboxTooltip			= L["options.event.general.active.tooltip"]:format(L["options.event.achievement.guild"]),
+				checkboxTooltip			= L["options.event.achievement.guild.tooltip"],
 				checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["achievement-guild-active"],
 
 				sliderSettingKey		= addonName .. "_achievement-guild-delay",
@@ -537,7 +536,7 @@ function Options:Initialize()
 				checkboxSettingKey		= addonName .. "_encounter-victory-world-active",
 				checkboxVariableName	= "encounter-victory-world-active",
 				checkboxName			= eventWorldVictory,
-				checkboxTooltip			= L["options.event.general.active.tooltip"]:format(eventWorldVictory),
+				checkboxTooltip			= L["options.event.pve.world.tooltip"],
 				checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-world-active"],
 
 				sliderSettingKey		= addonName .. "_encounter-victory-world-delay",
@@ -585,7 +584,7 @@ function Options:Initialize()
 			checkboxSettingKey		= addonName .. "_encounter-victory-party-active",
 			checkboxVariableName	= "encounter-victory-party-active",
 			checkboxName			= eventPartyVictory,
-			checkboxTooltip			= L["options.event.general.active.tooltip"]:format(eventPartyVictory),
+			checkboxTooltip			= L["options.event.pve.party.victory.tooltip"],
 			checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-party-active"],
 
 			sliderSettingKey		= addonName .. "_encounter-victory-party-delay",
@@ -620,7 +619,7 @@ function Options:Initialize()
 			checkboxSettingKey		= addonName .. "_encounter-wipe-party-active",
 			checkboxVariableName	= "encounter-wipe-party-active",
 			checkboxName			= eventPartyWipe,
-			checkboxTooltip			= L["options.event.general.active.tooltip"]:format(eventPartyWipe),
+			checkboxTooltip			= L["options.event.pve.party.wipe.tooltip"],
 			checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-wipe-party-active"],
 
 			sliderSettingKey		= addonName .. "_encounter-wipe-party-delay",
@@ -642,7 +641,7 @@ function Options:Initialize()
 			checkboxSettingKey		= addonName .. "_encounter-victory-raid-active",
 			checkboxVariableName	= "encounter-victory-raid-active",
 			checkboxName			= eventRaidVictory,
-			checkboxTooltip			= L["options.event.general.active.tooltip"]:format(eventRaidVictory),
+			checkboxTooltip			= L["options.event.pve.raid.victory.tooltip"],
 			checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-raid-active"],
 
 			sliderSettingKey		= addonName .. "_encounter-victory-raid-delay",
@@ -677,7 +676,7 @@ function Options:Initialize()
 			checkboxSettingKey		= addonName .. "_encounter-wipe-raid-active",
 			checkboxVariableName	= "encounter-wipe-raid-active",
 			checkboxName			= eventRaidWipe,
-			checkboxTooltip			= L["options.event.general.active.tooltip"]:format(eventRaidWipe),
+			checkboxTooltip			= L["options.event.pve.raid.wipe.tooltip"],
 			checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-wipe-raid-active"],
 
 			sliderSettingKey		= addonName .. "_encounter-wipe-raid-delay",
@@ -700,7 +699,7 @@ function Options:Initialize()
 				checkboxSettingKey		= addonName .. "_encounter-victory-scenario-active",
 				checkboxVariableName	= "encounter-victory-scenario-active",
 				checkboxName			= eventScenarioVictory,
-				checkboxTooltip			= L["options.event.general.active.tooltip"]:format(eventScenarioVictory),
+				checkboxTooltip			= L["options.event.pve.scenario.victory.tooltip"],
 				checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-scenario-active"],
 
 				sliderSettingKey		= addonName .. "_encounter-victory-scenario-delay",
@@ -738,7 +737,7 @@ function Options:Initialize()
 				checkboxSettingKey		= addonName .. "_encounter-wipe-scenario-active",
 				checkboxVariableName	= "encounter-wipe-scenario-active",
 				checkboxName			= eventScenarioWipe,
-				checkboxTooltip			= L["options.event.general.active.tooltip"]:format(eventScenarioWipe),
+				checkboxTooltip			= L["options.event.pve.scenario.wipe.tooltip"],
 				checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-wipe-scenario-active"],
 
 				sliderSettingKey		= addonName .. "_encounter-wipe-scenario-delay",
@@ -767,7 +766,7 @@ function Options:Initialize()
 				checkboxSettingKey		= addonName .. "_mythic-active",
 				checkboxVariableName	= "mythic-active",
 				checkboxName			= L["options.event.pve.mythic"],
-				checkboxTooltip			= L["options.event.general.active.tooltip"]:format(L["options.event.pve.mythic"]),
+				checkboxTooltip			= L["options.event.pve.mythic.tooltip"],
 				checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["mythic-active"],
 
 				sliderSettingKey		= addonName .. "_mythic-delay",
@@ -794,7 +793,7 @@ function Options:Initialize()
 		checkboxSettingKey		= addonName .. "_pvp-duel-active",
 		checkboxVariableName	= "pvp-duel-active",
 		checkboxName			= L["options.event.pvp.duel"],
-		checkboxTooltip			= L["options.event.general.active.tooltip"]:format(L["options.event.pvp.duel"]),
+		checkboxTooltip			= L["options.event.pvp.duel.tooltip"],
 		checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["pvp-duel-active"],
 
 		sliderSettingKey		= addonName .. "_pvp-duel-delay",
@@ -817,7 +816,7 @@ function Options:Initialize()
 			checkboxSettingKey		= addonName .. "_pvp-arena-active",
 			checkboxVariableName	= "pvp-arena-active",
 			checkboxName			= L["options.event.pvp.arena"],
-			checkboxTooltip			= L["options.event.general.active.tooltip"]:format(L["options.event.pvp.arena"]),
+			checkboxTooltip			= L["options.event.pvp.arena.tooltip"],
 			checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["pvp-arena-active"],
 
 			sliderSettingKey		= addonName .. "_pvp-arena-delay",
@@ -841,7 +840,7 @@ function Options:Initialize()
 			checkboxSettingKey		= addonName .. "_pvp-battleground-active",
 			checkboxVariableName	= "pvp-battleground-active",
 			checkboxName			= L["options.event.pvp.battleground"],
-			checkboxTooltip			= L["options.event.general.active.tooltip"]:format(L["options.event.pvp.battleground"]),
+			checkboxTooltip			= L["options.event.pvp.battleground.tooltip"],
 			checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["pvp-battleground-active"],
 
 			sliderSettingKey		= addonName .. "_pvp-battleground-delay",
@@ -880,7 +879,7 @@ function Options:Initialize()
 				checkboxSettingKey		= addonName .. "_pvp-brawl-active",
 				checkboxVariableName	= "pvp-brawl-active",
 				checkboxName			= L["options.event.pvp.brawl"],
-				checkboxTooltip			= L["options.event.general.active.tooltip"]:format(L["options.event.pvp.brawl"]),
+				checkboxTooltip			= L["options.event.pvp.brawl.tooltip"],
 				checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["pvp-brawl-active"],
 
 				sliderSettingKey		= addonName .. "_pvp-brawl-delay",
@@ -913,14 +912,14 @@ function Options:Initialize()
 
 	local _, isCollectionExpanded = AWL.Settings:AddExpandableHeader(layout, L["options.event.collection"])
 
-	local function AddCollectionEntry(key, nameString, condition)
+	local function AddCollectionEntry(key, nameString, tooltip, condition)
 		if condition then
 			AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 				variableTable			= MEM.Settings.event,
 				checkboxSettingKey		= addonName .. "_collection-" .. key .. "-active",
 				checkboxVariableName	= "collection-" .. key .. "-active",
 				checkboxName			= nameString,
-				checkboxTooltip			= L["options.event.general.active.tooltip"]:format(nameString),
+				checkboxTooltip			= tooltip,
 				checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["collection-" .. key .. "-active"],
 
 				sliderSettingKey		= addonName .. "_collection-" .. key .. "-delay",
@@ -938,11 +937,11 @@ function Options:Initialize()
 		end
 	end
 
-	AddCollectionEntry("pet", L["options.event.collection.new-pet"], AWL.GAME_TYPE_RETAIL or AWL.GAME_TYPE_FOREVER or AWL.GAME_TYPE_MISTS)
-	AddCollectionEntry("mount", L["options.event.collection.new-mount"], AWL.GAME_TYPE_RETAIL or AWL.GAME_TYPE_MISTS)
-	AddCollectionEntry("toy", L["options.event.collection.new-toy"], AWL.GAME_TYPE_RETAIL or AWL.GAME_TYPE_MISTS)
-	AddCollectionEntry("recipe", L["options.event.collection.new-recipe"], true)
-	AddCollectionEntry("housing", L["options.event.collection.new-housing-item"], AWL.GAME_TYPE_RETAIL)
+	AddCollectionEntry("pet", L["options.event.collection.new-pet"], L["options.event.collection.new-pet.tooltip"], AWL.GAME_TYPE_RETAIL or AWL.GAME_TYPE_FOREVER or AWL.GAME_TYPE_MISTS)
+	AddCollectionEntry("mount", L["options.event.collection.new-mount"], L["options.event.collection.new-mount.tooltip"], AWL.GAME_TYPE_RETAIL or AWL.GAME_TYPE_MISTS)
+	AddCollectionEntry("toy", L["options.event.collection.new-toy"], L["options.event.collection.new-toy.tooltip"], AWL.GAME_TYPE_RETAIL or AWL.GAME_TYPE_MISTS)
+	AddCollectionEntry("recipe", L["options.event.collection.new-recipe"], L["options.event.collection.new-recipe.tooltip"], true)
+	AddCollectionEntry("housing", L["options.event.collection.new-housing-item"], L["options.event.collection.new-housing-item.tooltip"], AWL.GAME_TYPE_RETAIL)
 
 	local _, isOtherExpanded = AWL.Settings:AddExpandableHeader(layout, L["options.event.other"])
 
@@ -952,7 +951,7 @@ function Options:Initialize()
 		checkboxSettingKey		= addonName .. "_interval-active",
 		checkboxVariableName	= "interval-active",
 		checkboxName			= L["options.event.other.interval"],
-		checkboxTooltip			= L["options.event.general.active.tooltip"]:format(L["options.event.other.interval"]),
+		checkboxTooltip			= L["options.event.other.interval.tooltip"],
 		checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["interval-active"],
 
 		sliderSettingKey		= addonName .. "_interval-timer",
@@ -975,7 +974,7 @@ function Options:Initialize()
 			checkboxSettingKey		= addonName .. "_perks-activity-active",
 			checkboxVariableName	= "perks-activity-active",
 			checkboxName			= L["options.event.other.perks-activity"],
-			checkboxTooltip			= L["options.event.general.active.tooltip"]:format(L["options.event.other.perks-activity"]),
+			checkboxTooltip			= L["options.event.other.perks-activity.tooltip"],
 			checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["perks-activity-active"],
 
 			sliderSettingKey		= addonName .. "_perks-activity-delay",

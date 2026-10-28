@@ -10,13 +10,13 @@
 ## Dependencies: ArcaneWizardLibrary
 ## X-Library-Revision: 1
 
-## Notes: This addon automatically takes screenshots of meaningful gameplay events and personal milestones.
-## Notes-deDE: Dieses Addon macht automatisch Screenshots von bedeutenden Spielereignissen und persönlichen Meilensteinen.
-## Notes-ruRU: Этот аддон автоматически создаёт снимки экрана при важных игровых событиях и личных достижениях.
+## Notes: This addon preserves memories of adventures with automatic screenshots. It captures selected moments, and the capture process can be adapted to personal preferences.
+## Notes-deDE: Dieses Addon hält Erinnerungen an die eigenen Abenteuer mit automatischen Screenshots fest. Es nimmt ausgewählte Momente auf, und der Aufnahmevorgang lässt sich an eigene Vorlieben anpassen.
+## Notes-ruRU: Этот аддон сохраняет воспоминания о приключениях с помощью автоматических снимков экрана. Он запечатлевает выбранные моменты и позволяет настроить процесс съёмки под личные предпочтения.
 
 ## LoadSavedVariablesFirst: 1
 ## SavedVariables: Memento_Options_v6
-## SavedVariablesPerCharacter: Memento_DataBossKill, Memento_DataZone_v3
+## SavedVariablesPerCharacter: Memento_DataBossKill, Memento_DataZone
 
 ## AddonCompartmentFuncOnEnter: Memento_CompartmentOnEnter
 ## AddonCompartmentFuncOnLeave: Memento_CompartmentOnLeave

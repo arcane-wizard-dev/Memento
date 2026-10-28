@@ -8,15 +8,14 @@ local AWL = ArcaneWizardLibrary
 -- Localization
 local L = MEM.Localization
 
-local CaptureConfig = MEM.UIConfig.Capture
-
 -- Current module
 local Capture = MEM.Modules.Capture
 
 -- Module imports
+local CaptureConfig = MEM.UIConfig.Capture
 local Utils = MEM.Modules.Utils
 
-local MessageFrame
+local MessageFrame = nil
 local captureQueue = {}
 local captureInProgress = false
 
@@ -98,11 +97,12 @@ local function PlayScreenshotSound(ignoreSetting, soundKey)
 end
 
 local function ProcessCaptureQueue()
+	-- Aufträge nacheinander abarbeiten, damit ausgeblendete UI und Meldungsbox den nächsten Screenshot nicht beeinflussen.
 	if captureInProgress or #captureQueue == 0 then return end
 
 	local request = table.remove(captureQueue, 1)
 	local hiddenUI = false
-	local frame
+	local frame = nil
 	captureInProgress = true
 
 	local function FinishCapture()
@@ -279,7 +279,7 @@ local function ZoneEventHandler(name)
 end
 
 local function LevelUpEventHandler(level, timePlayedOnPreviousLevel)
-	local message
+	local message = nil
 
 	if AWL.GAME_TYPE_CLASSIC or AWL.GAME_TYPE_TBC then
 		message = L["chat.event.level-up.classic.new"]:format(tostring(level))
@@ -326,7 +326,7 @@ local function IntervalEventHandler()
 	NotifyScreenshot(L["chat.event.interval.new"])
 end
 
-local HandlerTable = {
+local handlerTable = {
 	["AchievementPersonalEventHandler"] = AchievementPersonalEventHandler,
 	["AchievementGuildEventHandler"]    = AchievementGuildEventHandler,
 	["CriteriaEventHandler"]            = CriteriaEventHandler,
@@ -364,8 +364,8 @@ function Capture:ScheduleTimer(handler, delay, ...)
 	local args = {...}
 
 	C_Timer.After(delay, function()
-		if HandlerTable[handler] then
-			HandlerTable[handler](unpack(args))
+		if handlerTable[handler] then
+			handlerTable[handler](unpack(args))
 		else
 			Utils:PrintDebug(string.format(
 				"Handler '%s' not found.",
