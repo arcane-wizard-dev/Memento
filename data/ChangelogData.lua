@@ -12,6 +12,15 @@ MEM.CHANGELOG = {
 		version = version,
 		date = buildDate ~= "" and buildDate or nil,
 		entries = {
+			"Added: TOC version for patch 12.1.7 [retail]",
+			"Updated: Addon description",
+			"Removed: TOC version for patch 12.1.0 [retail]"
+		}
+	},
+	{
+		version = "v2.39",
+		date = "2026-10-28",
+		entries = {
 			"Added: Startup check for the minimum required Library revision",
 			"Added: New event 'New area entered' - A screenshot can now be taken automatically when a character first enters an open-world zone or instance, with a choice of zones, instances or both",
 			"Updated: deDE, enUS, ruRU localizations",
@@ -87,14 +96,6 @@ MEM.CHANGELOG = {
 			"Updated: Compatibility with the beta client [forever]",
 			"Updated: deDE, enUS localizations",
 			"Minor code adjustments"
-		}
-	},
-	{
-		version = "v2.30",
-		date = "2026-09-24",
-		entries = {
-			"Updated: Compatibility with the beta client [forever]",
-			"Adapted to the latest version of Arcane Wizard: Library to ensure full compatibility"
 		}
 	}
 	-- END GENERATED CHANGELOG
