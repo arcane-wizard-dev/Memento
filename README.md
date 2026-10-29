@@ -4,13 +4,13 @@
 
 _Capture the moments that matter._
 
-Memento is a World of Warcraft addon that automatically takes screenshots of selected gameplay moments. You decide which events trigger a screenshot and how the screenshots are taken.
+Memento is a World of Warcraft addon that automatically takes screenshots of selected gameplay moments. It works in the background while you keep playing.
 
 > ⚠️ **Important!** This addon requires **Arcane Wizard: Library**. See Installation & Quick Start for installation details.
 
 ## Key Feature
 
-**Automated Screenshots** - Captures selected moments automatically, with adjustable settings for when and how screenshots are taken.
+**Automated Screenshots** - Choose which events trigger a screenshot and adjust how the images are captured.
 
 ## Features
 

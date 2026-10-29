@@ -1,4 +1,4 @@
-## Interface: 120105, 120100, 50504, 20506, 16001, 11509
+## Interface: 120107, 120105, 50504, 20506, 16001, 11509
 ## Title: Memento
 ## Author: Arcane Wizard | created by diomsg
 
@@ -10,9 +10,9 @@
 ## Dependencies: ArcaneWizardLibrary
 ## X-Library-Revision: 1
 
-## Notes: This addon automatically takes screenshots of selected gameplay moments. You decide which events trigger a screenshot and how the screenshots are taken.
-## Notes-deDE: Dieses Addon hält ausgewählte Spielmomente automatisch als Screenshots fest. Du bestimmst, welche Ereignisse eine Aufnahme auslösen und wie die Screenshots erstellt werden.
-## Notes-ruRU: Этот аддон автоматически создаёт снимки экрана в выбранные игровые моменты. События, запускающие съёмку, и параметры создания снимков можно настроить.
+## Notes: This addon automatically takes screenshots of selected gameplay moments. It works in the background while you keep playing.
+## Notes-deDE: Dieses Addon hält ausgewählte Spielmomente automatisch als Screenshots fest. Es arbeitet im Hintergrund, während du weiterspielst.
+## Notes-ruRU: Этот аддон автоматически создаёт снимки экрана в выбранные игровые моменты. Он работает в фоновом режиме, пока вы продолжаете играть.
 
 ## LoadSavedVariablesFirst: 1
 ## SavedVariables: Memento_Options_v6
