@@ -10,7 +10,7 @@ MEM.ZONE_TYPES = {
 	{kind = "party", variableName = "zone-dungeon"},
 	{kind = "raid", variableName = "zone-raid"}
 }
-if not AWL.GAME_TYPE_CLASSIC and not AWL.GAME_TYPE_TBC then
+if not AWL.GAME_TYPE_CLASSIC and not AWL.GAME_TYPE_TBC and not AWL.GAME_TYPE_FOREVER then
 	MEM.ZONE_TYPES[#MEM.ZONE_TYPES + 1] = {kind = "scenario", variableName = "zone-scenario"}
 end
 MEM.ZONE_TYPES[#MEM.ZONE_TYPES + 1] = {kind = "pvp", variableName = "zone-battleground"}
