@@ -12,6 +12,16 @@ MEM.CHANGELOG = {
 		version = version,
 		date = buildDate ~= "" and buildDate or nil,
 		entries = {
+			"Added: Manual screenshots with a movable button, a key binding configurable in the addon settings, optional countdown and capture notice",
+			"Changed: The TOC no longer restricts loading by game type",
+			"Requires Arcane Wizard: Library revision 3 or later",
+			"Minor code adjustments"
+		}
+	},
+	{
+		version = "v2.41",
+		date = "2026-11-01",
+		entries = {
 			"Changed: Grouped related settings in the options menu and added individual choices for supported area types",
 			"Changed: Areas count as visited when Memento requests a screenshot",
 			"Changed: Limited loading to Retail, Forever, Classic, and Talebound",
@@ -89,17 +99,6 @@ MEM.CHANGELOG = {
 			"Changed: Level-up notifications display the level without a hyperlink [mists of pandaria - classic] [forever] [retail]",
 			"Updated: Compatibility with the beta client [forever]",
 			"Minor code adjustments"
-		}
-	},
-	{
-		version = "v2.32",
-		date = "2026-10-03",
-		entries = {
-			"Added: New event 'World boss defeated' - A screenshot can now be taken automatically when a world boss is defeated [retail]",
-			"Added: New event 'Traveler's Log activity completed' - A screenshot can now be taken automatically when a Traveler's Log activity is completed [retail]",
-			"Changed: Reordered options and separated subsections within option groups with horizontal lines",
-			"Updated: Logo",
-			"Updated: Compatibility with the beta client [forever]"
 		}
 	}
 	-- END GENERATED CHANGELOG
