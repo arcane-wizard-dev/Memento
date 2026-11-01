@@ -108,40 +108,6 @@ end
 
 function Options:Initialize()
 	local category, layout = Settings.RegisterVerticalLayoutCategory(addonName)
-	local eventGroups = {}
-
-	local function AddEventHeader(name)
-		local settings = {}
-		local function GetStatusText()
-			local activeCount = 0
-
-			for _, setting in ipairs(settings) do
-				if setting:GetValue() then
-					activeCount = activeCount + 1
-				end
-			end
-
-			if activeCount == 0 then
-				return L["options.event.none-active"]
-			end
-
-			return L["options.event.active-count"]:format(activeCount)
-		end
-
-		local initializer, isExpanded = AWL.Settings:AddExpandableHeader(layout, name, GetStatusText)
-		eventGroups[isExpanded] = {settings = settings, initializer = initializer}
-		return isExpanded
-	end
-
-	local function AddEvent(config)
-		local initializer, checkbox, slider = AWL.Settings:AddCheckboxSliderCombo(category, layout, config)
-		local group = eventGroups[config.shownPredicate]
-		group.settings[#group.settings + 1] = checkbox
-		checkbox:SetValueChangedCallback(function()
-			group.initializer:RefreshStatusText()
-		end)
-		return initializer, checkbox, slider
-	end
 
 	layout:AddInitializer(CreateSettingsListSectionHeaderInitializer(L["options.general"]))
 
@@ -241,26 +207,20 @@ function Options:Initialize()
 	})
 
 	-- Screenshot Sound
-	local initializerScreenshotSound, settingScreenshotSound = AWL.Settings:AddCheckbox(category, {
-		variableTable	= MEM.Settings.general,
-		settingKey		= addonName .. "_screenshot-sound",
-		variableName	= "screenshot-sound",
-		name			= L["options.general.screenshot-sound.name"],
-		tooltip			= L["options.general.screenshot-sound.tooltip"],
-		default			= MEM.OPTIONS_DEFAULTS["general"]["screenshot-sound"]
-	})
-
-	AWL.Settings:AddDropdown(category, {
-		variableTable	= MEM.Settings.general,
-		settingKey		= addonName .. "_screenshot-sound-style",
-		variableName	= "screenshot-sound-style",
-		name			= L["options.general.screenshot-sound-style.name"],
-		tooltip			= L["options.general.screenshot-sound-style.tooltip"],
-		default			= MEM.OPTIONS_DEFAULTS["general"]["screenshot-sound-style"],
-		options			= screenshotSoundOptions,
-		parentInit		= initializerScreenshotSound,
-		parentCondition	= function() return GetVal(settingScreenshotSound) end,
-		onClick			= function(_, value)
+	AWL.Settings:AddCheckboxDropdownCombo(category, layout, {
+		variableTable = MEM.Settings.general,
+		checkboxSettingKey = addonName .. "_screenshot-sound",
+		checkboxVariableName = "screenshot-sound",
+		checkboxName = L["options.general.screenshot-sound.name"],
+		checkboxTooltip = L["options.general.screenshot-sound.tooltip"],
+		checkboxDefault = MEM.OPTIONS_DEFAULTS.general["screenshot-sound"],
+		dropdownSettingKey = addonName .. "_screenshot-sound-style",
+		dropdownVariableName = "screenshot-sound-style",
+		dropdownName = L["options.general.screenshot-sound-style.name"],
+		dropdownTooltip = L["options.general.screenshot-sound-style.tooltip"],
+		dropdownDefault = MEM.OPTIONS_DEFAULTS.general["screenshot-sound-style"],
+		dropdownOptions = screenshotSoundOptions,
+		dropdownOnClick = function(_, value)
 			Capture:PreviewScreenshotSound(value)
 		end
 	})
@@ -289,10 +249,10 @@ function Options:Initialize()
 
 	layout:AddInitializer(CreateSettingsListSectionHeaderInitializer(L["options.event"]))
 
-	local isCharacterExpanded = AddEventHeader(L["options.event.character"])
+	local _, isCharacterExpanded = AWL.Settings:AddExpandableHeader(layout, L["options.event.character"])
 
 	-- Login
-	AddEvent({
+	AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 		variableTable			= MEM.Settings.event,
 		checkboxSettingKey		= addonName .. "_login-active",
 		checkboxVariableName	= "login-active",
@@ -313,45 +273,8 @@ function Options:Initialize()
 		shownPredicate			= isCharacterExpanded
 	})
 
-	local initializerZone, settingZone = AddEvent({
-		isNew = true,
-		variableTable = MEM.Settings.event,
-		checkboxSettingKey = addonName .. "_zone-active",
-		checkboxVariableName = "zone-active",
-		checkboxName = L["options.event.character.zone"],
-		checkboxTooltip = L["options.event.character.zone.tooltip"],
-		checkboxDefault = MEM.OPTIONS_DEFAULTS["event"]["zone-active"],
-		sliderSettingKey = addonName .. "_zone-delay",
-		sliderVariableName = "zone-delay",
-		sliderName = L["options.event.general.delay.name"],
-		sliderTooltip = L["options.event.general.delay.tooltip"]:format(L["options.event.character.zone"], MEM.OPTIONS_DEFAULTS["event"]["zone-delay"]),
-		sliderDefault = MEM.OPTIONS_DEFAULTS["event"]["zone-delay"],
-		sliderMin = 1,
-		sliderMax = 10,
-		sliderStep = 1,
-		sliderFormatter = FormatSeconds,
-		shownPredicate = isCharacterExpanded
-	})
-
-	AWL.Settings:AddDropdown(category, {
-		variableTable = MEM.Settings.event,
-		settingKey = addonName .. "_zone-type",
-		variableName = "zone-type",
-		name = L["options.event.character.zone.type.name"],
-		tooltip = L["options.event.character.zone.type.tooltip"],
-		default = MEM.OPTIONS_DEFAULTS["event"]["zone-type"],
-		options = {
-			{value = "zone", label = L["options.event.character.zone.type.zone"]},
-			{value = "instance", label = L["options.event.character.zone.type.instance"]},
-			{value = "both", label = L["options.event.character.zone.type.both"]}
-		},
-		parentInit = initializerZone,
-		parentCondition = function() return GetVal(settingZone) end,
-		shownPredicate = isCharacterExpanded
-	})
-
 	-- Level-Up
-	local initializerLevelUp, settingLevelUp = AddEvent({
+	local initializerLevelUp, settingLevelUp = AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 		variableTable			= MEM.Settings.event,
 		checkboxSettingKey		= addonName .. "_level-up-active",
 		checkboxVariableName	= "level-up-active",
@@ -386,27 +309,8 @@ function Options:Initialize()
 		shownPredicate	= isCharacterExpanded
 	})
 
-	AddEvent({
-		variableTable = MEM.Settings.event,
-		checkboxSettingKey = addonName .. "_reputation-active",
-		checkboxVariableName = "reputation-active",
-		checkboxName = L["options.event.character.reputation"],
-		checkboxTooltip = L["options.event.character.reputation.tooltip"],
-		checkboxDefault = MEM.OPTIONS_DEFAULTS["event"]["reputation-active"],
-		sliderSettingKey = addonName .. "_reputation-delay",
-		sliderVariableName = "reputation-delay",
-		sliderName = L["options.event.general.delay.name"],
-		sliderTooltip = L["options.event.general.delay.tooltip"]:format(L["options.event.character.reputation"], MEM.OPTIONS_DEFAULTS["event"]["reputation-delay"]),
-		sliderDefault = MEM.OPTIONS_DEFAULTS["event"]["reputation-delay"],
-		sliderMin = 1,
-		sliderMax = 10,
-		sliderStep = 1,
-		sliderFormatter = FormatSeconds,
-		shownPredicate = isCharacterExpanded
-	})
-
 	-- Death
-	local initializerDeath, settingDeath = AddEvent({
+	local initializerDeath, settingDeath = AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 		variableTable			= MEM.Settings.event,
 		checkboxSettingKey		= addonName .. "_death-active",
 		checkboxVariableName	= "death-active",
@@ -445,11 +349,73 @@ function Options:Initialize()
 		shownPredicate	= isCharacterExpanded
 	})
 
+	-- Reputation
+	AWL.Settings:AddCheckboxSliderCombo(category, layout, {
+		variableTable = MEM.Settings.event,
+		checkboxSettingKey = addonName .. "_reputation-active",
+		checkboxVariableName = "reputation-active",
+		checkboxName = L["options.event.character.reputation"],
+		checkboxTooltip = L["options.event.character.reputation.tooltip"],
+		checkboxDefault = MEM.OPTIONS_DEFAULTS["event"]["reputation-active"],
+		sliderSettingKey = addonName .. "_reputation-delay",
+		sliderVariableName = "reputation-delay",
+		sliderName = L["options.event.general.delay.name"],
+		sliderTooltip = L["options.event.general.delay.tooltip"]:format(L["options.event.character.reputation"], MEM.OPTIONS_DEFAULTS["event"]["reputation-delay"]),
+		sliderDefault = MEM.OPTIONS_DEFAULTS["event"]["reputation-delay"],
+		sliderMin = 1,
+		sliderMax = 10,
+		sliderStep = 1,
+		sliderFormatter = FormatSeconds,
+		shownPredicate = isCharacterExpanded
+	})
+
+	-- New Area
+	local initializerZone, settingZone = AWL.Settings:AddCheckboxSliderCombo(category, layout, {
+		isNew = true,
+		variableTable = MEM.Settings.event,
+		checkboxSettingKey = addonName .. "_zone-active",
+		checkboxVariableName = "zone-active",
+		checkboxName = L["options.event.character.zone"],
+		checkboxTooltip = L["options.event.character.zone.tooltip"],
+		checkboxDefault = MEM.OPTIONS_DEFAULTS["event"]["zone-active"],
+		sliderSettingKey = addonName .. "_zone-delay",
+		sliderVariableName = "zone-delay",
+		sliderName = L["options.event.general.delay.name"],
+		sliderTooltip = L["options.event.general.delay.tooltip"]:format(L["options.event.character.zone"], MEM.OPTIONS_DEFAULTS["event"]["zone-delay"]),
+		sliderDefault = MEM.OPTIONS_DEFAULTS["event"]["zone-delay"],
+		sliderMin = 1,
+		sliderMax = 10,
+		sliderStep = 1,
+		sliderFormatter = FormatSeconds,
+		shownPredicate = isCharacterExpanded
+	})
+
+	local zoneKeys = {}
+	local zoneOptions = {}
+	for position, area in ipairs(MEM.ZONE_TYPES) do
+		zoneKeys[position] = area.variableName
+		zoneOptions[position] = {value = position, label = L["options.event.character.zone.type." .. area.kind]}
+	end
+	local zoneDefaults = AWL.Settings:CreateMultiSelectProxy(MEM.OPTIONS_DEFAULTS.event, "zone-types", zoneKeys)
+	AWL.Settings:AddDropdown(category, {
+		variableTable = AWL.Settings:CreateMultiSelectProxy(MEM.Settings.event, "zone-types", zoneKeys),
+		settingKey = addonName .. "_zone-types",
+		variableName = "zone-types",
+		name = L["options.event.character.zone.type.name"],
+		tooltip = L["options.event.character.zone.type.tooltip"],
+		default = zoneDefaults["zone-types"],
+		options = zoneOptions,
+		multiSelect = true,
+		parentInit = initializerZone,
+		parentCondition = function() return GetVal(settingZone) end,
+		shownPredicate = isCharacterExpanded
+	})
+
 	if AWL.GAME_TYPE_RETAIL or AWL.GAME_TYPE_FOREVER or AWL.GAME_TYPE_MISTS then
-		local isAchievementExpanded = AddEventHeader(L["options.event.achievement"])
+		local _, isAchievementExpanded = AWL.Settings:AddExpandableHeader(layout, L["options.event.achievement"])
 
 		-- Personal Achievement
-		local initializerAchievementPersonal, settingAchievementPersonal = AddEvent({
+		local initializerAchievementPersonal, settingAchievementPersonal = AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 			variableTable			= MEM.Settings.event,
 			checkboxSettingKey		= addonName .. "_achievement-personal-active",
 			checkboxVariableName	= "achievement-personal-active",
@@ -490,7 +456,7 @@ function Options:Initialize()
 
 		-- Criteria Achievement
 		if AWL.GAME_TYPE_RETAIL then
-			AddEvent({
+			AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 				variableTable			= MEM.Settings.event,
 				checkboxSettingKey		= addonName .. "_achievement-criteria-active",
 				checkboxVariableName	= "achievement-criteria-active",
@@ -517,7 +483,7 @@ function Options:Initialize()
 
 		-- Guild Achievement
 		if not AWL.GAME_TYPE_FOREVER then
-			AddEvent({
+			AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 				variableTable			= MEM.Settings.event,
 				checkboxSettingKey		= addonName .. "_achievement-guild-active",
 				checkboxVariableName	= "achievement-guild-active",
@@ -544,13 +510,13 @@ function Options:Initialize()
 	end
 
 	if AWL.GAME_TYPE_RETAIL or AWL.GAME_TYPE_FOREVER then
-		local isPvEExpanded = AddEventHeader(L["options.event.pve"])
+		local _, isPvEExpanded = AWL.Settings:AddExpandableHeader(layout, L["options.event.pve"])
 
 		if AWL.GAME_TYPE_RETAIL then
 			local eventWorldVictory = L["options.event.pve.world"] .. " (" .. L["options.event.pve.victory"] .. ")"
 
 			-- World Boss
-			local initializerVictoryWorld, settingVictoryWorld = AddEvent({
+			local initializerVictoryWorld, settingVictoryWorld = AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 				variableTable			= MEM.Settings.event,
 				checkboxSettingKey		= addonName .. "_encounter-victory-world-active",
 				checkboxVariableName	= "encounter-victory-world-active",
@@ -598,7 +564,7 @@ function Options:Initialize()
 		local eventScenarioWipe    = L["options.event.pve.scenario"] .. " (" .. L["options.event.pve.wipe"] .. ")"
 
 		-- Dungeon
-		local initializerVictoryParty, settingVictoryParty = AddEvent({
+		local initializerVictoryParty, settingVictoryParty = AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 			variableTable			= MEM.Settings.event,
 			checkboxSettingKey		= addonName .. "_encounter-victory-party-active",
 			checkboxVariableName	= "encounter-victory-party-active",
@@ -633,7 +599,7 @@ function Options:Initialize()
 		})
 
 		-- Dungeon: Wipe
-		AddEvent({
+		AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 			variableTable			= MEM.Settings.event,
 			checkboxSettingKey		= addonName .. "_encounter-wipe-party-active",
 			checkboxVariableName	= "encounter-wipe-party-active",
@@ -655,7 +621,7 @@ function Options:Initialize()
 		})
 
 		-- Raid
-		local initializerVictoryRaid, settingVictoryRaid = AddEvent({
+		local initializerVictoryRaid, settingVictoryRaid = AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 			variableTable			= MEM.Settings.event,
 			checkboxSettingKey		= addonName .. "_encounter-victory-raid-active",
 			checkboxVariableName	= "encounter-victory-raid-active",
@@ -690,7 +656,7 @@ function Options:Initialize()
 		})
 
 		-- Raid: Wipe
-		AddEvent({
+		AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 			variableTable			= MEM.Settings.event,
 			checkboxSettingKey		= addonName .. "_encounter-wipe-raid-active",
 			checkboxVariableName	= "encounter-wipe-raid-active",
@@ -713,7 +679,7 @@ function Options:Initialize()
 
 		if AWL.GAME_TYPE_RETAIL then
 			-- Scenario
-			local initializerVictoryScenario, settingVictoryScenario = AddEvent({
+			local initializerVictoryScenario, settingVictoryScenario = AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 				variableTable			= MEM.Settings.event,
 				checkboxSettingKey		= addonName .. "_encounter-victory-scenario-active",
 				checkboxVariableName	= "encounter-victory-scenario-active",
@@ -751,7 +717,7 @@ function Options:Initialize()
 			})
 
 			-- Scenario: Wipe
-			AddEvent({
+			AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 				variableTable			= MEM.Settings.event,
 				checkboxSettingKey		= addonName .. "_encounter-wipe-scenario-active",
 				checkboxVariableName	= "encounter-wipe-scenario-active",
@@ -780,7 +746,7 @@ function Options:Initialize()
 		if AWL.GAME_TYPE_RETAIL then
 			AWL.Settings:AddSeparator(layout):AddShownPredicate(isPvEExpanded)
 
-			AddEvent({
+			AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 				variableTable			= MEM.Settings.event,
 				checkboxSettingKey		= addonName .. "_mythic-active",
 				checkboxVariableName	= "mythic-active",
@@ -804,10 +770,10 @@ function Options:Initialize()
 
 	end
 
-	local isPvPExpanded = AddEventHeader(L["options.event.pvp"])
+	local _, isPvPExpanded = AWL.Settings:AddExpandableHeader(layout, L["options.event.pvp"])
 
 	-- Duel (Global)
-	AddEvent({
+	AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 		variableTable			= MEM.Settings.event,
 		checkboxSettingKey		= addonName .. "_pvp-duel-active",
 		checkboxVariableName	= "pvp-duel-active",
@@ -830,7 +796,7 @@ function Options:Initialize()
 
 	if AWL.GAME_TYPE_RETAIL then
 		-- Arena
-		AddEvent({
+		AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 			variableTable			= MEM.Settings.event,
 			checkboxSettingKey		= addonName .. "_pvp-arena-active",
 			checkboxVariableName	= "pvp-arena-active",
@@ -854,7 +820,7 @@ function Options:Initialize()
 
 	if AWL.GAME_TYPE_RETAIL or AWL.GAME_TYPE_FOREVER then
 		-- Battleground
-		local initializerBattleground, settingBattleground = AddEvent({
+		local initializerBattleground, settingBattleground = AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 			variableTable			= MEM.Settings.event,
 			checkboxSettingKey		= addonName .. "_pvp-battleground-active",
 			checkboxVariableName	= "pvp-battleground-active",
@@ -893,7 +859,7 @@ function Options:Initialize()
 
 		if AWL.GAME_TYPE_RETAIL then
 			-- Brawl
-			local initializerBrawl, settingBrawl = AddEvent({
+			local initializerBrawl, settingBrawl = AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 				variableTable			= MEM.Settings.event,
 				checkboxSettingKey		= addonName .. "_pvp-brawl-active",
 				checkboxVariableName	= "pvp-brawl-active",
@@ -929,11 +895,11 @@ function Options:Initialize()
 		end
 	end
 
-	local isCollectionExpanded = AddEventHeader(L["options.event.collection"])
+	local _, isCollectionExpanded = AWL.Settings:AddExpandableHeader(layout, L["options.event.collection"])
 
 	local function AddCollectionEntry(key, nameString, tooltip, condition)
 		if condition then
-			AddEvent({
+			AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 				variableTable			= MEM.Settings.event,
 				checkboxSettingKey		= addonName .. "_collection-" .. key .. "-active",
 				checkboxVariableName	= "collection-" .. key .. "-active",
@@ -962,10 +928,10 @@ function Options:Initialize()
 	AddCollectionEntry("recipe", L["options.event.collection.new-recipe"], L["options.event.collection.new-recipe.tooltip"], true)
 	AddCollectionEntry("housing", L["options.event.collection.new-housing-item"], L["options.event.collection.new-housing-item.tooltip"], AWL.GAME_TYPE_RETAIL)
 
-	local isOtherExpanded = AddEventHeader(L["options.event.other"])
+	local _, isOtherExpanded = AWL.Settings:AddExpandableHeader(layout, L["options.event.other"])
 
 	-- Interval
-	AddEvent({
+	AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 		variableTable			= MEM.Settings.event,
 		checkboxSettingKey		= addonName .. "_interval-active",
 		checkboxVariableName	= "interval-active",
@@ -988,7 +954,7 @@ function Options:Initialize()
 
 	if AWL.GAME_TYPE_RETAIL then
 		-- Traveler's Log
-		AddEvent({
+		AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 			variableTable			= MEM.Settings.event,
 			checkboxSettingKey		= addonName .. "_perks-activity-active",
 			checkboxVariableName	= "perks-activity-active",
@@ -1013,7 +979,7 @@ function Options:Initialize()
 		})
 
 		-- Special Loot
-		local initializerLootToast, settingLootToast = AddEvent({
+		local initializerLootToast, settingLootToast = AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 			variableTable			= MEM.Settings.event,
 			checkboxSettingKey		= addonName .. "_loot-toast-active",
 			checkboxVariableName	= "loot-toast-active",

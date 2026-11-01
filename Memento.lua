@@ -15,7 +15,7 @@ local Options = MEM.Modules.Options
 local Reputation = MEM.Modules.Reputation
 local Utils = MEM.Modules.Utils
 
-local ZoneData = MEM.ZONE_DATA
+local ZoneSettingKeys = MEM.ZONE_SETTING_BY_TYPE
 
 -- Variables
 local isInitialized = false
@@ -57,10 +57,10 @@ local function GetCurrentArea()
 	if not instanceType or instanceType == "" then return nil end
 
 	if instanceType ~= "none" then
-		if not ZoneData.instanceTypes[instanceType] then return nil end
+		if instanceType == "zone" or not ZoneSettingKeys[instanceType] then return nil end
 		if not instanceID or instanceID <= 0 or not name or name == "" then return nil end
 
-		return "instance", instanceID, name
+		return instanceType, instanceID, name
 	end
 
 	local mapID = C_Map.GetBestMapForUnit("player")
@@ -536,16 +536,16 @@ function MementoFrame:ZONE_CHANGED_NEW_AREA()
 	local settings = MEM.Settings.event
 	if not settings["zone-active"] then
 		Utils:PrintDebug("New area screenshots are disabled. No screenshot requested.")
-	elseif MEM.Data.zone[kind][id] then
-		Utils:PrintDebug("Area already visited. No screenshot requested.")
-	elseif settings["zone-type"] ~= "both" and settings["zone-type"] ~= kind then
-		Utils:PrintDebug(string.format(
-			"Area type '%s' does not match the selected type '%s'. No screenshot requested.",
-			tostring(kind), tostring(settings["zone-type"])
-		))
+	elseif not settings[ZoneSettingKeys[kind]] then
+		Utils:PrintDebug(string.format("Area type '%s' is not selected. No screenshot requested.", kind))
 	else
-		ScheduleScreenshot("ZoneEventHandler", settings["zone-delay"] + MEM.CAPTURE_DELAY_OFFSET, name)
-		MEM.Data.zone[kind][id] = true
+		local visits = kind == "zone" and MEM.Data.zone.zone or MEM.Data.zone.instance
+		if visits[id] then
+			Utils:PrintDebug("Area already visited. No screenshot requested.")
+		else
+			ScheduleScreenshot("ZoneEventHandler", settings["zone-delay"] + MEM.CAPTURE_DELAY_OFFSET, name)
+			visits[id] = true
+		end
 	end
 
 	Utils:PrintDebug("Event 'ZONE_CHANGED_NEW_AREA' completed.")

@@ -2,7 +2,7 @@
 ### [@project-version@](https://github.com/arcane-wizard-dev/Memento/tree/@project-version@) (@build-date@)
 [Full Changelog](@full-changelog@) - [Previous Releases](https://github.com/arcane-wizard-dev/Memento/releases)
 
-- Changed: Reorganized the options menu to group related settings, show active event counts, and clarify which controls are available
+- Changed: Grouped related settings in the options menu and added individual choices for area types
 - Changed: Areas count as visited when Memento requests a screenshot
 - Changed: Limited loading to Retail, Forever, Classic, and Talebound
 - Updated: deDE, enUS, ruRU localizations

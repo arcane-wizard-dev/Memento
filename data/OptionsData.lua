@@ -2,6 +2,23 @@ local _, MEM = ...
 
 if MEM.State and MEM.State.libraryIncompatible then return end
 
+MEM.ZONE_TYPES = {
+	{kind = "zone", variableName = "zone-open-world"},
+	{kind = "party", variableName = "zone-dungeon"},
+	{kind = "raid", variableName = "zone-raid"},
+	{kind = "scenario", variableName = "zone-scenario"},
+	{kind = "pvp", variableName = "zone-battleground"},
+	{kind = "arena", variableName = "zone-arena"}
+}
+if ArcaneWizardLibrary.GAME_TYPE_RETAIL then
+	MEM.ZONE_TYPES[#MEM.ZONE_TYPES + 1] = {kind = "neighborhood", variableName = "zone-neighborhood"}
+end
+
+MEM.ZONE_SETTING_BY_TYPE = {}
+for _, area in ipairs(MEM.ZONE_TYPES) do
+	MEM.ZONE_SETTING_BY_TYPE[area.kind] = area.variableName
+end
+
 MEM.NOTIFICATION_OPTIONS = {
 	{variableName = "notification-timestamp", localizationKey = "options.general.notification.timestamp"},
 	{variableName = "notification-class", localizationKey = "options.general.notification.class"},
@@ -40,7 +57,13 @@ MEM.OPTIONS_DEFAULTS = {
 		["login-delay"] = 5,
 		["zone-active"] = false,
 		["zone-delay"] = 2,
-		["zone-type"] = "both",
+		["zone-open-world"] = true,
+		["zone-dungeon"] = true,
+		["zone-raid"] = true,
+		["zone-scenario"] = true,
+		["zone-battleground"] = true,
+		["zone-arena"] = true,
+		["zone-neighborhood"] = true,
 		["level-up-active"] = true,
 		["level-up-delay"] = 5,
 		["level-up-time-played"] = false,

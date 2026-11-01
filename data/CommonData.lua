@@ -20,17 +20,6 @@ MEM.SCREENSHOT_QUALITY = {
 	default = 3
 }
 
-MEM.ZONE_DATA = {
-	instanceTypes = {
-		party = true,
-		raid = true,
-		scenario = true,
-		pvp = true,
-		arena = true,
-		neighborhood = true
-	}
-}
-
 -- Loot Toast
 MEM.LOOT_TOAST_ITEM_LOAD_RETRY_DELAY = 0.2
 MEM.LOOT_TOAST_ITEM_LOAD_RETRY_COUNT = 5

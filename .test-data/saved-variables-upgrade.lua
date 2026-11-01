@@ -5,6 +5,7 @@
 Memento_Options_v6 = {
 	["account"] = {
 		["event"] = {
+			["zone-type"] = "instance",
 			["encounter-victory-raid-first"] = true,
 			["interval-timer"] = 10,
 			["level-up-active"] = false,
@@ -44,6 +45,7 @@ Memento_Options_v6 = {
 	["profiles"] = {
 		["Player-TEST-CURRENT"] = {
 			["event"] = {
+				["zone-type"] = "zone",
 				["encounter-victory-raid-first"] = true,
 				["interval-timer"] = 10,
 				["level-up-active"] = false,
@@ -68,6 +70,7 @@ Memento_Options_v6 = {
 		},
 		["Player-TEST-OFFLINE"] = {
 			["event"] = {
+				["zone-type"] = "both",
 				["encounter-victory-raid-first"] = true,
 				["interval-timer"] = 10,
 				["level-up-active"] = false,
