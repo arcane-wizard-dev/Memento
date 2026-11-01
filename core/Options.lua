@@ -1047,6 +1047,58 @@ function Options:Initialize()
 		})
 	end
 
+	-- Manual Screenshots
+	layout:AddInitializer(CreateSettingsListSectionHeaderInitializer(L["options.manual"]))
+
+	local _, manualVisibilitySetting = AWL.Settings:AddCheckbox(category, {
+		isNew = true,
+		variableTable = MEM.Settings.manual,
+		settingKey = addonName .. "_manual-button-visible",
+		variableName = "manual-button-visible",
+		name = L["options.manual.button.name"],
+		tooltip = L["options.manual.button.tooltip"],
+		default = MEM.OPTIONS_DEFAULTS.manual["manual-button-visible"],
+		onClick = function(_, value)
+			MEM.Modules.ScreenshotButton:SetShown(value)
+		end
+	})
+	MEM.Modules.ScreenshotButton.visibilitySetting = manualVisibilitySetting
+	AWL.Settings:AddCheckboxSliderCombo(category, layout, {
+		variableTable = MEM.Settings.manual,
+		checkboxSettingKey = addonName .. "_manual-countdown-active",
+		checkboxVariableName = "manual-countdown-active",
+		checkboxName = L["options.manual.countdown.name"],
+		checkboxTooltip = L["options.manual.countdown.tooltip"],
+		checkboxDefault = MEM.OPTIONS_DEFAULTS.manual["manual-countdown-active"],
+		sliderSettingKey = addonName .. "_manual-countdown-seconds",
+		sliderVariableName = "manual-countdown-seconds",
+		sliderName = L["options.manual.delay.name"],
+		sliderTooltip = L["options.manual.delay.tooltip"],
+		sliderDefault = MEM.OPTIONS_DEFAULTS.manual["manual-countdown-seconds"],
+		sliderMin = 1,
+		sliderMax = 10,
+		sliderStep = 1,
+		sliderFormatter = FormatSeconds
+	})
+	local initializerManualUI, settingManualUI = AWL.Settings:AddCheckbox(category, {
+		variableTable = MEM.Settings.manual,
+		settingKey = addonName .. "_manual-hide-ui",
+		variableName = "manual-hide-ui",
+		name = L["options.general.hide-ui.name"],
+		tooltip = L["options.general.hide-ui.tooltip"],
+		default = MEM.OPTIONS_DEFAULTS.manual["manual-hide-ui"]
+	})
+	AWL.Settings:AddCheckbox(category, {
+		variableTable = MEM.Settings.manual,
+		settingKey = addonName .. "_manual-show-message",
+		variableName = "manual-show-message",
+		name = L["options.general.hide-ui.message.name"],
+		tooltip = L["options.general.hide-ui.message.tooltip"],
+		default = MEM.OPTIONS_DEFAULTS.manual["manual-show-message"],
+		parentInit = initializerManualUI,
+		parentCondition = function() return GetVal(settingManualUI) end
+	})
+
 	-- Profiles Section
 	AWL.Settings:AddProfilesSection(layout, {
 		useAccountProfile			= Addon:IsAccountProfile(),

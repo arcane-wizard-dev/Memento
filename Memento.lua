@@ -186,6 +186,7 @@ function MementoFrame:ADDON_LOADED(_, addOnName)
 
 	Utils:InitializeMinimapButton()
 	Options:Initialize()
+	MEM.Modules.ScreenshotButton:Initialize()
 
 	Utils:RequestTimePlayed()
 	Addon:OpenSettingsOnLoading()

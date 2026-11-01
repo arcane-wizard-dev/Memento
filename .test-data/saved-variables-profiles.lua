@@ -82,6 +82,15 @@ Memento_Options_v6 = {
 			["reputation-active"] = false,
 			["reputation-delay"] = 0,
 		},
+		["manual"] = {
+			["manual-button-visible"] = false,
+			["manual-button-x"] = 0,
+			["manual-button-y"] = 0,
+			["manual-countdown-active"] = false,
+			["manual-countdown-seconds"] = 3,
+			["manual-hide-ui"] = true,
+			["manual-show-message"] = false,
+		},
 		["general"] = {
 			["debug-mode"] = false,
 			["hide-ui"] = false,
@@ -195,6 +204,15 @@ Memento_Options_v6 = {
 				["reputation-active"] = false,
 				["reputation-delay"] = 0,
 			},
+			["manual"] = {
+				["manual-button-visible"] = true,
+				["manual-button-x"] = 45,
+				["manual-button-y"] = -30,
+				["manual-countdown-active"] = true,
+				["manual-countdown-seconds"] = 10,
+				["manual-hide-ui"] = true,
+				["manual-show-message"] = true,
+			},
 			["general"] = {
 				["debug-mode"] = false,
 				["hide-ui"] = false,
@@ -293,6 +311,15 @@ Memento_Options_v6 = {
 				["pvp-duel-delay"] = 1,
 				["reputation-active"] = false,
 				["reputation-delay"] = 0,
+			},
+			["manual"] = {
+				["manual-button-visible"] = false,
+				["manual-button-x"] = -60,
+				["manual-button-y"] = 20,
+				["manual-countdown-active"] = false,
+				["manual-countdown-seconds"] = 1,
+				["manual-hide-ui"] = true,
+				["manual-show-message"] = false,
 			},
 			["general"] = {
 				["debug-mode"] = false,

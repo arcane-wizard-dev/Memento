@@ -8,15 +8,19 @@ Memento is a World of Warcraft addon that automatically takes screenshots of sel
 
 > ⚠️ **Important!** This addon requires **Arcane Wizard: Library**. See Installation & Quick Start for installation details.
 
-## Key Feature
+## Key Features
 
 **Automated Screenshots** - Choose which events trigger a screenshot and adjust how the images are captured.
+
+**Manual Screenshots** - Take screenshots with a movable on-screen button and an optional countdown.
 
 ## Features
 
 Individual features and display options can be configured in the addon settings. Memento supports an account profile and character profiles.
 
-### Retail
+### Automated Screenshots
+
+#### Retail
 
 * Captures level-ups, deaths, and logins.
 * <sup>✨ NEW</sup> Captures first visits to open-world zones and supported instances.
@@ -31,7 +35,7 @@ Individual features and display options can be configured in the addon settings.
 * Captures special loot: items, gold, and currencies.
 * Takes screenshots at regular intervals.
 
-### Forever
+#### Forever
 
 * Captures level-ups, deaths, and logins.
 * <sup>✨ NEW</sup> Captures first visits to open-world zones and supported instances.
@@ -42,7 +46,7 @@ Individual features and display options can be configured in the addon settings.
 * Captures new pets and recipes.
 * Takes screenshots at regular intervals.
 
-### Classic
+#### Classic
 
 Shared by Classic, Burning Crusade - Classic Anniversary Edition, and Mists of Pandaria - Classic:
 
@@ -58,12 +62,17 @@ Additional events in Mists of Pandaria - Classic:
 * Captures personal and guild achievements.
 * Captures new pets, mounts, and toys.
 
+### Manual Screenshots
+
+* <sup>✨ NEW</sup> Takes screenshots from a movable on-screen button.
+* <sup>✨ NEW</sup> Offers an optional countdown from 1 to 10 seconds.
+
 ### Capture Settings
 
 * Each event can be activated separately.
-* Can automatically hide the user interface for screenshots outside combat, with an optional notification box showing a timestamp.
+* Automatic and manual screenshots have separate options to hide the user interface and show a capture notice with a timestamp.
 * Supports JPEG, PNG, and TGA with adjustable JPEG quality.
-* Offers several timestamp formats for chat notifications and the screenshot notification box.
+* Offers several timestamp formats for chat notifications and the capture notice.
 * A configurable sound effect can be played after a screenshot has been taken.
 * Adds an adjustable delay between the event and the screenshot.
 * In Retail and Forever, boss victories are saved, and screenshots can optionally be limited to the first victory per boss.

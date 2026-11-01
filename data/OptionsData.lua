@@ -59,6 +59,15 @@ MEM.OPTIONS_DEFAULTS = {
 		["screenshot-sound-style"] = "memento-camera",
 		["debug-mode"] = false,
 	},
+	["manual"] = {
+		["manual-button-visible"] = false,
+		["manual-button-x"] = 0,
+		["manual-button-y"] = 0,
+		["manual-countdown-active"] = false,
+		["manual-countdown-seconds"] = 3,
+		["manual-hide-ui"] = true,
+		["manual-show-message"] = false,
+	},
 	["event"] = {
 		["login-active"] = false,
 		["login-delay"] = 5,

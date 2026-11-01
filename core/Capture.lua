@@ -113,6 +113,9 @@ local function ProcessCaptureQueue()
 			frame:Hide()
 		end
 		captureInProgress = false
+		if request.onFinished then
+			request.onFinished()
+		end
 		ProcessCaptureQueue()
 	end
 
@@ -163,8 +166,8 @@ local function ProcessCaptureQueue()
 	end
 end
 
-local function TakeScreenshot()
-	captureQueue[#captureQueue + 1] = {
+local function TakeScreenshot(request)
+	captureQueue[#captureQueue + 1] = request or {
 		hideUI = MEM.Settings.general["hide-ui"],
 		showMessage = MEM.Settings.general["hide-ui-message"]
 	}
@@ -329,6 +332,14 @@ local function IntervalEventHandler()
 	NotifyScreenshot(L["chat.event.interval.new"])
 end
 
+local function ManualEventHandler(onFinished)
+	TakeScreenshot({
+		hideUI = MEM.Settings.manual["manual-hide-ui"] ~= false,
+		showMessage = MEM.Settings.manual["manual-show-message"],
+		onFinished = onFinished
+	})
+end
+
 local handlerTable = {
 	["AchievementPersonalEventHandler"] = AchievementPersonalEventHandler,
 	["AchievementGuildEventHandler"]    = AchievementGuildEventHandler,
@@ -352,7 +363,8 @@ local handlerTable = {
 	["MythicEventHandler"]              = MythicEventHandler,
 	["PerksActivityEventHandler"]       = PerksActivityEventHandler,
 	["LootToastEventHandler"]           = LootToastEventHandler,
-	["IntervalEventHandler"]            = IntervalEventHandler
+	["IntervalEventHandler"]            = IntervalEventHandler,
+	["ManualEventHandler"]              = ManualEventHandler
 }
 
 ------------------------

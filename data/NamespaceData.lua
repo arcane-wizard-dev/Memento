@@ -9,6 +9,7 @@ MEM.UIConfig = MEM.UIConfig or {}
 MEM.Modules = MEM.Modules or {}
 
 MEM.Modules.Capture = MEM.Modules.Capture or {}
+MEM.Modules.ScreenshotButton = MEM.Modules.ScreenshotButton or {}
 MEM.Modules.Options = MEM.Modules.Options or {}
 MEM.Modules.Reputation = MEM.Modules.Reputation or {}
 MEM.Modules.Utils = MEM.Modules.Utils or {}

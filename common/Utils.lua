@@ -125,6 +125,7 @@ function Utils:InitializeDatabase()
 
 	MEM.Settings.global = dbInit.global
 	MEM.Settings.general = dbInit.settings["general"]
+	MEM.Settings.manual = dbInit.settings["manual"]
 	MEM.Settings.event = dbInit.settings["event"]
 
 	if not Memento_DataBossKill then
