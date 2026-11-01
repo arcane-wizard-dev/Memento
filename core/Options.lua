@@ -1063,6 +1063,9 @@ function Options:Initialize()
 		end
 	})
 	MEM.Modules.ScreenshotButton.visibilitySetting = manualVisibilitySetting
+	AWL.Settings:AddKeyBinding(layout, {
+		binding = "MEMENTO_MANUAL_SCREENSHOT"
+	})
 	AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 		variableTable = MEM.Settings.manual,
 		checkboxSettingKey = addonName .. "_manual-countdown-active",

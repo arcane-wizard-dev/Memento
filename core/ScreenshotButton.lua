@@ -5,12 +5,18 @@ if MEM.State and MEM.State.libraryIncompatible then return end
 -- Library
 local AWL = ArcaneWizardLibrary
 
+-- Localization
+local L = MEM.Localization
+
 -- Current module
 local ScreenshotButton = MEM.Modules.ScreenshotButton
 
 -- Module imports
 local ButtonConfig = MEM.UIConfig.ScreenshotButton
 local Capture = MEM.Modules.Capture
+
+BINDING_HEADER_MEMENTO = addonName
+BINDING_NAME_MEMENTO_MANUAL_SCREENSHOT = L["bindings.manual-screenshot"]
 
 --------------
 --- Frames ---
@@ -29,8 +35,22 @@ local function UpdateButton(enabled)
 	CaptureButton:SetEnabled(enabled)
 	CaptureButton:GetHighlightTexture():SetAlpha(enabled and ButtonConfig.hoverAlpha or 0)
 	if CaptureIcon then
-		CaptureIcon:SetDesaturated(not enabled)
+		CaptureIcon:SetTexture(enabled and ButtonConfig.icon or ButtonConfig.waitingIcon)
 	end
+end
+
+------------------------
+--- Public Functions ---
+------------------------
+
+function Memento_TakeManualScreenshot()
+	if not CaptureButton or not CaptureButton:IsEnabled() then return end
+	UpdateButton(false)
+	local delay = MEM.Settings.manual["manual-countdown-active"]
+		and MEM.Settings.manual["manual-countdown-seconds"] or 0
+	Capture:ScheduleTimer("ManualEventHandler", delay, function()
+		UpdateButton(true)
+	end)
 end
 
 ------------------------
@@ -94,15 +114,7 @@ function ScreenshotButton:Initialize()
 		CaptureIcon:ClearAllPoints()
 		CaptureIcon:SetPoint("CENTER")
 	end)
-	CaptureButton:SetScript("OnClick", function()
-		if not CaptureButton:IsEnabled() then return end
-		UpdateButton(false)
-		local delay = MEM.Settings.manual["manual-countdown-active"]
-			and MEM.Settings.manual["manual-countdown-seconds"] or 0
-		Capture:ScheduleTimer("ManualEventHandler", delay, function()
-			UpdateButton(true)
-		end)
-	end)
+	CaptureButton:SetScript("OnClick", Memento_TakeManualScreenshot)
 	UpdateButton(true)
 	self:SetShown(MEM.Settings.manual["manual-button-visible"])
 end

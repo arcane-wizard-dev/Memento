@@ -6,6 +6,10 @@ if GetLocale() ~= "ruRU" then return end
 
 local L = MEM.Localization
 
+-- Key Bindings
+
+L["bindings.manual-screenshot"] = "Создать снимок экрана вручную"
+
 -- Options
 
 L["options.general"] = "Общие параметры"

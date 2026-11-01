@@ -11,5 +11,6 @@ MEM.UIConfig.ScreenshotButton = {
 	backgroundAlpha = 0.6,
 	backgroundColor = {0, 0, 0, 1},
 	icon = "Interface\\AddOns\\Memento\\assets\\icon-filled.tga",
+	waitingIcon = "Interface\\AddOns\\Memento\\assets\\icon-waiting.tga",
 	closeButton = {size = 16, point = "TOPRIGHT", x = 4, y = 4}
 }

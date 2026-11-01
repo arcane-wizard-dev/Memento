@@ -6,6 +6,10 @@ if GetLocale() ~= "deDE" then return end
 
 local L = MEM.Localization
 
+-- Key Bindings
+
+L["bindings.manual-screenshot"] = "Manuellen Screenshot erstellen"
+
 -- Options
 
 L["options.general"] = "Allgemeine Einstellungen"

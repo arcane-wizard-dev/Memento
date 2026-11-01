@@ -1,0 +1,7 @@
+<Bindings>
+	<Binding name="MEMENTO_MANUAL_SCREENSHOT" category="BINDING_HEADER_MEMENTO">
+		if Memento_TakeManualScreenshot then
+			Memento_TakeManualScreenshot()
+		end
+	</Binding>
+</Bindings>

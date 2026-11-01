@@ -14,6 +14,10 @@ MEM.Localization = setmetatable({}, {
 
 local L = MEM.Localization
 
+-- Key Bindings
+
+L["bindings.manual-screenshot"] = "Take Manual Screenshot"
+
 -- Options
 
 L["options.general"] = "General Options"

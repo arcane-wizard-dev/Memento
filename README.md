@@ -65,6 +65,7 @@ Additional events in Mists of Pandaria - Classic:
 ### Manual Screenshots
 
 * <sup>✨ NEW</sup> Takes screenshots from a movable on-screen button.
+* <sup>✨ NEW</sup> Supports a custom key binding.
 * <sup>✨ NEW</sup> Offers an optional countdown from 1 to 10 seconds.
 
 ### Capture Settings
