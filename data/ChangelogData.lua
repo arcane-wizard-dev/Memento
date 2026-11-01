@@ -12,6 +12,20 @@ MEM.CHANGELOG = {
 		version = version,
 		date = buildDate ~= "" and buildDate or nil,
 		entries = {
+			"Changed: Grouped related settings in the options menu and added individual choices for supported area types",
+			"Changed: Areas count as visited when Memento requests a screenshot",
+			"Changed: Limited loading to Retail, Forever, Classic, and Talebound",
+			"Updated: deDE, enUS, ruRU localizations",
+			"Fixed: Housing neighborhoods were not recognized by the 'New area' event [retail]",
+			"Fixed: Visited areas were lost after a reload or logout",
+			"Requires Arcane Wizard: Library revision 2 or later",
+			"Minor code adjustments"
+		}
+	},
+	{
+		version = "v2.40",
+		date = "2026-10-29",
+		entries = {
 			"Added: TOC version for patch 12.1.7 [retail]",
 			"Updated: Addon description",
 			"Removed: TOC version for patch 12.1.0 [retail]"
@@ -86,16 +100,6 @@ MEM.CHANGELOG = {
 			"Changed: Reordered options and separated subsections within option groups with horizontal lines",
 			"Updated: Logo",
 			"Updated: Compatibility with the beta client [forever]"
-		}
-	},
-	{
-		version = "v2.31",
-		date = "2026-09-27",
-		entries = {
-			"Changed: Level-up notifications show the previous level's playtime once on a separate line",
-			"Updated: Compatibility with the beta client [forever]",
-			"Updated: deDE, enUS localizations",
-			"Minor code adjustments"
 		}
 	}
 	-- END GENERATED CHANGELOG
