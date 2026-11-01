@@ -2,15 +2,22 @@ local _, MEM = ...
 
 if MEM.State and MEM.State.libraryIncompatible then return end
 
+-- Library
+local AWL = ArcaneWizardLibrary
+
 MEM.ZONE_TYPES = {
 	{kind = "zone", variableName = "zone-open-world"},
 	{kind = "party", variableName = "zone-dungeon"},
-	{kind = "raid", variableName = "zone-raid"},
-	{kind = "scenario", variableName = "zone-scenario"},
-	{kind = "pvp", variableName = "zone-battleground"},
-	{kind = "arena", variableName = "zone-arena"}
+	{kind = "raid", variableName = "zone-raid"}
 }
-if ArcaneWizardLibrary.GAME_TYPE_RETAIL then
+if not AWL.GAME_TYPE_CLASSIC and not AWL.GAME_TYPE_TBC then
+	MEM.ZONE_TYPES[#MEM.ZONE_TYPES + 1] = {kind = "scenario", variableName = "zone-scenario"}
+end
+MEM.ZONE_TYPES[#MEM.ZONE_TYPES + 1] = {kind = "pvp", variableName = "zone-battleground"}
+if not AWL.GAME_TYPE_CLASSIC then
+	MEM.ZONE_TYPES[#MEM.ZONE_TYPES + 1] = {kind = "arena", variableName = "zone-arena"}
+end
+if AWL.GAME_TYPE_RETAIL then
 	MEM.ZONE_TYPES[#MEM.ZONE_TYPES + 1] = {kind = "neighborhood", variableName = "zone-neighborhood"}
 end
 

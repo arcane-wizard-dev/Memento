@@ -141,7 +141,7 @@ L["options.event.collection.new-mount.tooltip"] = "Takes a screenshot when a new
 L["options.event.collection.new-toy"] = "New Toy"
 L["options.event.collection.new-toy.tooltip"] = "Takes a screenshot when a new toy is added to the collection."
 L["options.event.collection.new-recipe"] = "New Recipe"
-L["options.event.collection.new-recipe.tooltip"] = "Takes a screenshot when a new recipe is learned. If several recipes are learned at once, e.g. from a trainer, several screenshots may be taken."
+L["options.event.collection.new-recipe.tooltip"] = "Takes a screenshot when a new recipe is learned."
 L["options.event.collection.new-housing-item"] = "New Housing Decor"
 L["options.event.collection.new-housing-item.tooltip"] = "Takes a screenshot when a new housing decor item is acquired."
 

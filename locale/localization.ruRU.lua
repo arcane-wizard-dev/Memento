@@ -133,7 +133,7 @@ L["options.event.collection.new-mount.tooltip"] = "Создаёт снимок �
 L["options.event.collection.new-toy"] = "Новая игрушка"
 L["options.event.collection.new-toy.tooltip"] = "Создаёт снимок экрана, когда в коллекцию добавляется новая игрушка."
 L["options.event.collection.new-recipe"] = "Новый рецепт"
-L["options.event.collection.new-recipe.tooltip"] = "Создаёт снимок экрана при изучении нового рецепта. Если изучить сразу несколько рецептов, например у учителя, может быть создано несколько снимков."
+L["options.event.collection.new-recipe.tooltip"] = "Создаёт снимок экрана при изучении нового рецепта."
 L["options.event.collection.new-housing-item"] = "Новый предмет декора"
 L["options.event.collection.new-housing-item.tooltip"] = "Создаёт снимок экрана при получении нового предмета декора."
 

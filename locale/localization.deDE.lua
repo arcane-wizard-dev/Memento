@@ -133,7 +133,7 @@ L["options.event.collection.new-mount.tooltip"] = "Erstellt einen Screenshot, we
 L["options.event.collection.new-toy"] = "Neues Spielzeug"
 L["options.event.collection.new-toy.tooltip"] = "Erstellt einen Screenshot, wenn der Sammlung ein neues Spielzeug hinzugefügt wird."
 L["options.event.collection.new-recipe"] = "Neues Rezept"
-L["options.event.collection.new-recipe.tooltip"] = "Erstellt einen Screenshot, wenn ein neues Rezept erlernt wird. Werden mehrere Rezepte auf einmal erlernt, etwa bei einem Lehrer, können mehrere Screenshots entstehen."
+L["options.event.collection.new-recipe.tooltip"] = "Erstellt einen Screenshot, wenn ein neues Rezept erlernt wird."
 L["options.event.collection.new-housing-item"] = "Neue Behausungsdekoration"
 L["options.event.collection.new-housing-item.tooltip"] = "Erstellt einen Screenshot, wenn eine neue Behausungsdekoration erhalten wird."
 
