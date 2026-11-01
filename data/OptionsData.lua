@@ -65,7 +65,7 @@ MEM.OPTIONS_DEFAULTS = {
 		["manual-button-y"] = 0,
 		["manual-countdown-active"] = false,
 		["manual-countdown-seconds"] = 3,
-		["manual-hide-ui"] = true,
+		["manual-hide-ui"] = false,
 		["manual-show-message"] = false,
 	},
 	["event"] = {
