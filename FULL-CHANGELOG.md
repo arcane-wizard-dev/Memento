@@ -1,3 +1,9 @@
+**v2.42 (2026-11-01)**
+- Added: Manual screenshots with a movable button, a key binding configurable in the addon settings, optional countdown and capture notice
+- Changed: The TOC no longer restricts loading by game type
+- Requires Arcane Wizard: Library revision 3 or later
+- Minor code adjustments
+
 **v2.41 (2026-11-01)**
 - Changed: Grouped related settings in the options menu and added individual choices for supported area types
 - Changed: Areas count as visited when Memento requests a screenshot
