@@ -1,3 +1,13 @@
+**v2.41 (2026-11-01)**
+- Changed: Grouped related settings in the options menu and added individual choices for supported area types
+- Changed: Areas count as visited when Memento requests a screenshot
+- Changed: Limited loading to Retail, Forever, Classic, and Talebound
+- Updated: deDE, enUS, ruRU localizations
+- Fixed: Housing neighborhoods were not recognized by the 'New area' event [retail]
+- Fixed: Visited areas were lost after a reload or logout
+- Requires Arcane Wizard: Library revision 2 or later
+- Minor code adjustments
+
 **v2.40 (2026-10-29)**
 - Added: TOC version for patch 12.1.7 [retail]
 - Updated: Addon description
