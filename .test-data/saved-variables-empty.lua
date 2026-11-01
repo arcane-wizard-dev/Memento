@@ -6,4 +6,4 @@ Memento_Options_v6 = {}
 
 Memento_DataBossKill = {}
 
-Memento_DataZone_v3 = {}
+Memento_DataZone = {}

@@ -49,6 +49,10 @@ end
 
 local function GetCurrentArea()
 	local name, instanceType, _, _, _, _, _, instanceID = GetInstanceInfo()
+	Utils:PrintDebug(string.format(
+		"GetInstanceInfo() returned: name=%s, instanceType=%s, instanceID=%s",
+		tostring(name), tostring(instanceType), tostring(instanceID)
+	))
 
 	if not instanceType or instanceType == "" then return nil end
 
@@ -60,25 +64,39 @@ local function GetCurrentArea()
 	end
 
 	local mapID = C_Map.GetBestMapForUnit("player")
+	Utils:PrintDebug(string.format("C_Map.GetBestMapForUnit('player') returned: mapID=%s", tostring(mapID)))
 	if not mapID or mapID <= 0 then return nil end
 
 	local info = MapUtil.GetMapParentInfo(mapID, Enum.UIMapType.Zone)
+	Utils:PrintDebug(string.format(
+		"MapUtil.GetMapParentInfo() returned: mapID=%s, name=%s",
+		tostring(info and info.mapID), tostring(info and info.name)
+	))
 	if not info or not info.mapID or info.mapID <= 0 or not info.name or info.name == "" then return nil end
 
 	return "zone", info.mapID, info.name
 end
 
-local function ScheduleReputationScreenshot(factionName, rankName)
-	if factionName and MEM.Settings.event["reputation-active"] then
+local function ScheduleReputationScreenshot(factionName, rankName, reason)
+	if not factionName then
+		Utils:PrintDebug((reason or "No reputation rank increase detected.") .. " No screenshot requested.")
+	elseif not MEM.Settings.event["reputation-active"] then
+		Utils:PrintDebug("Reputation screenshots are disabled. No screenshot requested.")
+	else
 		ScheduleScreenshot("ReputationEventHandler", MEM.Settings.event["reputation-delay"] + MEM.CAPTURE_DELAY_OFFSET, factionName, rankName)
 	end
 end
 
 local function ProcessLootToast(itemLink, minimumQuality, delay, retriesRemaining)
 	local itemQuality = C_Item.GetItemQualityByID(itemLink)
+	Utils:PrintDebug(string.format(
+		"C_Item.GetItemQualityByID() returned: itemLink=%s, itemQuality=%s, minimumQuality=%s",
+		tostring(itemLink), tostring(itemQuality), tostring(minimumQuality)
+	))
 
 	if itemQuality == nil then
 		if retriesRemaining > 0 then
+			Utils:PrintDebug("Item quality is unavailable. Waiting for item data.")
 			C_Item.RequestLoadItemDataByID(itemLink)
 
 			C_Timer.After(MEM.LOOT_TOAST_ITEM_LOAD_RETRY_DELAY, function()
@@ -89,6 +107,7 @@ local function ProcessLootToast(itemLink, minimumQuality, delay, retriesRemainin
 				"Item quality for '%s' could not be loaded. No screenshot requested.",
 				tostring(itemLink)
 			))
+			Utils:PrintDebug("Event 'SHOW_LOOT_TOAST' completed.")
 		end
 
 		return
@@ -99,11 +118,12 @@ local function ProcessLootToast(itemLink, minimumQuality, delay, retriesRemainin
 			"Item quality %s is below the configured minimum quality %s. No screenshot requested.",
 			tostring(itemQuality), tostring(minimumQuality)
 		))
-
+		Utils:PrintDebug("Event 'SHOW_LOOT_TOAST' completed.")
 		return
 	end
 
 	ScheduleScreenshot("LootToastEventHandler", delay + MEM.CAPTURE_DELAY_OFFSET, MEM.LOOT_TOAST_TYPE.ITEM, itemLink, nil)
+	Utils:PrintDebug("Event 'SHOW_LOOT_TOAST' completed.")
 end
 
 local function CheckInterval()
@@ -115,11 +135,18 @@ local function CheckInterval()
 		ScheduleScreenshot("IntervalEventHandler", MEM.CAPTURE_DELAY_OFFSET)
 
 		minutesPassed = 0
+	elseif not MEM.Settings.event["interval-active"] then
+		Utils:PrintDebug("Interval screenshots are disabled. No screenshot requested.")
+	else
+		Utils:PrintDebug("The screenshot interval has not elapsed. No screenshot requested.")
 	end
+
+	Utils:PrintDebug("Timer completed.")
 end
 
 local function IsPlayerWinner(winner)
 	local playerFaction = UnitFactionGroup("player")
+	Utils:PrintDebug(string.format("UnitFactionGroup('player') returned: faction=%s, winner=%s", tostring(playerFaction), tostring(winner)))
 
 	return (playerFaction == "Alliance" and winner == 1) or (playerFaction == "Horde" and winner == 0)
 end
@@ -210,8 +237,8 @@ function MementoFrame:SHOW_LOOT_TOAST(_, typeIdentifier, itemLink, quantity, spe
 	))
 
 	if not MEM.Settings.event["loot-toast-active"] then
-		Utils:PrintDebug("Event 'SHOW_LOOT_TOAST' completed. No screenshot requested.")
-
+		Utils:PrintDebug("Loot toast screenshots are disabled. No screenshot requested.")
+		Utils:PrintDebug("Event 'SHOW_LOOT_TOAST' completed.")
 		return
 	end
 
@@ -222,7 +249,7 @@ function MementoFrame:SHOW_LOOT_TOAST(_, typeIdentifier, itemLink, quantity, spe
 			"Event 'SHOW_LOOT_TOAST' has unsupported typeIdentifier '%s'. No screenshot requested.",
 			tostring(typeIdentifier)
 		))
-
+		Utils:PrintDebug("Event 'SHOW_LOOT_TOAST' completed.")
 		return
 	end
 
@@ -231,7 +258,7 @@ function MementoFrame:SHOW_LOOT_TOAST(_, typeIdentifier, itemLink, quantity, spe
 			"Event 'SHOW_LOOT_TOAST' type '%s' is disabled. No screenshot requested.",
 			tostring(typeIdentifier)
 		))
-
+		Utils:PrintDebug("Event 'SHOW_LOOT_TOAST' completed.")
 		return
 	end
 
@@ -240,7 +267,7 @@ function MementoFrame:SHOW_LOOT_TOAST(_, typeIdentifier, itemLink, quantity, spe
 	if typeIdentifier == MEM.LOOT_TOAST_TYPE.ITEM then
 		if not itemLink then
 			Utils:PrintDebug("Event 'SHOW_LOOT_TOAST' did not contain an item link. No screenshot requested.")
-
+			Utils:PrintDebug("Event 'SHOW_LOOT_TOAST' completed.")
 			return
 		end
 
@@ -249,6 +276,7 @@ function MementoFrame:SHOW_LOOT_TOAST(_, typeIdentifier, itemLink, quantity, spe
 		ProcessLootToast(itemLink, minimumQuality, delay, MEM.LOOT_TOAST_ITEM_LOAD_RETRY_COUNT)
 	else
 		ScheduleScreenshot("LootToastEventHandler", delay + MEM.CAPTURE_DELAY_OFFSET, typeIdentifier, itemLink, quantity)
+		Utils:PrintDebug("Event 'SHOW_LOOT_TOAST' completed.")
 	end
 end
 
@@ -259,10 +287,13 @@ function MementoFrame:ACHIEVEMENT_EARNED(_, achievementID, alreadyEarned)
 	))
 
 	local isGuildAchievement = select(12, GetAchievementInfo(achievementID))
+	Utils:PrintDebug(string.format("GetAchievementInfo() returned: isGuildAchievement=%s", tostring(isGuildAchievement)))
 
 	if AWL.GAME_TYPE_FOREVER and (isGuildAchievement or alreadyEarned) then
-		Utils:PrintDebug("Event 'ACHIEVEMENT_EARNED' skipped in Forever: guild achievement or already earned. No screenshot requested.")
-
+		local reason = isGuildAchievement and "Guild achievements are not supported on this client."
+			or "Previously earned achievements are excluded on this client."
+		Utils:PrintDebug(reason .. " No screenshot requested.")
+		Utils:PrintDebug("Event 'ACHIEVEMENT_EARNED' completed.")
 		return
 	end
 
@@ -275,15 +306,17 @@ function MementoFrame:ACHIEVEMENT_EARNED(_, achievementID, alreadyEarned)
 				alreadyEarned
 			)
 		else
-			Utils:PrintDebug("Event 'ACHIEVEMENT_EARNED' (Personal) completed. No screenshot requested.")
+			Utils:PrintDebug("Personal achievement screenshots are disabled. No screenshot requested.")
 		end
 	else
 		if MEM.Settings.event["achievement-guild-active"] then
 			ScheduleScreenshot("AchievementGuildEventHandler", MEM.Settings.event["achievement-guild-delay"] + MEM.CAPTURE_DELAY_OFFSET, achievementID)
 		else
-			Utils:PrintDebug("Event 'ACHIEVEMENT_EARNED' (Guild) completed. No screenshot requested.")
+			Utils:PrintDebug("Guild achievement screenshots are disabled. No screenshot requested.")
 		end
 	end
+
+	Utils:PrintDebug("Event 'ACHIEVEMENT_EARNED' completed.")
 end
 
 function MementoFrame:CRITERIA_EARNED(_, achievementID, description, achievementAlreadyEarnedOnAccount)
@@ -294,13 +327,19 @@ function MementoFrame:CRITERIA_EARNED(_, achievementID, description, achievement
 		tostring(achievementAlreadyEarnedOnAccount)
 	))
 
-	if not AWL.GAME_TYPE_RETAIL then return end
+	if not AWL.GAME_TYPE_RETAIL then
+		Utils:PrintDebug("Achievement criteria screenshots are not supported on this client.")
+		Utils:PrintDebug("Event 'CRITERIA_EARNED' completed.")
+		return
+	end
 
 	if MEM.Settings.event["achievement-criteria-active"] then
 		ScheduleScreenshot("CriteriaEventHandler", MEM.Settings.event["achievement-criteria-delay"] + MEM.CAPTURE_DELAY_OFFSET, achievementID, description)
 	else
-		Utils:PrintDebug("Event 'CRITERIA_EARNED' completed. No screenshot requested.")
+		Utils:PrintDebug("Achievement criteria screenshots are disabled. No screenshot requested.")
 	end
+
+	Utils:PrintDebug("Event 'CRITERIA_EARNED' completed.")
 end
 
 function MementoFrame:CRITERIA_COMPLETE(_, criteriaID)
@@ -308,10 +347,14 @@ function MementoFrame:CRITERIA_COMPLETE(_, criteriaID)
 		"Event 'CRITERIA_COMPLETE' fired. Payload: criteriaID=%s",
 		tostring(criteriaID)
 	))
+
+	Utils:PrintDebug("Event 'CRITERIA_COMPLETE' completed.")
 end
 
 function MementoFrame:CRITERIA_UPDATE(_)
 	Utils:PrintDebug("Event 'CRITERIA_UPDATE' fired. No payload.")
+
+	Utils:PrintDebug("Event 'CRITERIA_UPDATE' completed.")
 end
 
 function MementoFrame:CHALLENGE_MODE_COMPLETED(_)
@@ -320,8 +363,10 @@ function MementoFrame:CHALLENGE_MODE_COMPLETED(_)
 	if MEM.Settings.event["mythic-active"] then
 		ScheduleScreenshot("MythicEventHandler", MEM.Settings.event["mythic-delay"] + MEM.CAPTURE_DELAY_OFFSET)
 	else
-		Utils:PrintDebug("Event 'CHALLENGE_MODE_COMPLETED' completed. No screenshot requested.")
+		Utils:PrintDebug("Mythic dungeon screenshots are disabled. No screenshot requested.")
 	end
+
+	Utils:PrintDebug("Event 'CHALLENGE_MODE_COMPLETED' completed.")
 end
 
 function MementoFrame:PERKS_ACTIVITY_COMPLETED(_, perksActivityID)
@@ -333,8 +378,10 @@ function MementoFrame:PERKS_ACTIVITY_COMPLETED(_, perksActivityID)
 	if MEM.Settings.event["perks-activity-active"] then
 		ScheduleScreenshot("PerksActivityEventHandler", MEM.Settings.event["perks-activity-delay"] + MEM.CAPTURE_DELAY_OFFSET)
 	else
-		Utils:PrintDebug("Event 'PERKS_ACTIVITY_COMPLETED' completed. No screenshot requested.")
+		Utils:PrintDebug("Traveler's Log screenshots are disabled. No screenshot requested.")
 	end
+
+	Utils:PrintDebug("Event 'PERKS_ACTIVITY_COMPLETED' completed.")
 end
 
 function MementoFrame:PVP_MATCH_COMPLETE(_, winner, duration)
@@ -347,12 +394,18 @@ function MementoFrame:PVP_MATCH_COMPLETE(_, winner, duration)
 	local isBattleground = C_PvP.IsBattleground()
 	local isSoloRBG = C_PvP.IsSoloRBG()
 	local isInBrawl = AWL.GAME_TYPE_RETAIL and C_PvP.IsInBrawl()
+	Utils:PrintDebug(string.format(
+		"PvP API results: isArena=%s, isBattleground=%s, isSoloRBG=%s, isInBrawl=%s",
+		tostring(isArena), tostring(isBattleground), tostring(isSoloRBG), tostring(isInBrawl)
+	))
 
 	if isArena then
 		if AWL.GAME_TYPE_RETAIL and MEM.Settings.event["pvp-arena-active"] then
 			ScheduleScreenshot("PvPArenaEventHandler", MEM.Settings.event["pvp-arena-delay"] + MEM.CAPTURE_DELAY_OFFSET)
+		elseif not AWL.GAME_TYPE_RETAIL then
+			Utils:PrintDebug("Arena screenshots are not supported on this client. No screenshot requested.")
 		else
-			Utils:PrintDebug("Event 'PVP_MATCH_COMPLETE' (Arena) completed. No screenshot requested.")
+			Utils:PrintDebug("Arena screenshots are disabled. No screenshot requested.")
 		end
 	elseif isInBrawl then
 		if MEM.Settings.event["pvp-brawl-active"] then
@@ -360,13 +413,13 @@ function MementoFrame:PVP_MATCH_COMPLETE(_, winner, duration)
 				if IsPlayerWinner(winner) then
 					ScheduleScreenshot("PvPBrawlEventHandler", MEM.Settings.event["pvp-brawl-delay"] + MEM.CAPTURE_DELAY_OFFSET)
 				else
-					Utils:PrintDebug("Player faction has lost the brawl. No screenshot requested.")
+					Utils:PrintDebug("The player was not identified as the winner of the brawl. No screenshot requested.")
 				end
 			else
 				ScheduleScreenshot("PvPBrawlEventHandler", MEM.Settings.event["pvp-brawl-delay"] + MEM.CAPTURE_DELAY_OFFSET)
 			end
 		else
-			Utils:PrintDebug("Event 'PVP_MATCH_COMPLETE' (Brawl) completed. No screenshot requested.")
+			Utils:PrintDebug("Brawl screenshots are disabled. No screenshot requested.")
 		end
 	elseif isBattleground or isSoloRBG then
 		if MEM.Settings.event["pvp-battleground-active"] then
@@ -374,17 +427,19 @@ function MementoFrame:PVP_MATCH_COMPLETE(_, winner, duration)
 				if IsPlayerWinner(winner) then
 					ScheduleScreenshot("PvPBattlegroundEventHandler", MEM.Settings.event["pvp-battleground-delay"] + MEM.CAPTURE_DELAY_OFFSET)
 				else
-					Utils:PrintDebug("Player faction has lost the battleground. No screenshot requested.")
+					Utils:PrintDebug("The player was not identified as the winner of the battleground. No screenshot requested.")
 				end
 			else
 				ScheduleScreenshot("PvPBattlegroundEventHandler", MEM.Settings.event["pvp-battleground-delay"] + MEM.CAPTURE_DELAY_OFFSET)
 			end
 		else
-			Utils:PrintDebug("Event 'PVP_MATCH_COMPLETE' (Battleground) completed. No screenshot requested.")
+			Utils:PrintDebug("Battleground screenshots are disabled. No screenshot requested.")
 		end
 	else
-		Utils:PrintDebug("Unknown PvP Event. No screenshot requested.")
+		Utils:PrintDebug("Unknown PvP match type. No screenshot requested.")
 	end
+
+	Utils:PrintDebug("Event 'PVP_MATCH_COMPLETE' completed.")
 end
 
 function MementoFrame:NEW_PET_ADDED(_, battlePetGUID)
@@ -396,8 +451,10 @@ function MementoFrame:NEW_PET_ADDED(_, battlePetGUID)
 	if MEM.Settings.event["collection-pet-active"] then
 		ScheduleScreenshot("NewPetEventHandler", MEM.Settings.event["collection-pet-delay"] + MEM.CAPTURE_DELAY_OFFSET)
 	else
-		Utils:PrintDebug("Event 'NEW_PET_ADDED' completed. No screenshot requested.")
+		Utils:PrintDebug("Pet collection screenshots are disabled. No screenshot requested.")
 	end
+
+	Utils:PrintDebug("Event 'NEW_PET_ADDED' completed.")
 end
 
 function MementoFrame:NEW_MOUNT_ADDED(_, mountID)
@@ -409,8 +466,10 @@ function MementoFrame:NEW_MOUNT_ADDED(_, mountID)
 	if MEM.Settings.event["collection-mount-active"] then
 		ScheduleScreenshot("NewMountEventHandler", MEM.Settings.event["collection-mount-delay"] + MEM.CAPTURE_DELAY_OFFSET)
 	else
-		Utils:PrintDebug("Event 'NEW_MOUNT_ADDED' completed. No screenshot requested.")
+		Utils:PrintDebug("Mount collection screenshots are disabled. No screenshot requested.")
 	end
+
+	Utils:PrintDebug("Event 'NEW_MOUNT_ADDED' completed.")
 end
 
 function MementoFrame:NEW_TOY_ADDED(_, itemID)
@@ -422,8 +481,10 @@ function MementoFrame:NEW_TOY_ADDED(_, itemID)
 	if MEM.Settings.event["collection-toy-active"] then
 		ScheduleScreenshot("NewToyEventHandler", MEM.Settings.event["collection-toy-delay"] + MEM.CAPTURE_DELAY_OFFSET)
 	else
-		Utils:PrintDebug("Event 'NEW_TOY_ADDED' completed. No screenshot requested.")
+		Utils:PrintDebug("Toy collection screenshots are disabled. No screenshot requested.")
 	end
+
+	Utils:PrintDebug("Event 'NEW_TOY_ADDED' completed.")
 end
 
 function MementoFrame:NEW_HOUSING_ITEM_ACQUIRED(_, itemType, itemName, icon)
@@ -435,8 +496,10 @@ function MementoFrame:NEW_HOUSING_ITEM_ACQUIRED(_, itemType, itemName, icon)
 	if MEM.Settings.event["collection-housing-active"] then
 		ScheduleScreenshot("NewHousingItemEventHandler", MEM.Settings.event["collection-housing-delay"] + MEM.CAPTURE_DELAY_OFFSET)
 	else
-		Utils:PrintDebug("Event 'NEW_HOUSING_ITEM_ACQUIRED' completed. No screenshot requested.")
+		Utils:PrintDebug("Housing collection screenshots are disabled. No screenshot requested.")
 	end
+
+	Utils:PrintDebug("Event 'NEW_HOUSING_ITEM_ACQUIRED' completed.")
 end
 
 function MementoFrame:PLAYER_ENTERING_WORLD(_, isInitialLogin, isReloadingUi)
@@ -449,37 +512,43 @@ function MementoFrame:PLAYER_ENTERING_WORLD(_, isInitialLogin, isReloadingUi)
 
 	if MEM.Settings.event["login-active"] and isInitialLogin then
 		ScheduleScreenshot("LoginEventHandler", MEM.Settings.event["login-delay"] + MEM.CAPTURE_DELAY_OFFSET)
+	elseif not MEM.Settings.event["login-active"] then
+		Utils:PrintDebug("Login screenshots are disabled. No screenshot requested.")
 	else
-		Utils:PrintDebug("Event 'PLAYER_ENTERING_WORLD' completed. No screenshot requested.")
+		Utils:PrintDebug("This world entry is not the initial login. No screenshot requested.")
 	end
+
+	Utils:PrintDebug("Event 'PLAYER_ENTERING_WORLD' completed.")
 end
 
 function MementoFrame:ZONE_CHANGED_NEW_AREA()
 	Utils:PrintDebug("Event 'ZONE_CHANGED_NEW_AREA' fired. No payload.")
 
 	local kind, id, name = GetCurrentArea()
+	Utils:PrintDebug(string.format("Area detected: type=%s, id=%s, name=%s", tostring(kind), tostring(id), tostring(name)))
 
 	if not kind or not id then
 		Utils:PrintDebug("Unknown area. No screenshot requested.")
+		Utils:PrintDebug("Event 'ZONE_CHANGED_NEW_AREA' completed.")
 		return
 	end
-
-	if MEM.Data.zone[kind][id] then
-		Utils:PrintDebug("Area already visited. No screenshot requested.")
-		return
-	end
-
-	MEM.Data.zone[kind][id] = true
 
 	local settings = MEM.Settings.event
-
 	if not settings["zone-active"] then
-		Utils:PrintDebug("Event 'ZONE_CHANGED_NEW_AREA' completed. No screenshot requested.")
+		Utils:PrintDebug("New area screenshots are disabled. No screenshot requested.")
+	elseif MEM.Data.zone[kind][id] then
+		Utils:PrintDebug("Area already visited. No screenshot requested.")
 	elseif settings["zone-type"] ~= "both" and settings["zone-type"] ~= kind then
-		Utils:PrintDebug("Player entered the wrong area. No screenshot requested.")
+		Utils:PrintDebug(string.format(
+			"Area type '%s' does not match the selected type '%s'. No screenshot requested.",
+			tostring(kind), tostring(settings["zone-type"])
+		))
 	else
 		ScheduleScreenshot("ZoneEventHandler", settings["zone-delay"] + MEM.CAPTURE_DELAY_OFFSET, name)
+		MEM.Data.zone[kind][id] = true
 	end
+
+	Utils:PrintDebug("Event 'ZONE_CHANGED_NEW_AREA' completed.")
 end
 
 function MementoFrame:PLAYER_DEAD(_)
@@ -487,6 +556,7 @@ function MementoFrame:PLAYER_DEAD(_)
 
 	if MEM.Settings.event["death-active"] then
 		local inInstance = IsInInstance()
+		Utils:PrintDebug(string.format("IsInInstance() returned: inInstance=%s", tostring(inInstance)))
 
 		if MEM.Settings.event["death-instance"] == 0 then
 			ScheduleScreenshot("DeathEventHandler", MEM.Settings.event["death-delay"] + MEM.CAPTURE_DELAY_OFFSET)
@@ -498,8 +568,10 @@ function MementoFrame:PLAYER_DEAD(_)
 			Utils:PrintDebug("Player died in the wrong area. No screenshot requested.")
 		end
 	else
-		Utils:PrintDebug("Event 'PLAYER_DEAD' completed. No screenshot requested.")
+		Utils:PrintDebug("Death screenshots are disabled. No screenshot requested.")
 	end
+
+	Utils:PrintDebug("Event 'PLAYER_DEAD' completed.")
 end
 
 function MementoFrame:PLAYER_LEVEL_UP(_, level)
@@ -516,8 +588,10 @@ function MementoFrame:PLAYER_LEVEL_UP(_, level)
 	if MEM.Settings.event["level-up-active"] then
 		Capture:ScheduleTimer("LevelUpEventHandler", MEM.Settings.event["level-up-delay"] + MEM.CAPTURE_DELAY_OFFSET, level, timePlayedOnPreviousLevel)
 	else
-		Utils:PrintDebug("Event 'PLAYER_LEVEL_UP' completed. No screenshot requested.")
+		Utils:PrintDebug("Level-up screenshots are disabled. No screenshot requested.")
 	end
+
+	Utils:PrintDebug("Event 'PLAYER_LEVEL_UP' completed.")
 end
 
 function MementoFrame:MAJOR_FACTION_RENOWN_LEVEL_CHANGED(_, majorFactionID, newRenownLevel, oldRenownLevel)
@@ -527,6 +601,8 @@ function MementoFrame:MAJOR_FACTION_RENOWN_LEVEL_CHANGED(_, majorFactionID, newR
 	))
 
 	ScheduleReputationScreenshot(Reputation:GetRenownIncrease(majorFactionID, newRenownLevel, oldRenownLevel))
+
+	Utils:PrintDebug("Event 'MAJOR_FACTION_RENOWN_LEVEL_CHANGED' completed.")
 end
 
 function MementoFrame:FACTION_STANDING_CHANGED(_, factionID, updatedStanding)
@@ -535,10 +611,15 @@ function MementoFrame:FACTION_STANDING_CHANGED(_, factionID, updatedStanding)
 		tostring(factionID), tostring(updatedStanding)
 	))
 
-	if not Reputation:IsInitialized() then return end
+	if not Reputation:IsInitialized() then
+		Utils:PrintDebug("Reputation tracking is not initialized. No screenshot requested.")
+		Utils:PrintDebug("Event 'FACTION_STANDING_CHANGED' completed.")
+		return
+	end
 
 	C_Timer.After(0, function()
 		ScheduleReputationScreenshot(Reputation:GetFactionIncrease(factionID))
+		Utils:PrintDebug("Event 'FACTION_STANDING_CHANGED' completed.")
 	end)
 end
 
@@ -548,9 +629,12 @@ function MementoFrame:BOSS_KILL(_, encounterID, encounterName)
 		tostring(encounterID), tostring(encounterName)
 	))
 
-	if IsInInstance() then
-		Utils:PrintDebug("Boss killed inside an instance. No world boss screenshot requested.")
+	local inInstance = IsInInstance()
+	Utils:PrintDebug(string.format("IsInInstance() returned: inInstance=%s", tostring(inInstance)))
 
+	if inInstance then
+		Utils:PrintDebug("Boss killed inside an instance instead of the open world. No screenshot requested.")
+		Utils:PrintDebug("Event 'BOSS_KILL' completed.")
 		return
 	end
 
@@ -564,8 +648,10 @@ function MementoFrame:BOSS_KILL(_, encounterID, encounterName)
 				encounterName, L["options.event.pve.world"], "W", encounterID)
 		end
 	else
-		Utils:PrintDebug("Event 'BOSS_KILL' completed. No screenshot requested.")
+		Utils:PrintDebug("World boss screenshots are disabled. No screenshot requested.")
 	end
+
+	Utils:PrintDebug("Event 'BOSS_KILL' completed.")
 end
 
 function MementoFrame:ENCOUNTER_END(_, encounterID, encounterName, difficultyID, groupSize, success)
@@ -574,15 +660,21 @@ function MementoFrame:ENCOUNTER_END(_, encounterID, encounterName, difficultyID,
 		tostring(encounterID), tostring(encounterName), tostring(difficultyID), tostring(groupSize), tostring(success)
 	))
 
-	if not IsInInstance() then
-		Utils:PrintDebug("Encounter ended outside an instance. No instance boss screenshot requested.")
+	local inInstance = IsInInstance()
+	Utils:PrintDebug(string.format("IsInInstance() returned: inInstance=%s", tostring(inInstance)))
 
+	if not inInstance then
+		Utils:PrintDebug("Encounter ended outside an instance. No screenshot requested.")
+		Utils:PrintDebug("Event 'ENCOUNTER_END' completed.")
 		return
 	end
 
 	local difficultyName, groupType = GetDifficultyInfo(difficultyID)
 	local difficulty = "D" .. tostring(difficultyID)
-
+	Utils:PrintDebug(string.format(
+		"GetDifficultyInfo() returned: difficultyName=%s, groupType=%s",
+		tostring(difficultyName), tostring(groupType)
+	))
 	if groupType == "party" or groupType == "raid" or (groupType == "scenario" and AWL.GAME_TYPE_RETAIL) then
 		if success == 1 then
 			local isActive = (groupType == "party" and MEM.Settings.event["encounter-victory-party-active"])
@@ -608,7 +700,7 @@ function MementoFrame:ENCOUNTER_END(_, encounterID, encounterName, difficultyID,
 					ScheduleScreenshot("EncounterVictoryEventHandler", delay + MEM.CAPTURE_DELAY_OFFSET, encounterName, difficultyName, difficulty, encounterID)
 				end
 			else
-				Utils:PrintDebug("Event 'ENCOUNTER_END' (Victory) completed. No screenshot requested.")
+				Utils:PrintDebug("Victory screenshots for this instance type are disabled. No screenshot requested.")
 			end
 		else
 			local isActive = (groupType == "party" and MEM.Settings.event["encounter-wipe-party-active"])
@@ -622,15 +714,17 @@ function MementoFrame:ENCOUNTER_END(_, encounterID, encounterName, difficultyID,
 			if isActive then
 				ScheduleScreenshot("EncounterWipeEventHandler", delay + MEM.CAPTURE_DELAY_OFFSET, encounterName, difficultyName)
 			else
-				Utils:PrintDebug("Event 'ENCOUNTER_END' (Wipe) completed. No screenshot requested.")
+				Utils:PrintDebug("Wipe screenshots for this instance type are disabled. No screenshot requested.")
 			end
 		end
 	else
 		Utils:PrintDebug(string.format(
-			"Unknown groupType '%s'. No screenshot requested.",
+			"Unsupported groupType '%s' for this client. No screenshot requested.",
 			tostring(groupType)
 		))
 	end
+
+	Utils:PrintDebug("Event 'ENCOUNTER_END' completed.")
 end
 
 function MementoFrame:DUEL_FINISHED(_)
@@ -639,8 +733,10 @@ function MementoFrame:DUEL_FINISHED(_)
 	if MEM.Settings.event["pvp-duel-active"] then
 		ScheduleScreenshot("PvPDuelEventHandler", MEM.Settings.event["pvp-duel-delay"] + MEM.CAPTURE_DELAY_OFFSET)
 	else
-		Utils:PrintDebug("Event 'DUEL_FINISHED' completed. No screenshot requested.")
+		Utils:PrintDebug("Duel screenshots are disabled. No screenshot requested.")
 	end
+
+	Utils:PrintDebug("Event 'DUEL_FINISHED' completed.")
 end
 
 function MementoFrame:NEW_RECIPE_LEARNED(_, recipeID, recipeLevel, baseRecipeID)
@@ -652,8 +748,10 @@ function MementoFrame:NEW_RECIPE_LEARNED(_, recipeID, recipeLevel, baseRecipeID)
 	if MEM.Settings.event["collection-recipe-active"] then
 		ScheduleScreenshot("NewRecipeEventHandler", MEM.Settings.event["collection-recipe-delay"] + MEM.CAPTURE_DELAY_OFFSET)
 	else
-		Utils:PrintDebug("Event 'NEW_RECIPE_LEARNED' completed. No screenshot requested.")
+		Utils:PrintDebug("Recipe collection screenshots are disabled. No screenshot requested.")
 	end
+
+	Utils:PrintDebug("Event 'NEW_RECIPE_LEARNED' completed.")
 end
 
 --------------------------

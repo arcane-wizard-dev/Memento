@@ -26,7 +26,8 @@ MEM.ZONE_DATA = {
 		raid = true,
 		scenario = true,
 		pvp = true,
-		arena = true
+		arena = true,
+		neighborhood = true
 	}
 }
 

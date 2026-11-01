@@ -1,4 +1,5 @@
 ## Interface: 120107, 120105, 50504, 20506, 16001, 11509
+## AllowLoadGameType: standard, wowhack, forever, classic
 ## Title: Memento
 ## Author: Arcane Wizard | created by diomsg
 
@@ -8,7 +9,7 @@
 ## DefaultState: enabled
 
 ## Dependencies: ArcaneWizardLibrary
-## X-Library-Revision: 1
+## X-Library-Revision: 2
 
 ## Notes: This addon automatically takes screenshots of selected gameplay moments. It works in the background while you keep playing.
 ## Notes-deDE: Dieses Addon hält ausgewählte Spielmomente automatisch als Screenshots fest. Es arbeitet im Hintergrund, während du weiterspielst.

@@ -2,6 +2,19 @@ local _, MEM = ...
 
 if MEM.State and MEM.State.libraryIncompatible then return end
 
+MEM.NOTIFICATION_OPTIONS = {
+	{variableName = "notification-timestamp", localizationKey = "options.general.notification.timestamp"},
+	{variableName = "notification-class", localizationKey = "options.general.notification.class"},
+	{variableName = "notification-time-played", localizationKey = "options.general.notification.time-played"},
+	{variableName = "notification-level-time-played", localizationKey = "options.general.notification.level-time-played"}
+}
+
+MEM.LOOT_TOAST_OPTIONS = {
+	{variableName = "loot-toast-item", localizationKey = "options.event.other.loot-toast.item"},
+	{variableName = "loot-toast-money", localizationKey = "options.event.other.loot-toast.money"},
+	{variableName = "loot-toast-currency", localizationKey = "options.event.other.loot-toast.currency"}
+}
+
 MEM.OPTIONS_DEFAULTS = {
 	["general"] = {
 		["minimap-button"] = {

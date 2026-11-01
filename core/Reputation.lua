@@ -4,6 +4,7 @@ if MEM.State and MEM.State.libraryIncompatible then return end
 
 local AWL = ArcaneWizardLibrary
 local Reputation = MEM.Modules.Reputation
+local Utils = MEM.Modules.Utils
 local L = MEM.Localization
 
 MEM.State.reputation = {
@@ -142,30 +143,54 @@ function Reputation:Initialize()
 end
 
 function Reputation:GetFactionIncrease(factionID)
-	if not state.initialized or not factionID then return end
+	if not state.initialized then return nil, nil, "Reputation tracking is not initialized." end
+	if not factionID then return nil, nil, "No faction ID was supplied." end
 
 	local data = GetFactionDataByID(factionID)
 	local rank = GetRank(factionID, data)
+	Utils:PrintDebug(string.format(
+		"Faction lookup returned: factionID=%s, name=%s, reaction=%s, rankKind=%s, rankLevel=%s",
+		tostring(factionID), tostring(data and data.name), tostring(data and data.reaction),
+		tostring(rank and rank.kind), tostring(rank and rank.level)
+	))
 
-	if not data or not rank then return end
+	if not data then return nil, nil, "Faction data is unavailable." end
+	if not rank then return nil, nil, "No supported reputation rank is available for this faction." end
 
 	local previous = state.ranks[factionID]
 	state.ranks[factionID] = rank
+	Utils:PrintDebug(string.format(
+		"Reputation comparison: previousKind=%s, previousLevel=%s, currentKind=%s, currentLevel=%s",
+		tostring(previous and previous.kind), tostring(previous and previous.level), tostring(rank.kind), tostring(rank.level)
+	))
 
 	if previous and previous.kind == rank.kind and rank.level > previous.level then
 		return data.name, rank.label
 	end
+
+	if not previous or previous.kind ~= rank.kind then return nil, nil, "No matching previous reputation rank is available." end
+	return nil, nil, "The reputation rank did not increase."
 end
 
 function Reputation:GetRenownIncrease(factionID, newLevel, oldLevel)
-	if not state.initialized or not factionID or not newLevel or not oldLevel then return end
+	if not state.initialized then return nil, nil, "Reputation tracking is not initialized." end
+	if not factionID or not newLevel or not oldLevel then return nil, nil, "Renown event data is incomplete." end
 
 	local previous = state.renown[factionID]
 	state.renown[factionID] = newLevel
+	Utils:PrintDebug(string.format(
+		"Renown comparison: factionID=%s, previousLevel=%s, oldLevel=%s, newLevel=%s",
+		tostring(factionID), tostring(previous), tostring(oldLevel), tostring(newLevel)
+	))
 
-	if newLevel <= oldLevel or (previous and newLevel <= previous) then return end
+	if newLevel <= oldLevel then return nil, nil, "The renown level did not increase." end
+	if previous and newLevel <= previous then return nil, nil, "This renown level was already processed." end
 
 	local data = C_MajorFactions.GetMajorFactionData(factionID)
+	Utils:PrintDebug(string.format(
+		"C_MajorFactions.GetMajorFactionData() returned: name=%s, renownLevel=%s",
+		tostring(data and data.name), tostring(data and data.renownLevel)
+	))
 
 	return data and data.name or UNKNOWN, L["chat.event.reputation.renown"]:format(newLevel)
 end

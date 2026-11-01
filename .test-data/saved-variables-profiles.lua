@@ -299,7 +299,7 @@ Memento_Options_v6 = {
 	},
 }
 
-Memento_DataZone_v3 = {
+Memento_DataZone = {
 	zone = {[37] = true, [84] = true},
 	instance = {[36] = true},
 }

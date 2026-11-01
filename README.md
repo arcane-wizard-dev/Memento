@@ -19,7 +19,7 @@ Individual features and display options can be configured in the addon settings.
 ### Retail
 
 * Captures level-ups, deaths, and logins.
-* <sup>✨ NEW</sup> Captures first visits to open-world zones, supported instances (dungeons, raids, scenarios, battlegrounds, and arenas), or both, with visited areas saved per character.
+* <sup>✨ NEW</sup> Captures first visits to open-world zones and supported instances.
 * Captures reputation rank and Renown increases.
 * Captures personal achievements, guild achievements, and achievement criteria.
 * Captures world boss victories.
@@ -34,7 +34,7 @@ Individual features and display options can be configured in the addon settings.
 ### Forever
 
 * Captures level-ups, deaths, and logins.
-* <sup>✨ NEW</sup> Captures first visits to open-world zones, supported instances (dungeons, raids, scenarios, battlegrounds, and arenas), or both, with visited areas saved per character.
+* <sup>✨ NEW</sup> Captures first visits to open-world zones and supported instances.
 * Captures reputation rank increases.
 * Captures personal achievements.
 * Captures boss victories and wipes in dungeons and raids.
@@ -47,7 +47,7 @@ Individual features and display options can be configured in the addon settings.
 Shared by Classic, Burning Crusade - Classic Anniversary Edition, and Mists of Pandaria - Classic:
 
 * Captures level-ups, deaths, and logins.
-* <sup>✨ NEW</sup> Captures first visits to open-world zones, supported instances (dungeons, raids, scenarios, battlegrounds, and arenas), or both, with visited areas saved per character.
+* <sup>✨ NEW</sup> Captures first visits to open-world zones and supported instances.
 * Captures reputation rank increases.
 * Captures completed duels.
 * Captures newly learned recipes.

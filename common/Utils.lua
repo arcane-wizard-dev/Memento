@@ -133,19 +133,19 @@ function Utils:InitializeDatabase()
 
 	MEM.Data.bossKill = Memento_DataBossKill
 
-	if type(Memento_DataZone_v3) ~= "table" then
-		Memento_DataZone_v3 = {}
+	if type(Memento_DataZone) ~= "table" then
+		Memento_DataZone = {}
 	end
 
-	if type(Memento_DataZone_v3.zone) ~= "table" then
-		Memento_DataZone_v3.zone = {}
+	if type(Memento_DataZone.zone) ~= "table" then
+		Memento_DataZone.zone = {}
 	end
 
-	if type(Memento_DataZone_v3.instance) ~= "table" then
-		Memento_DataZone_v3.instance = {}
+	if type(Memento_DataZone.instance) ~= "table" then
+		Memento_DataZone.instance = {}
 	end
 
-	MEM.Data.zone = Memento_DataZone_v3
+	MEM.Data.zone = Memento_DataZone
 
 	return dbInit
 end

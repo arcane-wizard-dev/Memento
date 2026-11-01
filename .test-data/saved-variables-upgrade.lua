@@ -103,8 +103,6 @@ Memento_DataZone_v2 = {
 	instance = {[2813] = true},
 }
 
-Memento_DataZone_v3 = {}
-
 Memento_DataBossKill = {
 	["D14"] = {
 		[123] = true,

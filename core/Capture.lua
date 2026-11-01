@@ -178,6 +178,7 @@ end
 
 local function AchievementPersonalEventHandler(achievementID, alreadyEarned)
 	local achievementLink = GetAchievementLink(achievementID)
+	Utils:PrintDebug(string.format("GetAchievementLink() returned: achievementLink=%s", tostring(achievementLink)))
 
 	if achievementLink then
 		if not alreadyEarned then
@@ -205,12 +206,14 @@ end
 
 local function AchievementGuildEventHandler(achievementID)
 	local name = select(2, GetAchievementInfo(achievementID))
+	Utils:PrintDebug(string.format("GetAchievementInfo() returned: name=%s", tostring(name)))
 
 	NotifyScreenshot(L["chat.event.achievement.guild.new"]:format(name))
 end
 
 local function CriteriaEventHandler(achievementID, description)
 	local achievementLink = GetAchievementLink(achievementID)
+	Utils:PrintDebug(string.format("GetAchievementLink() returned: achievementLink=%s", tostring(achievementLink)))
 
 	if achievementLink then
 		NotifyScreenshot(L["chat.event.achievement.criteria.new"]:format(achievementLink, description))
@@ -362,13 +365,14 @@ end
 
 function Capture:ScheduleTimer(handler, delay, ...)
 	local args = {...}
+	Utils:PrintDebug(string.format("Screenshot timer scheduled: handler=%s, delay=%s", tostring(handler), tostring(delay)))
 
 	C_Timer.After(delay, function()
 		if handlerTable[handler] then
 			handlerTable[handler](unpack(args))
 		else
 			Utils:PrintDebug(string.format(
-				"Handler '%s' not found.",
+				"Handler '%s' not found. No screenshot requested.",
 				tostring(handler)
 			))
 		end
