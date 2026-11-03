@@ -12,6 +12,15 @@ MEM.CHANGELOG = {
 		version = version,
 		date = buildDate ~= "" and buildDate or nil,
 		entries = {
+			"Changed: The debug mode option now combines an enable checkbox with a Basic or Advanced level selector",
+			"Updated: deDE, enUS, ruRU localizations",
+			"Minor code adjustments"
+		}
+	},
+	{
+		version = "v2.42",
+		date = "2026-11-01",
+		entries = {
 			"Added: Manual screenshots with a movable button, a key binding configurable in the addon settings, optional countdown and capture notice",
 			"Changed: The TOC no longer restricts loading by game type",
 			"Requires Arcane Wizard: Library revision 3 or later",
@@ -87,18 +96,6 @@ MEM.CHANGELOG = {
 		date = "2026-10-10",
 		entries = {
 			"Added: New event 'Reputation rank increased' - A screenshot can now be taken automatically when a reputation, friendship, or renown rank increases"
-		}
-	},
-	{
-		version = "v2.33",
-		date = "2026-10-09",
-		entries = {
-			"Added: Option to hide the notification box in screenshots taken without the user interface",
-			"Added: Option to choose the timestamp format for chat notifications and the screenshot notification box",
-			"Added: ruRU localization",
-			"Changed: Level-up notifications display the level without a hyperlink [mists of pandaria - classic] [forever] [retail]",
-			"Updated: Compatibility with the beta client [forever]",
-			"Minor code adjustments"
 		}
 	}
 	-- END GENERATED CHANGELOG
