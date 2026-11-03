@@ -1,3 +1,8 @@
+**v2.43 (2026-11-03)**
+- Changed: The debug mode option now combines an enable checkbox with a Basic or Advanced level selector
+- Updated: deDE, enUS, ruRU localizations
+- Minor code adjustments
+
 **v2.42 (2026-11-01)**
 - Added: Manual screenshots with a movable button, a key binding configurable in the addon settings, optional countdown and capture notice
 - Changed: The TOC no longer restricts loading by game type
