@@ -58,6 +58,7 @@ MEM.OPTIONS_DEFAULTS = {
 		["screenshot-sound"] = false,
 		["screenshot-sound-style"] = "memento-camera",
 		["debug-mode"] = false,
+		["debug-level"] = "basic",
 	},
 	["manual"] = {
 		["manual-button-visible"] = false,

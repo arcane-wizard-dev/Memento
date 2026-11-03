@@ -119,20 +119,20 @@ function Options:Initialize()
 	local hadLevelTimePlayed = MEM.Settings.general["notification-level-time-played"]
 
 	AWL.Settings:AddCheckboxDropdownCombo(category, layout, {
-		variableTable = notificationVariables,
-		checkboxSettingKey = addonName .. "_notification",
-		checkboxVariableName = "notification",
-		checkboxName = L["options.general.notification.name"],
-		checkboxTooltip = L["options.general.notification.tooltip"],
-		checkboxDefault = MEM.OPTIONS_DEFAULTS.general.notification,
-		dropdownSettingKey = addonName .. "_notification-details",
-		dropdownVariableName = "notification-details",
-		dropdownName = L["options.general.notification.details.name"],
-		dropdownTooltip = L["options.general.notification.details.tooltip"],
-		dropdownDefault = notificationDefault,
-		dropdownOptions = notificationOptions,
-		multiSelect = true,
-		dropdownOnClick = function()
+		variableTable			= notificationVariables,
+		checkboxSettingKey		= addonName .. "_notification",
+		checkboxVariableName	= "notification",
+		checkboxName			= L["options.general.notification.name"],
+		checkboxTooltip			= L["options.general.notification.tooltip"],
+		checkboxDefault			= MEM.OPTIONS_DEFAULTS.general.notification,
+		dropdownSettingKey		= addonName .. "_notification-details",
+		dropdownVariableName	= "notification-details",
+		dropdownName			= L["options.general.notification.details.name"],
+		dropdownTooltip			= L["options.general.notification.details.tooltip"],
+		dropdownDefault			= notificationDefault,
+		dropdownOptions			= notificationOptions,
+		multiSelect				= true,
+		dropdownOnClick			= function()
 			local hasTimePlayed = MEM.Settings.general["notification-time-played"]
 			local hasLevelTimePlayed = MEM.Settings.general["notification-level-time-played"]
 
@@ -145,6 +145,7 @@ function Options:Initialize()
 		end
 	})
 
+	-- Timestamp Format
 	AWL.Settings:AddDropdown(category, {
 		variableTable	= MEM.Settings.general,
 		settingKey		= addonName .. "_timestamp-format",
@@ -158,29 +159,31 @@ function Options:Initialize()
 	AWL.Settings:AddSeparator(layout)
 
 	if C_CVar and C_CVar.GetCVar("screenshotFormat") and C_CVar.GetCVar("screenshotQuality") then
+		-- Screenshot Format
 		local initializerFormat = AWL.Settings:AddDropdown(category, {
-			variableTable = screenshotSettingsProxy,
-			settingKey = addonName .. "_screenshot-format",
-			variableName = "screenshotFormat",
-			name = L["options.general.screenshot-format.name"],
-			tooltip = L["options.general.screenshot-format.tooltip"],
-			default = C_CVar.GetCVarDefault("screenshotFormat") or "jpeg",
-			options = MEM.SCREENSHOT_FORMATS
+			variableTable	= screenshotSettingsProxy,
+			settingKey		= addonName .. "_screenshot-format",
+			variableName	= "screenshotFormat",
+			name			= L["options.general.screenshot-format.name"],
+			tooltip			= L["options.general.screenshot-format.tooltip"],
+			default			= C_CVar.GetCVarDefault("screenshotFormat") or "jpeg",
+			options			= MEM.SCREENSHOT_FORMATS
 		})
 
+		-- Screenshot Quality
 		AWL.Settings:AddSlider(category, {
-			variableTable = screenshotSettingsProxy,
-			settingKey = addonName .. "_screenshot-quality",
-			variableName = "screenshotQuality",
-			name = L["options.general.screenshot-quality.name"],
-			tooltip = L["options.general.screenshot-quality.tooltip"],
-			default = tonumber(C_CVar.GetCVarDefault("screenshotQuality")) or MEM.SCREENSHOT_QUALITY.default,
-			minValue = MEM.SCREENSHOT_QUALITY.minimum,
-			maxValue = MEM.SCREENSHOT_QUALITY.maximum,
-			step = 1,
-			formatter = tostring,
-			parentInit = initializerFormat,
-			parentCondition = function() return screenshotSettingsProxy.screenshotFormat == "jpeg" end
+			variableTable	= screenshotSettingsProxy,
+			settingKey		= addonName .. "_screenshot-quality",
+			variableName	= "screenshotQuality",
+			name			= L["options.general.screenshot-quality.name"],
+			tooltip			= L["options.general.screenshot-quality.tooltip"],
+			default			= tonumber(C_CVar.GetCVarDefault("screenshotQuality")) or MEM.SCREENSHOT_QUALITY.default,
+			minValue		= MEM.SCREENSHOT_QUALITY.minimum,
+			maxValue		= MEM.SCREENSHOT_QUALITY.maximum,
+			step			= 1,
+			formatter		= tostring,
+			parentInit		= initializerFormat,
+			parentCondition	= function() return screenshotSettingsProxy.screenshotFormat == "jpeg" end
 		})
 	end
 
@@ -208,19 +211,19 @@ function Options:Initialize()
 
 	-- Screenshot Sound
 	AWL.Settings:AddCheckboxDropdownCombo(category, layout, {
-		variableTable = MEM.Settings.general,
-		checkboxSettingKey = addonName .. "_screenshot-sound",
-		checkboxVariableName = "screenshot-sound",
-		checkboxName = L["options.general.screenshot-sound.name"],
-		checkboxTooltip = L["options.general.screenshot-sound.tooltip"],
-		checkboxDefault = MEM.OPTIONS_DEFAULTS.general["screenshot-sound"],
-		dropdownSettingKey = addonName .. "_screenshot-sound-style",
-		dropdownVariableName = "screenshot-sound-style",
-		dropdownName = L["options.general.screenshot-sound-style.name"],
-		dropdownTooltip = L["options.general.screenshot-sound-style.tooltip"],
-		dropdownDefault = MEM.OPTIONS_DEFAULTS.general["screenshot-sound-style"],
-		dropdownOptions = screenshotSoundOptions,
-		dropdownOnClick = function(_, value)
+		variableTable			= MEM.Settings.general,
+		checkboxSettingKey		= addonName .. "_screenshot-sound",
+		checkboxVariableName	= "screenshot-sound",
+		checkboxName			= L["options.general.screenshot-sound.name"],
+		checkboxTooltip			= L["options.general.screenshot-sound.tooltip"],
+		checkboxDefault			= MEM.OPTIONS_DEFAULTS.general["screenshot-sound"],
+		dropdownSettingKey		= addonName .. "_screenshot-sound-style",
+		dropdownVariableName	= "screenshot-sound-style",
+		dropdownName			= L["options.general.screenshot-sound-style.name"],
+		dropdownTooltip			= L["options.general.screenshot-sound-style.tooltip"],
+		dropdownDefault			= MEM.OPTIONS_DEFAULTS.general["screenshot-sound-style"],
+		dropdownOptions			= screenshotSoundOptions,
+		dropdownOnClick			= function(_, value)
 			Capture:PreviewScreenshotSound(value)
 		end
 	})
@@ -238,13 +241,22 @@ function Options:Initialize()
 	})
 
 	-- Debug Mode
-	AWL.Settings:AddCheckbox(category, {
-		variableTable	= MEM.Settings.general,
-		settingKey		= addonName .. "_debug-mode",
-		variableName	= "debug-mode",
-		name			= L["options.general.debug-mode.name"],
-		tooltip			= L["options.general.debug-mode.tooltip"],
-		default			= MEM.OPTIONS_DEFAULTS["general"]["debug-mode"]
+	AWL.Settings:AddCheckboxDropdownCombo(category, layout, {
+		variableTable			= MEM.Settings.general,
+		checkboxSettingKey		= addonName .. "_debug-mode",
+		checkboxVariableName	= "debug-mode",
+		checkboxName			= L["options.general.debug-mode.name"],
+		checkboxTooltip			= L["options.general.debug-mode.tooltip"],
+		checkboxDefault			= MEM.OPTIONS_DEFAULTS.general["debug-mode"],
+		dropdownSettingKey		= addonName .. "_debug-level",
+		dropdownVariableName	= "debug-level",
+		dropdownName			= L["options.general.debug-mode.level.name"],
+		dropdownTooltip			= L["options.general.debug-mode.level.tooltip"],
+		dropdownDefault			= MEM.OPTIONS_DEFAULTS.general["debug-level"],
+		dropdownOptions			= {
+			{value = "basic", label = L["options.general.debug-mode.level.value.basic"]},
+			{value = "advanced", label = L["options.general.debug-mode.level.value.advanced"]}
+		}
 	})
 
 	layout:AddInitializer(CreateSettingsListSectionHeaderInitializer(L["options.event"]))
@@ -265,9 +277,9 @@ function Options:Initialize()
 		sliderName				= L["options.event.general.delay.name"],
 		sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.character.login"], MEM.OPTIONS_DEFAULTS["event"]["login-delay"]),
 		sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["login-delay"],
-		sliderMin = 1,
-		sliderMax = 10,
-		sliderStep = 1,
+		sliderMin				= 1,
+		sliderMax				= 10,
+		sliderStep				= 1,
 		sliderFormatter			= FormatSeconds,
 
 		shownPredicate			= isCharacterExpanded
@@ -287,9 +299,9 @@ function Options:Initialize()
 		sliderName				= L["options.event.general.delay.name"],
 		sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.character.level-up"], MEM.OPTIONS_DEFAULTS["event"]["level-up-delay"]),
 		sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["level-up-delay"],
-		sliderMin = 1,
-		sliderMax = 10,
-		sliderStep = 1,
+		sliderMin				= 1,
+		sliderMax				= 10,
+		sliderStep				= 1,
 		sliderFormatter			= FormatSeconds,
 
 		shownPredicate			= isCharacterExpanded
@@ -323,9 +335,9 @@ function Options:Initialize()
 		sliderName				= L["options.event.general.delay.name"],
 		sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.character.death"], MEM.OPTIONS_DEFAULTS["event"]["death-delay"]),
 		sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["death-delay"],
-		sliderMin = 1,
-		sliderMax = 10,
-		sliderStep = 1,
+		sliderMin				= 1,
+		sliderMax				= 10,
+		sliderStep				= 1,
 		sliderFormatter			= FormatSeconds,
 
 		shownPredicate			= isCharacterExpanded
@@ -351,43 +363,43 @@ function Options:Initialize()
 
 	-- Reputation
 	AWL.Settings:AddCheckboxSliderCombo(category, layout, {
-		variableTable = MEM.Settings.event,
-		checkboxSettingKey = addonName .. "_reputation-active",
-		checkboxVariableName = "reputation-active",
-		checkboxName = L["options.event.character.reputation"],
-		checkboxTooltip = L["options.event.character.reputation.tooltip"],
-		checkboxDefault = MEM.OPTIONS_DEFAULTS["event"]["reputation-active"],
-		sliderSettingKey = addonName .. "_reputation-delay",
-		sliderVariableName = "reputation-delay",
-		sliderName = L["options.event.general.delay.name"],
-		sliderTooltip = L["options.event.general.delay.tooltip"]:format(L["options.event.character.reputation"], MEM.OPTIONS_DEFAULTS["event"]["reputation-delay"]),
-		sliderDefault = MEM.OPTIONS_DEFAULTS["event"]["reputation-delay"],
-		sliderMin = 1,
-		sliderMax = 10,
-		sliderStep = 1,
-		sliderFormatter = FormatSeconds,
-		shownPredicate = isCharacterExpanded
+		variableTable			= MEM.Settings.event,
+		checkboxSettingKey		= addonName .. "_reputation-active",
+		checkboxVariableName	= "reputation-active",
+		checkboxName			= L["options.event.character.reputation"],
+		checkboxTooltip			= L["options.event.character.reputation.tooltip"],
+		checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["reputation-active"],
+		sliderSettingKey		= addonName .. "_reputation-delay",
+		sliderVariableName		= "reputation-delay",
+		sliderName				= L["options.event.general.delay.name"],
+		sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.character.reputation"], MEM.OPTIONS_DEFAULTS["event"]["reputation-delay"]),
+		sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["reputation-delay"],
+		sliderMin				= 1,
+		sliderMax				= 10,
+		sliderStep				= 1,
+		sliderFormatter			= FormatSeconds,
+		shownPredicate			= isCharacterExpanded
 	})
 
 	-- New Area
 	local initializerZone, settingZone = AWL.Settings:AddCheckboxSliderCombo(category, layout, {
-		isNew = true,
-		variableTable = MEM.Settings.event,
-		checkboxSettingKey = addonName .. "_zone-active",
-		checkboxVariableName = "zone-active",
-		checkboxName = L["options.event.character.zone"],
-		checkboxTooltip = L["options.event.character.zone.tooltip"],
-		checkboxDefault = MEM.OPTIONS_DEFAULTS["event"]["zone-active"],
-		sliderSettingKey = addonName .. "_zone-delay",
-		sliderVariableName = "zone-delay",
-		sliderName = L["options.event.general.delay.name"],
-		sliderTooltip = L["options.event.general.delay.tooltip"]:format(L["options.event.character.zone"], MEM.OPTIONS_DEFAULTS["event"]["zone-delay"]),
-		sliderDefault = MEM.OPTIONS_DEFAULTS["event"]["zone-delay"],
-		sliderMin = 1,
-		sliderMax = 10,
-		sliderStep = 1,
-		sliderFormatter = FormatSeconds,
-		shownPredicate = isCharacterExpanded
+		isNew					= true,
+		variableTable			= MEM.Settings.event,
+		checkboxSettingKey		= addonName .. "_zone-active",
+		checkboxVariableName	= "zone-active",
+		checkboxName			= L["options.event.character.zone"],
+		checkboxTooltip			= L["options.event.character.zone.tooltip"],
+		checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["zone-active"],
+		sliderSettingKey		= addonName .. "_zone-delay",
+		sliderVariableName		= "zone-delay",
+		sliderName				= L["options.event.general.delay.name"],
+		sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.character.zone"], MEM.OPTIONS_DEFAULTS["event"]["zone-delay"]),
+		sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["zone-delay"],
+		sliderMin				= 1,
+		sliderMax				= 10,
+		sliderStep				= 1,
+		sliderFormatter			= FormatSeconds,
+		shownPredicate			= isCharacterExpanded
 	})
 
 	local zoneKeys = {}
@@ -397,18 +409,20 @@ function Options:Initialize()
 		zoneOptions[position] = {value = position, label = L["options.event.character.zone.type." .. area.kind]}
 	end
 	local zoneDefaults = AWL.Settings:CreateMultiSelectProxy(MEM.OPTIONS_DEFAULTS.event, "zone-types", zoneKeys)
+
+	-- Area Types
 	AWL.Settings:AddDropdown(category, {
-		variableTable = AWL.Settings:CreateMultiSelectProxy(MEM.Settings.event, "zone-types", zoneKeys),
-		settingKey = addonName .. "_zone-types",
-		variableName = "zone-types",
-		name = L["options.event.character.zone.type.name"],
-		tooltip = L["options.event.character.zone.type.tooltip"],
-		default = zoneDefaults["zone-types"],
-		options = zoneOptions,
-		multiSelect = true,
-		parentInit = initializerZone,
-		parentCondition = function() return GetVal(settingZone) end,
-		shownPredicate = isCharacterExpanded
+		variableTable	= AWL.Settings:CreateMultiSelectProxy(MEM.Settings.event, "zone-types", zoneKeys),
+		settingKey		= addonName .. "_zone-types",
+		variableName	= "zone-types",
+		name			= L["options.event.character.zone.type.name"],
+		tooltip			= L["options.event.character.zone.type.tooltip"],
+		default			= zoneDefaults["zone-types"],
+		options			= zoneOptions,
+		multiSelect		= true,
+		parentInit		= initializerZone,
+		parentCondition	= function() return GetVal(settingZone) end,
+		shownPredicate	= isCharacterExpanded
 	})
 
 	if AWL.GAME_TYPE_RETAIL or AWL.GAME_TYPE_FOREVER or AWL.GAME_TYPE_MISTS then
@@ -431,9 +445,9 @@ function Options:Initialize()
 				MEM.OPTIONS_DEFAULTS["event"]["achievement-personal-delay"]
 			),
 			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["achievement-personal-delay"],
-			sliderMin = 1,
-			sliderMax = 10,
-			sliderStep = 1,
+			sliderMin				= 1,
+			sliderMax				= 10,
+			sliderStep				= 1,
 			sliderFormatter			= FormatSeconds,
 
 			shownPredicate			= isAchievementExpanded
@@ -472,9 +486,9 @@ function Options:Initialize()
 					MEM.OPTIONS_DEFAULTS["event"]["achievement-criteria-delay"]
 				),
 				sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["achievement-criteria-delay"],
-				sliderMin = 1,
-				sliderMax = 10,
-				sliderStep = 1,
+				sliderMin				= 1,
+				sliderMax				= 10,
+				sliderStep				= 1,
 				sliderFormatter			= FormatSeconds,
 
 				shownPredicate			= isAchievementExpanded
@@ -499,9 +513,9 @@ function Options:Initialize()
 					MEM.OPTIONS_DEFAULTS["event"]["achievement-guild-delay"]
 				),
 				sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["achievement-guild-delay"],
-				sliderMin = 1,
-				sliderMax = 10,
-				sliderStep = 1,
+				sliderMin				= 1,
+				sliderMax				= 10,
+				sliderStep				= 1,
 				sliderFormatter			= FormatSeconds,
 
 				shownPredicate			= isAchievementExpanded
@@ -532,9 +546,9 @@ function Options:Initialize()
 					MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-world-delay"]
 				),
 				sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-world-delay"],
-				sliderMin = 1,
-				sliderMax = 10,
-				sliderStep = 1,
+				sliderMin				= 1,
+				sliderMax				= 10,
+				sliderStep				= 1,
 				sliderFormatter			= FormatSeconds,
 
 				shownPredicate			= isPvEExpanded
@@ -577,9 +591,9 @@ function Options:Initialize()
 			sliderName				= L["options.event.general.delay.name"],
 			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(eventPartyVictory, MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-party-delay"]),
 			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-party-delay"],
-			sliderMin = 1,
-			sliderMax = 10,
-			sliderStep = 1,
+			sliderMin				= 1,
+			sliderMax				= 10,
+			sliderStep				= 1,
 			sliderFormatter			= FormatSeconds,
 
 			shownPredicate			= isPvEExpanded
@@ -612,9 +626,9 @@ function Options:Initialize()
 			sliderName				= L["options.event.general.delay.name"],
 			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(eventPartyWipe, MEM.OPTIONS_DEFAULTS["event"]["encounter-wipe-party-delay"]),
 			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-wipe-party-delay"],
-			sliderMin = 1,
-			sliderMax = 10,
-			sliderStep = 1,
+			sliderMin				= 1,
+			sliderMax				= 10,
+			sliderStep				= 1,
 			sliderFormatter			= FormatSeconds,
 
 			shownPredicate			= isPvEExpanded
@@ -634,9 +648,9 @@ function Options:Initialize()
 			sliderName				= L["options.event.general.delay.name"],
 			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(eventRaidVictory, MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-raid-delay"]),
 			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-raid-delay"],
-			sliderMin = 1,
-			sliderMax = 10,
-			sliderStep = 1,
+			sliderMin				= 1,
+			sliderMax				= 10,
+			sliderStep				= 1,
 			sliderFormatter			= FormatSeconds,
 
 			shownPredicate			= isPvEExpanded
@@ -669,9 +683,9 @@ function Options:Initialize()
 			sliderName				= L["options.event.general.delay.name"],
 			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(eventRaidWipe, MEM.OPTIONS_DEFAULTS["event"]["encounter-wipe-raid-delay"]),
 			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-wipe-raid-delay"],
-			sliderMin = 1,
-			sliderMax = 10,
-			sliderStep = 1,
+			sliderMin				= 1,
+			sliderMax				= 10,
+			sliderStep				= 1,
 			sliderFormatter			= FormatSeconds,
 
 			shownPredicate			= isPvEExpanded
@@ -695,9 +709,9 @@ function Options:Initialize()
 					MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-scenario-delay"]
 				),
 				sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-scenario-delay"],
-				sliderMin = 1,
-				sliderMax = 10,
-				sliderStep = 1,
+				sliderMin				= 1,
+				sliderMax				= 10,
+				sliderStep				= 1,
 				sliderFormatter			= FormatSeconds,
 
 				shownPredicate			= isPvEExpanded
@@ -733,9 +747,9 @@ function Options:Initialize()
 					MEM.OPTIONS_DEFAULTS["event"]["encounter-wipe-scenario-delay"]
 				),
 				sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-wipe-scenario-delay"],
-				sliderMin = 1,
-				sliderMax = 10,
-				sliderStep = 1,
+				sliderMin				= 1,
+				sliderMax				= 10,
+				sliderStep				= 1,
 				sliderFormatter			= FormatSeconds,
 
 				shownPredicate			= isPvEExpanded
@@ -759,9 +773,9 @@ function Options:Initialize()
 				sliderName				= L["options.event.general.delay.name"],
 				sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.pve.mythic"], MEM.OPTIONS_DEFAULTS["event"]["mythic-delay"]),
 				sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["mythic-delay"],
-				sliderMin = 1,
-				sliderMax = 10,
-				sliderStep = 1,
+				sliderMin				= 1,
+				sliderMax				= 10,
+				sliderStep				= 1,
 				sliderFormatter			= FormatSeconds,
 
 				shownPredicate			= isPvEExpanded
@@ -786,9 +800,9 @@ function Options:Initialize()
 		sliderName				= L["options.event.general.delay.name"],
 		sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.pvp.duel"], MEM.OPTIONS_DEFAULTS["event"]["pvp-duel-delay"]),
 		sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["pvp-duel-delay"],
-		sliderMin = 1,
-		sliderMax = 10,
-		sliderStep = 1,
+		sliderMin				= 1,
+		sliderMax				= 10,
+		sliderStep				= 1,
 		sliderFormatter			= FormatSeconds,
 
 		shownPredicate			= isPvPExpanded
@@ -809,9 +823,9 @@ function Options:Initialize()
 			sliderName				= L["options.event.general.delay.name"],
 			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.pvp.arena"], MEM.OPTIONS_DEFAULTS["event"]["pvp-arena-delay"]),
 			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["pvp-arena-delay"],
-			sliderMin = 1,
-			sliderMax = 10,
-			sliderStep = 1,
+			sliderMin				= 1,
+			sliderMax				= 10,
+			sliderStep				= 1,
 			sliderFormatter			= FormatSeconds,
 
 			shownPredicate			= isPvPExpanded
@@ -836,9 +850,9 @@ function Options:Initialize()
 				MEM.OPTIONS_DEFAULTS["event"]["pvp-battleground-delay"]
 			),
 			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["pvp-battleground-delay"],
-			sliderMin = 1,
-			sliderMax = 10,
-			sliderStep = 1,
+			sliderMin				= 1,
+			sliderMax				= 10,
+			sliderStep				= 1,
 			sliderFormatter			= FormatSeconds,
 
 			shownPredicate			= isPvPExpanded
@@ -872,9 +886,9 @@ function Options:Initialize()
 				sliderName				= L["options.event.general.delay.name"],
 				sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.pvp.brawl"], MEM.OPTIONS_DEFAULTS["event"]["pvp-brawl-delay"]),
 				sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["pvp-brawl-delay"],
-				sliderMin = 1,
-				sliderMax = 10,
-				sliderStep = 1,
+				sliderMin				= 1,
+				sliderMax				= 10,
+				sliderStep				= 1,
 				sliderFormatter			= FormatSeconds,
 
 				shownPredicate			= isPvPExpanded
@@ -899,6 +913,7 @@ function Options:Initialize()
 
 	local function AddCollectionEntry(key, nameString, tooltip, condition)
 		if condition then
+			-- Collection Event
 			AWL.Settings:AddCheckboxSliderCombo(category, layout, {
 				variableTable			= MEM.Settings.event,
 				checkboxSettingKey		= addonName .. "_collection-" .. key .. "-active",
@@ -912,9 +927,9 @@ function Options:Initialize()
 				sliderName				= L["options.event.general.delay.name"],
 				sliderTooltip			= L["options.event.general.delay.tooltip"]:format(nameString, MEM.OPTIONS_DEFAULTS["event"]["collection-" .. key .. "-delay"]),
 				sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["collection-" .. key .. "-delay"],
-				sliderMin = 1,
-				sliderMax = 10,
-				sliderStep = 1,
+				sliderMin				= 1,
+				sliderMax				= 10,
+				sliderStep				= 1,
 				sliderFormatter			= FormatSeconds,
 
 				shownPredicate			= isCollectionExpanded
@@ -944,9 +959,9 @@ function Options:Initialize()
 		sliderName				= L["options.event.other.interval-timer.name"],
 		sliderTooltip			= L["options.event.other.interval-timer.tooltip"],
 		sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["interval-timer"],
-		sliderMin = 1,
-		sliderMax = 60,
-		sliderStep = 1,
+		sliderMin				= 1,
+		sliderMax				= 60,
+		sliderStep				= 1,
 		sliderFormatter			= FormatMinutes,
 
 		shownPredicate			= isOtherExpanded
@@ -970,9 +985,9 @@ function Options:Initialize()
 				MEM.OPTIONS_DEFAULTS["event"]["perks-activity-delay"]
 			),
 			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["perks-activity-delay"],
-			sliderMin = 1,
-			sliderMax = 10,
-			sliderStep = 1,
+			sliderMin				= 1,
+			sliderMax				= 10,
+			sliderStep				= 1,
 			sliderFormatter			= FormatSeconds,
 
 			shownPredicate			= isOtherExpanded
@@ -995,9 +1010,9 @@ function Options:Initialize()
 				MEM.OPTIONS_DEFAULTS["event"]["loot-toast-delay"]
 			),
 			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["loot-toast-delay"],
-			sliderMin = 1,
-			sliderMax = 10,
-			sliderStep = 1,
+			sliderMin				= 1,
+			sliderMax				= 10,
+			sliderStep				= 1,
 			sliderFormatter			= FormatSeconds,
 
 			shownPredicate			= isOtherExpanded
@@ -1010,18 +1025,20 @@ function Options:Initialize()
 		local lootVariables, lootDefault, lootOptions = CreateMultiSelectOptions(
 			MEM.LOOT_TOAST_OPTIONS, MEM.Settings.event, MEM.OPTIONS_DEFAULTS.event, "loot-toast-types"
 		)
+
+		-- Special Loot: Types
 		local initializerLootTypes = AWL.Settings:AddDropdown(category, {
-			variableTable = lootVariables,
-			settingKey = addonName .. "_loot-toast-types",
-			variableName = "loot-toast-types",
-			name = L["options.event.other.loot-toast.types.name"],
-			tooltip = L["options.event.other.loot-toast.types.tooltip"],
-			default = lootDefault,
-			options = lootOptions,
-			multiSelect = true,
-			parentInit = initializerLootToast,
-			parentCondition = IsLootToastEnabled,
-			shownPredicate = isOtherExpanded
+			variableTable	= lootVariables,
+			settingKey		= addonName .. "_loot-toast-types",
+			variableName	= "loot-toast-types",
+			name			= L["options.event.other.loot-toast.types.name"],
+			tooltip			= L["options.event.other.loot-toast.types.tooltip"],
+			default			= lootDefault,
+			options			= lootOptions,
+			multiSelect		= true,
+			parentInit		= initializerLootToast,
+			parentCondition	= IsLootToastEnabled,
+			shownPredicate	= isOtherExpanded
 		})
 
 		local lootToastQualityOptions = {}
@@ -1033,6 +1050,7 @@ function Options:Initialize()
 			}
 		end
 
+		-- Special Loot: Minimum Item Quality
 		AWL.Settings:AddDropdown(category, {
 			variableTable	= MEM.Settings.event,
 			settingKey		= addonName .. "_loot-toast-quality",
@@ -1050,56 +1068,65 @@ function Options:Initialize()
 	-- Manual Screenshots
 	layout:AddInitializer(CreateSettingsListSectionHeaderInitializer(L["options.manual"]))
 
+	-- Manual Screenshots: Button
 	local _, manualVisibilitySetting = AWL.Settings:AddCheckbox(category, {
-		isNew = true,
-		variableTable = MEM.Settings.manual,
-		settingKey = addonName .. "_manual-button-visible",
-		variableName = "manual-button-visible",
-		name = L["options.manual.button.name"],
-		tooltip = L["options.manual.button.tooltip"],
-		default = MEM.OPTIONS_DEFAULTS.manual["manual-button-visible"],
-		onClick = function(_, value)
+		isNew			= true,
+		variableTable	= MEM.Settings.manual,
+		settingKey		= addonName .. "_manual-button-visible",
+		variableName	= "manual-button-visible",
+		name			= L["options.manual.button.name"],
+		tooltip			= L["options.manual.button.tooltip"],
+		default			= MEM.OPTIONS_DEFAULTS.manual["manual-button-visible"],
+		onClick			= function(_, value)
 			MEM.Modules.ScreenshotButton:SetShown(value)
 		end
 	})
 	MEM.Modules.ScreenshotButton.visibilitySetting = manualVisibilitySetting
+
+	-- Manual Screenshots: Key Binding
 	AWL.Settings:AddKeyBinding(layout, {
-		binding = "MEMENTO_MANUAL_SCREENSHOT"
+		binding	= "MEMENTO_MANUAL_SCREENSHOT"
 	})
+
+	-- Manual Screenshots: Countdown
 	AWL.Settings:AddCheckboxSliderCombo(category, layout, {
-		variableTable = MEM.Settings.manual,
-		checkboxSettingKey = addonName .. "_manual-countdown-active",
-		checkboxVariableName = "manual-countdown-active",
-		checkboxName = L["options.manual.countdown.name"],
-		checkboxTooltip = L["options.manual.countdown.tooltip"],
-		checkboxDefault = MEM.OPTIONS_DEFAULTS.manual["manual-countdown-active"],
-		sliderSettingKey = addonName .. "_manual-countdown-seconds",
-		sliderVariableName = "manual-countdown-seconds",
-		sliderName = L["options.manual.delay.name"],
-		sliderTooltip = L["options.manual.delay.tooltip"],
-		sliderDefault = MEM.OPTIONS_DEFAULTS.manual["manual-countdown-seconds"],
-		sliderMin = 1,
-		sliderMax = 10,
-		sliderStep = 1,
-		sliderFormatter = FormatSeconds
+		variableTable			= MEM.Settings.manual,
+		checkboxSettingKey		= addonName .. "_manual-countdown-active",
+		checkboxVariableName	= "manual-countdown-active",
+		checkboxName			= L["options.manual.countdown.name"],
+		checkboxTooltip			= L["options.manual.countdown.tooltip"],
+		checkboxDefault			= MEM.OPTIONS_DEFAULTS.manual["manual-countdown-active"],
+		sliderSettingKey		= addonName .. "_manual-countdown-seconds",
+		sliderVariableName		= "manual-countdown-seconds",
+		sliderName				= L["options.manual.delay.name"],
+		sliderTooltip			= L["options.manual.delay.tooltip"],
+		sliderDefault			= MEM.OPTIONS_DEFAULTS.manual["manual-countdown-seconds"],
+		sliderMin				= 1,
+		sliderMax				= 10,
+		sliderStep				= 1,
+		sliderFormatter			= FormatSeconds
 	})
+
+	-- Manual Screenshots: Hide UI
 	local initializerManualUI, settingManualUI = AWL.Settings:AddCheckbox(category, {
-		variableTable = MEM.Settings.manual,
-		settingKey = addonName .. "_manual-hide-ui",
-		variableName = "manual-hide-ui",
-		name = L["options.general.hide-ui.name"],
-		tooltip = L["options.general.hide-ui.tooltip"],
-		default = MEM.OPTIONS_DEFAULTS.manual["manual-hide-ui"]
+		variableTable	= MEM.Settings.manual,
+		settingKey		= addonName .. "_manual-hide-ui",
+		variableName	= "manual-hide-ui",
+		name			= L["options.general.hide-ui.name"],
+		tooltip			= L["options.general.hide-ui.tooltip"],
+		default			= MEM.OPTIONS_DEFAULTS.manual["manual-hide-ui"]
 	})
+
+	-- Manual Screenshots: Capture Notice
 	AWL.Settings:AddCheckbox(category, {
-		variableTable = MEM.Settings.manual,
-		settingKey = addonName .. "_manual-show-message",
-		variableName = "manual-show-message",
-		name = L["options.general.hide-ui.message.name"],
-		tooltip = L["options.general.hide-ui.message.tooltip"],
-		default = MEM.OPTIONS_DEFAULTS.manual["manual-show-message"],
-		parentInit = initializerManualUI,
-		parentCondition = function() return GetVal(settingManualUI) end
+		variableTable	= MEM.Settings.manual,
+		settingKey		= addonName .. "_manual-show-message",
+		variableName	= "manual-show-message",
+		name			= L["options.general.hide-ui.message.name"],
+		tooltip			= L["options.general.hide-ui.message.tooltip"],
+		default			= MEM.OPTIONS_DEFAULTS.manual["manual-show-message"],
+		parentInit		= initializerManualUI,
+		parentCondition	= function() return GetVal(settingManualUI) end
 	})
 
 	-- Profiles Section

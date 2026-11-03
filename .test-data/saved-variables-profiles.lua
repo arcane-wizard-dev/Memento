@@ -93,6 +93,7 @@ Memento_Options_v6 = {
 		},
 		["general"] = {
 			["debug-mode"] = false,
+			["debug-level"] = "basic",
 			["hide-ui"] = false,
 			["hide-ui-message"] = false,
 			["minimap-button"] = {
@@ -215,6 +216,7 @@ Memento_Options_v6 = {
 			},
 			["general"] = {
 				["debug-mode"] = false,
+				["debug-level"] = "advanced",
 				["hide-ui"] = false,
 				["hide-ui-message"] = false,
 				["minimap-button"] = {
@@ -323,6 +325,7 @@ Memento_Options_v6 = {
 			},
 			["general"] = {
 				["debug-mode"] = false,
+				["debug-level"] = "basic",
 				["hide-ui"] = false,
 				["hide-ui-message"] = false,
 				["minimap-button"] = {
