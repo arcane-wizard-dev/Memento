@@ -12,6 +12,14 @@ MEM.CHANGELOG = {
 		version = version,
 		date = buildDate ~= "" and buildDate or nil,
 		entries = {
+			"Changed: Debug messages are now converted and formatted only when debug mode is enabled",
+			"Requires Arcane Wizard: Library revision 4 or later"
+		}
+	},
+	{
+		version = "v2.43",
+		date = "2026-11-03",
+		entries = {
 			"Changed: The debug mode option now combines an enable checkbox with a Basic or Advanced level selector",
 			"Updated: deDE, enUS, ruRU localizations",
 			"Minor code adjustments"
@@ -89,13 +97,6 @@ MEM.CHANGELOG = {
 		date = "2026-10-12",
 		entries = {
 			"Refactoring of the addon structure and source code"
-		}
-	},
-	{
-		version = "v2.34",
-		date = "2026-10-10",
-		entries = {
-			"Added: New event 'Reputation rank increased' - A screenshot can now be taken automatically when a reputation, friendship, or renown rank increases"
 		}
 	}
 	-- END GENERATED CHANGELOG
