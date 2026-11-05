@@ -8,7 +8,7 @@
 ## DefaultState: enabled
 
 ## Dependencies: ArcaneWizardLibrary
-## X-Library-Revision: 3
+## X-Library-Revision: 4
 
 ## Notes: This addon automatically takes screenshots of selected gameplay moments. It works in the background while you keep playing.
 ## Notes-deDE: Dieses Addon hält ausgewählte Spielmomente automatisch als Screenshots fest. Es arbeitet im Hintergrund, während du weiterspielst.

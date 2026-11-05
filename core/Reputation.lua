@@ -148,21 +148,21 @@ function Reputation:GetFactionIncrease(factionID)
 
 	local data = GetFactionDataByID(factionID)
 	local rank = GetRank(factionID, data)
-	Utils:PrintDebug(string.format(
+	Utils:PrintDebug(
 		"Faction lookup returned: factionID=%s, name=%s, reaction=%s, rankKind=%s, rankLevel=%s",
-		tostring(factionID), tostring(data and data.name), tostring(data and data.reaction),
-		tostring(rank and rank.kind), tostring(rank and rank.level)
-	))
+		factionID, data and data.name, data and data.reaction,
+		rank and rank.kind, rank and rank.level
+	)
 
 	if not data then return nil, nil, "Faction data is unavailable." end
 	if not rank then return nil, nil, "No supported reputation rank is available for this faction." end
 
 	local previous = state.ranks[factionID]
 	state.ranks[factionID] = rank
-	Utils:PrintDebug(string.format(
+	Utils:PrintDebug(
 		"Reputation comparison: previousKind=%s, previousLevel=%s, currentKind=%s, currentLevel=%s",
-		tostring(previous and previous.kind), tostring(previous and previous.level), tostring(rank.kind), tostring(rank.level)
-	))
+		previous and previous.kind, previous and previous.level, rank.kind, rank.level
+	)
 
 	if previous and previous.kind == rank.kind and rank.level > previous.level then
 		return data.name, rank.label
@@ -178,19 +178,19 @@ function Reputation:GetRenownIncrease(factionID, newLevel, oldLevel)
 
 	local previous = state.renown[factionID]
 	state.renown[factionID] = newLevel
-	Utils:PrintDebug(string.format(
+	Utils:PrintDebug(
 		"Renown comparison: factionID=%s, previousLevel=%s, oldLevel=%s, newLevel=%s",
-		tostring(factionID), tostring(previous), tostring(oldLevel), tostring(newLevel)
-	))
+		factionID, previous, oldLevel, newLevel
+	)
 
 	if newLevel <= oldLevel then return nil, nil, "The renown level did not increase." end
 	if previous and newLevel <= previous then return nil, nil, "This renown level was already processed." end
 
 	local data = C_MajorFactions.GetMajorFactionData(factionID)
-	Utils:PrintDebug(string.format(
+	Utils:PrintDebug(
 		"C_MajorFactions.GetMajorFactionData() returned: name=%s, renownLevel=%s",
-		tostring(data and data.name), tostring(data and data.renownLevel)
-	))
+		data and data.name, data and data.renownLevel
+	)
 
 	return data and data.name or UNKNOWN, L["chat.event.reputation.renown"]:format(newLevel)
 end

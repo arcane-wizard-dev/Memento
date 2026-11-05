@@ -125,7 +125,7 @@ local function ProcessCaptureQueue()
 			PlayScreenshotSound()
 		end)
 		if not status then
-			Utils:PrintDebug("Screenshot failed: " .. tostring(err))
+			Utils:PrintDebug("Screenshot failed: %s", err)
 		else
 			Utils:PrintDebug("Screenshot taken.")
 		end
@@ -145,7 +145,7 @@ local function ProcessCaptureQueue()
 	end)
 
 	if not status then
-		Utils:PrintDebug("Screenshot preparation failed: " .. tostring(err))
+		Utils:PrintDebug("Screenshot preparation failed: %s", err)
 		if hiddenUI then
 			UIParent:Show()
 			hiddenUI = false
@@ -181,7 +181,7 @@ end
 
 local function AchievementPersonalEventHandler(achievementID, alreadyEarned)
 	local achievementLink = GetAchievementLink(achievementID)
-	Utils:PrintDebug(string.format("GetAchievementLink() returned: achievementLink=%s", tostring(achievementLink)))
+	Utils:PrintDebug("GetAchievementLink() returned: achievementLink=%s", achievementLink)
 
 	if achievementLink then
 		if not alreadyEarned then
@@ -189,10 +189,10 @@ local function AchievementPersonalEventHandler(achievementID, alreadyEarned)
 		elseif MEM.Settings.event["achievement-personal-exist"] then
 			NotifyScreenshot(L["chat.event.achievement.personal.exist"]:format(achievementLink))
 		else
-			Utils:PrintDebug(string.format(
+			Utils:PrintDebug(
 				"The achievement %s has already been reached by another character. No screenshot requested.",
-				tostring(achievementLink)
-			))
+				achievementLink
+			)
 		end
 	else
 		Utils:PrintDebug("Unknown AchievementLink. (nil value / unknown ID)")
@@ -209,14 +209,14 @@ end
 
 local function AchievementGuildEventHandler(achievementID)
 	local name = select(2, GetAchievementInfo(achievementID))
-	Utils:PrintDebug(string.format("GetAchievementInfo() returned: name=%s", tostring(name)))
+	Utils:PrintDebug("GetAchievementInfo() returned: name=%s", name)
 
 	NotifyScreenshot(L["chat.event.achievement.guild.new"]:format(name))
 end
 
 local function CriteriaEventHandler(achievementID, description)
 	local achievementLink = GetAchievementLink(achievementID)
-	Utils:PrintDebug(string.format("GetAchievementLink() returned: achievementLink=%s", tostring(achievementLink)))
+	Utils:PrintDebug("GetAchievementLink() returned: achievementLink=%s", achievementLink)
 
 	if achievementLink then
 		NotifyScreenshot(L["chat.event.achievement.criteria.new"]:format(achievementLink, description))
@@ -377,16 +377,16 @@ end
 
 function Capture:ScheduleTimer(handler, delay, ...)
 	local args = {...}
-	Utils:PrintDebug(string.format("Screenshot timer scheduled: handler=%s, delay=%s", tostring(handler), tostring(delay)))
+	Utils:PrintDebug("Screenshot timer scheduled: handler=%s, delay=%s", handler, delay)
 
 	C_Timer.After(delay, function()
 		if handlerTable[handler] then
 			handlerTable[handler](unpack(args))
 		else
-			Utils:PrintDebug(string.format(
+			Utils:PrintDebug(
 				"Handler '%s' not found. No screenshot requested.",
-				tostring(handler)
-			))
+				handler
+			)
 		end
 	end)
 end

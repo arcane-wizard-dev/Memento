@@ -94,10 +94,10 @@ function Utils:PrintMessage(msg, previousLevel, timePlayedOnPreviousLevel)
 	end
 end
 
-function Utils:PrintDebug(msg)
+function Utils:PrintDebug(msg, ...)
 	if not MEM.Settings.general["debug-mode"] then return end
 
-	Addon:PrintDebug(msg)
+	Addon:PrintDebug(msg, ...)
 end
 
 function Utils:OpenSettings()
