@@ -12,6 +12,15 @@ MEM.CHANGELOG = {
 		version = version,
 		date = buildDate ~= "" and buildDate or nil,
 		entries = {
+			"Changed: The Basic debug level now shows important messages, while Advanced also includes technical details",
+			"Updated: deDE, enUS, ruRU localizations",
+			"Removed obsolete code for better maintainability"
+		}
+	},
+	{
+		version = "v2.44",
+		date = "2026-11-05",
+		entries = {
 			"Changed: Debug messages are now converted and formatted only when debug mode is enabled",
 			"Requires Arcane Wizard: Library revision 4 or later"
 		}
@@ -90,13 +99,6 @@ MEM.CHANGELOG = {
 		date = "2026-10-14",
 		entries = {
 			"Fixed: Repeated error messages for missing translations"
-		}
-	},
-	{
-		version = "v2.35",
-		date = "2026-10-12",
-		entries = {
-			"Refactoring of the addon structure and source code"
 		}
 	}
 	-- END GENERATED CHANGELOG
