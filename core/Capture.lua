@@ -181,7 +181,7 @@ end
 
 local function AchievementPersonalEventHandler(achievementID, alreadyEarned)
 	local achievementLink = GetAchievementLink(achievementID)
-	Utils:PrintDebug("GetAchievementLink() returned: achievementLink=%s", achievementLink)
+	Utils:PrintDebugAdvanced("GetAchievementLink() returned: achievementLink=%s", achievementLink)
 
 	if achievementLink then
 		if not alreadyEarned then
@@ -189,39 +189,39 @@ local function AchievementPersonalEventHandler(achievementID, alreadyEarned)
 		elseif MEM.Settings.event["achievement-personal-exist"] then
 			NotifyScreenshot(L["chat.event.achievement.personal.exist"]:format(achievementLink))
 		else
-			Utils:PrintDebug(
+			Utils:PrintDebugAdvanced(
 				"The achievement %s has already been reached by another character. No screenshot requested.",
 				achievementLink
 			)
 		end
 	else
-		Utils:PrintDebug("Unknown AchievementLink. (nil value / unknown ID)")
+		Utils:PrintDebugAdvanced("Unknown AchievementLink. (nil value / unknown ID)")
 
 		if not alreadyEarned then
 			NotifyScreenshot(L["chat.event.achievement.personal.no-link.new"])
 		elseif MEM.Settings.event["achievement-personal-exist"] then
 			NotifyScreenshot(L["chat.event.achievement.personal.no-link.exist"])
 		else
-			Utils:PrintDebug("The achievement has already been reached by another character. No screenshot requested.")
+			Utils:PrintDebugAdvanced("The achievement has already been reached by another character. No screenshot requested.")
 		end
 	end
 end
 
 local function AchievementGuildEventHandler(achievementID)
 	local name = select(2, GetAchievementInfo(achievementID))
-	Utils:PrintDebug("GetAchievementInfo() returned: name=%s", name)
+	Utils:PrintDebugAdvanced("GetAchievementInfo() returned: name=%s", name)
 
 	NotifyScreenshot(L["chat.event.achievement.guild.new"]:format(name))
 end
 
 local function CriteriaEventHandler(achievementID, description)
 	local achievementLink = GetAchievementLink(achievementID)
-	Utils:PrintDebug("GetAchievementLink() returned: achievementLink=%s", achievementLink)
+	Utils:PrintDebugAdvanced("GetAchievementLink() returned: achievementLink=%s", achievementLink)
 
 	if achievementLink then
 		NotifyScreenshot(L["chat.event.achievement.criteria.new"]:format(achievementLink, description))
 	else
-		Utils:PrintDebug("Unknown AchievementLink. (nil value / unknown ID)")
+		Utils:PrintDebugAdvanced("Unknown AchievementLink. (nil value / unknown ID)")
 		NotifyScreenshot(L["chat.event.achievement.criteria.no-link.new"])
 	end
 end
@@ -377,7 +377,7 @@ end
 
 function Capture:ScheduleTimer(handler, delay, ...)
 	local args = {...}
-	Utils:PrintDebug("Screenshot timer scheduled: handler=%s, delay=%s", handler, delay)
+	Utils:PrintDebugAdvanced("Screenshot timer scheduled: handler=%s, delay=%s", handler, delay)
 
 	C_Timer.After(delay, function()
 		if handlerTable[handler] then

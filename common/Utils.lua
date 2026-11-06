@@ -50,12 +50,12 @@ end
 
 function Utils:RequestTimePlayed()
 	if not (MEM.Settings.general["notification-time-played"] or MEM.Settings.general["notification-level-time-played"] or MEM.Settings.event["level-up-time-played"]) or MEM.State.timePlayedInitialized then
-		self:PrintDebug("RequestTimePlayed() skipped.")
+		self:PrintDebugAdvanced("RequestTimePlayed() skipped.")
 
 		return
 	end
 
-	self:PrintDebug("RequestTimePlayed() scheduled.")
+	self:PrintDebugAdvanced("RequestTimePlayed() scheduled.")
 
 	RequestTimePlayed()
 end
@@ -96,6 +96,12 @@ end
 
 function Utils:PrintDebug(msg, ...)
 	if not MEM.Settings.general["debug-mode"] then return end
+
+	Addon:PrintDebug(msg, ...)
+end
+
+function Utils:PrintDebugAdvanced(msg, ...)
+	if not MEM.Settings.general["debug-mode"] or MEM.Settings.general["debug-level"] ~= "advanced" then return end
 
 	Addon:PrintDebug(msg, ...)
 end

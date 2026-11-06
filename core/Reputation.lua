@@ -148,7 +148,7 @@ function Reputation:GetFactionIncrease(factionID)
 
 	local data = GetFactionDataByID(factionID)
 	local rank = GetRank(factionID, data)
-	Utils:PrintDebug(
+	Utils:PrintDebugAdvanced(
 		"Faction lookup returned: factionID=%s, name=%s, reaction=%s, rankKind=%s, rankLevel=%s",
 		factionID, data and data.name, data and data.reaction,
 		rank and rank.kind, rank and rank.level
@@ -159,7 +159,7 @@ function Reputation:GetFactionIncrease(factionID)
 
 	local previous = state.ranks[factionID]
 	state.ranks[factionID] = rank
-	Utils:PrintDebug(
+	Utils:PrintDebugAdvanced(
 		"Reputation comparison: previousKind=%s, previousLevel=%s, currentKind=%s, currentLevel=%s",
 		previous and previous.kind, previous and previous.level, rank.kind, rank.level
 	)
@@ -178,7 +178,7 @@ function Reputation:GetRenownIncrease(factionID, newLevel, oldLevel)
 
 	local previous = state.renown[factionID]
 	state.renown[factionID] = newLevel
-	Utils:PrintDebug(
+	Utils:PrintDebugAdvanced(
 		"Renown comparison: factionID=%s, previousLevel=%s, oldLevel=%s, newLevel=%s",
 		factionID, previous, oldLevel, newLevel
 	)
@@ -187,7 +187,7 @@ function Reputation:GetRenownIncrease(factionID, newLevel, oldLevel)
 	if previous and newLevel <= previous then return nil, nil, "This renown level was already processed." end
 
 	local data = C_MajorFactions.GetMajorFactionData(factionID)
-	Utils:PrintDebug(
+	Utils:PrintDebugAdvanced(
 		"C_MajorFactions.GetMajorFactionData() returned: name=%s, renownLevel=%s",
 		data and data.name, data and data.renownLevel
 	)

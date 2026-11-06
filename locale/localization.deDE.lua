@@ -51,9 +51,9 @@ L["options.general.screenshot-sound-style.option.raid-warning"] = "Schlachtzugsw
 L["options.general.minimap-button.name"] = "Minimap-Button"
 L["options.general.minimap-button.tooltip"] = "Zeigt den Minimap-Button an."
 L["options.general.debug-mode.name"] = "Debugmodus"
-L["options.general.debug-mode.tooltip"] = "Zeigt zusätzliche Debuginformationen im Chat an."
+L["options.general.debug-mode.tooltip"] = "Zeigt Debugmeldungen der ausgewählten Stufe im Chat an."
 L["options.general.debug-mode.level.name"] = "Debugstufe"
-L["options.general.debug-mode.level.tooltip"] = "Legt die Debugstufe fest. Beide Stufen zeigen derzeit dieselben Meldungen an."
+L["options.general.debug-mode.level.tooltip"] = "Einfach zeigt wichtige Meldungen. Erweitert zeigt zusätzlich technische Details."
 L["options.general.debug-mode.level.value.basic"] = "Einfach"
 L["options.general.debug-mode.level.value.advanced"] = "Erweitert"
 
