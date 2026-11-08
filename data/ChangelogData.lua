@@ -12,6 +12,13 @@ MEM.CHANGELOG = {
 		version = version,
 		date = buildDate ~= "" and buildDate or nil,
 		entries = {
+			"Fixed: Renown events for invalid factions could trigger screenshots"
+		}
+	},
+	{
+		version = "v2.45",
+		date = "2026-11-06",
+		entries = {
 			"Changed: The Basic debug level now shows important messages, while Advanced also includes technical details",
 			"Updated: deDE, enUS, ruRU localizations",
 			"Removed obsolete code for better maintainability"
@@ -92,13 +99,6 @@ MEM.CHANGELOG = {
 		date = "2026-10-16",
 		entries = {
 			"Adapted to the latest version of Arcane Wizard: Library to ensure full compatibility"
-		}
-	},
-	{
-		version = "v2.36",
-		date = "2026-10-14",
-		entries = {
-			"Fixed: Repeated error messages for missing translations"
 		}
 	}
 	-- END GENERATED CHANGELOG
