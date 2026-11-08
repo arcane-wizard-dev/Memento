@@ -35,7 +35,6 @@ local function GetFactionDataByIndex(index)
 		return C_Reputation.GetFactionDataByIndex(index)
 	end
 
-	---@diagnostic disable-next-line: undefined-global
 	return GetLegacyFactionData(GetFactionInfo, index)
 end
 
@@ -44,7 +43,6 @@ local function GetFactionDataByID(factionID)
 		return C_Reputation.GetFactionDataByID(factionID)
 	end
 
-	---@diagnostic disable-next-line: undefined-global
 	return GetLegacyFactionData(GetFactionInfoByID, factionID)
 end
 
@@ -90,11 +88,8 @@ function Reputation:Initialize()
 		end
 	end
 
-	---@diagnostic disable-next-line: undefined-global
 	local getNumFactions = C_Reputation and C_Reputation.GetNumFactions or GetNumFactions
-	---@diagnostic disable-next-line: undefined-global
 	local expandHeader = C_Reputation and C_Reputation.ExpandFactionHeader or ExpandFactionHeader
-	---@diagnostic disable-next-line: undefined-global
 	local collapseHeader = C_Reputation and C_Reputation.CollapseFactionHeader or CollapseFactionHeader
 	local sortType = C_Reputation and C_Reputation.GetReputationSortType and C_Reputation.GetReputationSortType()
 	local showLegacy = C_Reputation and C_Reputation.AreLegacyReputationsShown and C_Reputation.AreLegacyReputationsShown()
