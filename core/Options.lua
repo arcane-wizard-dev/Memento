@@ -911,37 +911,136 @@ function Options:Initialize()
 
 	local _, isCollectionExpanded = AWL.Settings:AddExpandableHeader(layout, L["options.event.collection"])
 
-	local function AddCollectionEntry(key, nameString, tooltip, condition)
-		if condition then
-			-- Collection Event
-			AWL.Settings:AddCheckboxSliderCombo(category, layout, {
-				variableTable			= MEM.Settings.event,
-				checkboxSettingKey		= addonName .. "_collection-" .. key .. "-active",
-				checkboxVariableName	= "collection-" .. key .. "-active",
-				checkboxName			= nameString,
-				checkboxTooltip			= tooltip,
-				checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["collection-" .. key .. "-active"],
+	if AWL.GAME_TYPE_RETAIL or AWL.GAME_TYPE_FOREVER or AWL.GAME_TYPE_MISTS then
+		-- New Pet
+		AWL.Settings:AddCheckboxSliderCombo(category, layout, {
+			variableTable			= MEM.Settings.event,
+			checkboxSettingKey		= addonName .. "_collection-pet-active",
+			checkboxVariableName	= "collection-pet-active",
+			checkboxName			= L["options.event.collection.new-pet"],
+			checkboxTooltip			= L["options.event.collection.new-pet.tooltip"],
+			checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["collection-pet-active"],
 
-				sliderSettingKey		= addonName .. "_collection-" .. key .. "-delay",
-				sliderVariableName		= "collection-" .. key .. "-delay",
-				sliderName				= L["options.event.general.delay.name"],
-				sliderTooltip			= L["options.event.general.delay.tooltip"]:format(nameString, MEM.OPTIONS_DEFAULTS["event"]["collection-" .. key .. "-delay"]),
-				sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["collection-" .. key .. "-delay"],
-				sliderMin				= 1,
-				sliderMax				= 10,
-				sliderStep				= 1,
-				sliderFormatter			= FormatSeconds,
+			sliderSettingKey		= addonName .. "_collection-pet-delay",
+			sliderVariableName		= "collection-pet-delay",
+			sliderName				= L["options.event.general.delay.name"],
+			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(
+				L["options.event.collection.new-pet"],
+				MEM.OPTIONS_DEFAULTS["event"]["collection-pet-delay"]
+			),
+			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["collection-pet-delay"],
+			sliderMin				= 1,
+			sliderMax				= 10,
+			sliderStep				= 1,
+			sliderFormatter			= FormatSeconds,
 
-				shownPredicate			= isCollectionExpanded
-			})
-		end
+			shownPredicate			= isCollectionExpanded
+		})
 	end
 
-	AddCollectionEntry("pet", L["options.event.collection.new-pet"], L["options.event.collection.new-pet.tooltip"], AWL.GAME_TYPE_RETAIL or AWL.GAME_TYPE_FOREVER or AWL.GAME_TYPE_MISTS)
-	AddCollectionEntry("mount", L["options.event.collection.new-mount"], L["options.event.collection.new-mount.tooltip"], AWL.GAME_TYPE_RETAIL or AWL.GAME_TYPE_MISTS)
-	AddCollectionEntry("toy", L["options.event.collection.new-toy"], L["options.event.collection.new-toy.tooltip"], AWL.GAME_TYPE_RETAIL or AWL.GAME_TYPE_MISTS)
-	AddCollectionEntry("recipe", L["options.event.collection.new-recipe"], L["options.event.collection.new-recipe.tooltip"], true)
-	AddCollectionEntry("housing", L["options.event.collection.new-housing-item"], L["options.event.collection.new-housing-item.tooltip"], AWL.GAME_TYPE_RETAIL)
+	if AWL.GAME_TYPE_RETAIL or AWL.GAME_TYPE_MISTS then
+		-- New Mount
+		AWL.Settings:AddCheckboxSliderCombo(category, layout, {
+			variableTable			= MEM.Settings.event,
+			checkboxSettingKey		= addonName .. "_collection-mount-active",
+			checkboxVariableName	= "collection-mount-active",
+			checkboxName			= L["options.event.collection.new-mount"],
+			checkboxTooltip			= L["options.event.collection.new-mount.tooltip"],
+			checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["collection-mount-active"],
+
+			sliderSettingKey		= addonName .. "_collection-mount-delay",
+			sliderVariableName		= "collection-mount-delay",
+			sliderName				= L["options.event.general.delay.name"],
+			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(
+				L["options.event.collection.new-mount"],
+				MEM.OPTIONS_DEFAULTS["event"]["collection-mount-delay"]
+			),
+			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["collection-mount-delay"],
+			sliderMin				= 1,
+			sliderMax				= 10,
+			sliderStep				= 1,
+			sliderFormatter			= FormatSeconds,
+
+			shownPredicate			= isCollectionExpanded
+		})
+
+		-- New Toy
+		AWL.Settings:AddCheckboxSliderCombo(category, layout, {
+			variableTable			= MEM.Settings.event,
+			checkboxSettingKey		= addonName .. "_collection-toy-active",
+			checkboxVariableName	= "collection-toy-active",
+			checkboxName			= L["options.event.collection.new-toy"],
+			checkboxTooltip			= L["options.event.collection.new-toy.tooltip"],
+			checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["collection-toy-active"],
+
+			sliderSettingKey		= addonName .. "_collection-toy-delay",
+			sliderVariableName		= "collection-toy-delay",
+			sliderName				= L["options.event.general.delay.name"],
+			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(
+				L["options.event.collection.new-toy"],
+				MEM.OPTIONS_DEFAULTS["event"]["collection-toy-delay"]
+			),
+			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["collection-toy-delay"],
+			sliderMin				= 1,
+			sliderMax				= 10,
+			sliderStep				= 1,
+			sliderFormatter			= FormatSeconds,
+
+			shownPredicate			= isCollectionExpanded
+		})
+	end
+
+	-- New Recipe
+	AWL.Settings:AddCheckboxSliderCombo(category, layout, {
+		variableTable			= MEM.Settings.event,
+		checkboxSettingKey		= addonName .. "_collection-recipe-active",
+		checkboxVariableName	= "collection-recipe-active",
+		checkboxName			= L["options.event.collection.new-recipe"],
+		checkboxTooltip			= L["options.event.collection.new-recipe.tooltip"],
+		checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["collection-recipe-active"],
+
+		sliderSettingKey		= addonName .. "_collection-recipe-delay",
+		sliderVariableName		= "collection-recipe-delay",
+		sliderName				= L["options.event.general.delay.name"],
+		sliderTooltip			= L["options.event.general.delay.tooltip"]:format(
+			L["options.event.collection.new-recipe"],
+			MEM.OPTIONS_DEFAULTS["event"]["collection-recipe-delay"]
+		),
+		sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["collection-recipe-delay"],
+		sliderMin				= 1,
+		sliderMax				= 10,
+		sliderStep				= 1,
+		sliderFormatter			= FormatSeconds,
+
+		shownPredicate			= isCollectionExpanded
+	})
+
+	if AWL.GAME_TYPE_RETAIL then
+		-- New Housing Decor
+		AWL.Settings:AddCheckboxSliderCombo(category, layout, {
+			variableTable			= MEM.Settings.event,
+			checkboxSettingKey		= addonName .. "_collection-housing-active",
+			checkboxVariableName	= "collection-housing-active",
+			checkboxName			= L["options.event.collection.new-housing-item"],
+			checkboxTooltip			= L["options.event.collection.new-housing-item.tooltip"],
+			checkboxDefault			= MEM.OPTIONS_DEFAULTS["event"]["collection-housing-active"],
+
+			sliderSettingKey		= addonName .. "_collection-housing-delay",
+			sliderVariableName		= "collection-housing-delay",
+			sliderName				= L["options.event.general.delay.name"],
+			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(
+				L["options.event.collection.new-housing-item"],
+				MEM.OPTIONS_DEFAULTS["event"]["collection-housing-delay"]
+			),
+			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["collection-housing-delay"],
+			sliderMin				= 1,
+			sliderMax				= 10,
+			sliderStep				= 1,
+			sliderFormatter			= FormatSeconds,
+
+			shownPredicate			= isCollectionExpanded
+		})
+	end
 
 	local _, isOtherExpanded = AWL.Settings:AddExpandableHeader(layout, L["options.event.other"])
 
