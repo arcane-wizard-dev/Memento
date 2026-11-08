@@ -1,3 +1,6 @@
+**v2.46 (2026-11-08)**
+- Fixed: Renown events for invalid factions could trigger screenshots
+
 **v2.45 (2026-11-06)**
 - Changed: The Basic debug level now shows important messages, while Advanced also includes technical details
 - Updated: deDE, enUS, ruRU localizations
