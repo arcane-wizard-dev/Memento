@@ -69,8 +69,13 @@ L["options.event.general.delay.name"] = "Delay"
 L["options.event.general.delay.tooltip"] = "Sets how long to wait after \"%s\" before the screenshot is taken.\n\nDefault: %d |4second:seconds;"
 
 L["options.manual"] = "Manual Screenshots"
+L["options.manual.help"] = "|cnGOLD_FONT_COLOR:Taking a Screenshot|r\nLeft-clicking the icon takes a screenshot.\n\n|cnGOLD_FONT_COLOR:Moving the Button|r\nWhile the position is unlocked, the icon can be dragged with the right mouse button and the visible frame with either the left or right mouse button."
 L["options.manual.button.name"] = "Show Screenshot Button"
-L["options.manual.button.tooltip"] = "Shows a movable window with a button for manual screenshots."
+L["options.manual.button.tooltip"] = "Shows the button for manual screenshots."
+L["options.manual.button.hide-frame.name"] = "Hide Border and Background"
+L["options.manual.button.hide-frame.tooltip"] = "Hides the outer border, background, and close button."
+L["options.manual.button.lock-position.name"] = "Lock Position"
+L["options.manual.button.lock-position.tooltip"] = "Locks the button in place and hides the close button."
 L["options.manual.countdown.name"] = "Enable Countdown"
 L["options.manual.countdown.tooltip"] = "Delays manual screenshots by the selected duration."
 L["options.manual.delay.name"] = "Delay"
@@ -233,6 +238,8 @@ L["chat.event.perks-activity.new"] = "Screenshot taken - |cnGOLD_FONT_COLOR:Trav
 L["chat.event.loot-toast.item.new"] = "Screenshot taken - |cnGOLD_FONT_COLOR:Special Loot - Item|r - %s"
 L["chat.event.loot-toast.money.new"] = "Screenshot taken - |cnGOLD_FONT_COLOR:Special Loot - Gold|r - %s"
 L["chat.event.loot-toast.currency.new"] = "Screenshot taken - |cnGOLD_FONT_COLOR:Special Loot - Currency|r - %s x%d"
+
+L["chat.event.manual.new"] = "Screenshot taken - |cnGOLD_FONT_COLOR:Manual Capture|r"
 
 -- Capture
 

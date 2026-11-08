@@ -61,8 +61,13 @@ L["options.event.general.delay.name"] = "Verzögerung"
 L["options.event.general.delay.tooltip"] = "Legt fest, wie lange nach „%s“ gewartet wird, bevor der Screenshot erstellt wird.\n\nStandard: %d |4Sekunde:Sekunden;"
 
 L["options.manual"] = "Manuelle Screenshots"
+L["options.manual.help"] = "|cnGOLD_FONT_COLOR:Aufnehmen|r\nEin Linksklick auf das Symbol erstellt einen Screenshot.\n\n|cnGOLD_FONT_COLOR:Verschieben|r\nBei entsperrter Position lässt sich das Symbol mit der rechten Maustaste ziehen und der sichtbare Rahmen mit der linken oder rechten Maustaste."
 L["options.manual.button.name"] = "Screenshot-Button anzeigen"
-L["options.manual.button.tooltip"] = "Zeigt ein frei verschiebbares Fenster mit einer Schaltfläche für manuelle Screenshots."
+L["options.manual.button.tooltip"] = "Zeigt den Button für manuelle Screenshots an."
+L["options.manual.button.hide-frame.name"] = "Rahmen und Hintergrund ausblenden"
+L["options.manual.button.hide-frame.tooltip"] = "Blendet den äußeren Rahmen, den Hintergrund und das X aus."
+L["options.manual.button.lock-position.name"] = "Position sperren"
+L["options.manual.button.lock-position.tooltip"] = "Sperrt die Position des Buttons und blendet das X aus."
 L["options.manual.countdown.name"] = "Countdown aktivieren"
 L["options.manual.countdown.tooltip"] = "Verzögert die manuelle Aufnahme um die eingestellte Zeit."
 L["options.manual.delay.name"] = "Verzögerung"
@@ -225,6 +230,8 @@ L["chat.event.perks-activity.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:R
 L["chat.event.loot-toast.item.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:Besondere Beute - Gegenstand|r - %s"
 L["chat.event.loot-toast.money.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:Besondere Beute - Gold|r - %s"
 L["chat.event.loot-toast.currency.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:Besondere Beute - Währung|r - %s x%d"
+
+L["chat.event.manual.new"] = "Screenshot erstellt - |cnGOLD_FONT_COLOR:Manuelle Aufnahme|r"
 
 -- Capture
 

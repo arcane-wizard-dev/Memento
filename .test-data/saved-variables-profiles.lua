@@ -84,6 +84,8 @@ Memento_Options_v6 = {
 		},
 		["manual"] = {
 			["manual-button-visible"] = false,
+			["manual-button-hide-frame"] = false,
+			["manual-button-locked"] = false,
 			["manual-button-x"] = 0,
 			["manual-button-y"] = 0,
 			["manual-countdown-active"] = false,
@@ -207,6 +209,8 @@ Memento_Options_v6 = {
 			},
 			["manual"] = {
 				["manual-button-visible"] = true,
+				["manual-button-hide-frame"] = true,
+				["manual-button-locked"] = true,
 				["manual-button-x"] = 45,
 				["manual-button-y"] = -30,
 				["manual-countdown-active"] = true,
@@ -316,6 +320,8 @@ Memento_Options_v6 = {
 			},
 			["manual"] = {
 				["manual-button-visible"] = false,
+				["manual-button-hide-frame"] = false,
+				["manual-button-locked"] = true,
 				["manual-button-x"] = -60,
 				["manual-button-y"] = 20,
 				["manual-countdown-active"] = false,

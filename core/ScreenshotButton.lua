@@ -39,6 +39,14 @@ local function UpdateButton(enabled)
 	end
 end
 
+local function SavePosition(frame)
+	frame:StopMovingOrSizing()
+	local x, y = frame:GetCenter()
+	if not x or not y then return end
+	MEM.Settings.manual["manual-button-x"] = x - UIParent:GetWidth() / 2
+	MEM.Settings.manual["manual-button-y"] = y - UIParent:GetHeight() / 2
+end
+
 ------------------------
 --- Public Functions ---
 ------------------------
@@ -63,6 +71,35 @@ function ScreenshotButton:SetShown(shown)
 	ScreenshotButtonFrame:SetShown(shown)
 end
 
+function ScreenshotButton:UpdateAppearance()
+	local frame = ScreenshotButtonFrame
+	if not frame or not CaptureButton then return end
+
+	local showFrame = not MEM.Settings.manual["manual-button-hide-frame"]
+	local locked = MEM.Settings.manual["manual-button-locked"] == true
+	frame:SetSize(showFrame and ButtonConfig.width or ButtonConfig.buttonSize,
+		showFrame and ButtonConfig.height or ButtonConfig.buttonSize)
+	frame:ClearAllPoints()
+	frame:SetPoint("CENTER", UIParent, "CENTER",
+		MEM.Settings.manual["manual-button-x"] or 0, MEM.Settings.manual["manual-button-y"] or 0)
+	frame:SetBorderShown(showFrame)
+	frame.background:SetAlpha(showFrame and ButtonConfig.backgroundAlpha or 0)
+	frame.closeButton:SetShown(showFrame and not locked)
+	frame:SetMovable(not locked)
+
+	if showFrame and not locked then
+		frame:RegisterForDrag("LeftButton", "RightButton")
+	else
+		frame:RegisterForDrag()
+	end
+
+	if not locked then
+		CaptureButton:RegisterForDrag("RightButton")
+	else
+		CaptureButton:RegisterForDrag()
+	end
+end
+
 function ScreenshotButton:Initialize()
 	if ScreenshotButtonFrame then return end
 
@@ -78,18 +115,10 @@ function ScreenshotButton:Initialize()
 		movable = true,
 		closeOnEscape = false
 	})
-	ScreenshotButtonFrame:SetBackdropColor(unpack(ButtonConfig.backgroundColor))
-	ScreenshotButtonFrame:ClearAllPoints()
-	ScreenshotButtonFrame:SetPoint("CENTER", UIParent, "CENTER",
-		MEM.Settings.manual["manual-button-x"] or 0, MEM.Settings.manual["manual-button-y"] or 0)
-	ScreenshotButtonFrame:SetScript("OnDragStop", function(self)
-		self:StopMovingOrSizing()
-		local x, y = self:GetCenter()
-		if not x or not y then return end
-		MEM.Settings.manual["manual-button-x"] = x - UIParent:GetWidth() / 2
-		MEM.Settings.manual["manual-button-y"] = y - UIParent:GetHeight() / 2
-	end)
-	ScreenshotButtonFrame.closeButton:SetScript("OnClick", function()
+	local frame = ScreenshotButtonFrame
+	frame:SetBackdropColor(unpack(ButtonConfig.backgroundColor))
+	frame:SetScript("OnDragStop", SavePosition)
+	frame.closeButton:SetScript("OnClick", function()
 		if ScreenshotButton.visibilitySetting then
 			ScreenshotButton.visibilitySetting:SetValue(false)
 		else
@@ -97,16 +126,23 @@ function ScreenshotButton:Initialize()
 		end
 	end)
 
-	CaptureButton = CreateFrame("Button", nil, ScreenshotButtonFrame)
+	CaptureButton = CreateFrame("Button", nil, frame)
 	CaptureButton:SetSize(ButtonConfig.buttonSize, ButtonConfig.buttonSize)
-	CaptureButton:SetPoint("CENTER", ScreenshotButtonFrame, "CENTER", 0, ButtonConfig.buttonOffsetY)
+	CaptureButton:SetPoint("CENTER", frame, "CENTER", 0, ButtonConfig.buttonOffsetY)
+	CaptureButton:RegisterForClicks("LeftButtonUp")
+	CaptureButton:SetScript("OnDragStart", function()
+		frame:StartMoving()
+	end)
+	CaptureButton:SetScript("OnDragStop", function()
+		SavePosition(frame)
+	end)
 	CaptureButton:SetHighlightTexture(ButtonConfig.icon, "ADD")
 	CaptureIcon = CaptureButton:CreateTexture(nil, "ARTWORK")
 	CaptureIcon:SetSize(ButtonConfig.buttonSize, ButtonConfig.buttonSize)
 	CaptureIcon:SetPoint("CENTER")
 	CaptureIcon:SetTexture(ButtonConfig.icon)
-	CaptureButton:SetScript("OnMouseDown", function()
-		if not CaptureButton:IsEnabled() then return end
+	CaptureButton:SetScript("OnMouseDown", function(_, button)
+		if button ~= "LeftButton" or not CaptureButton:IsEnabled() then return end
 		CaptureIcon:ClearAllPoints()
 		CaptureIcon:SetPoint("CENTER", CaptureButton, "CENTER", 1, -1)
 	end)
@@ -116,5 +152,6 @@ function ScreenshotButton:Initialize()
 	end)
 	CaptureButton:SetScript("OnClick", Memento_TakeManualScreenshot)
 	UpdateButton(true)
+	self:UpdateAppearance()
 	self:SetShown(MEM.Settings.manual["manual-button-visible"])
 end

@@ -1066,10 +1066,14 @@ function Options:Initialize()
 	end
 
 	-- Manual Screenshots
-	layout:AddInitializer(CreateSettingsListSectionHeaderInitializer(L["options.manual"]))
+	local manualHeader = Settings.CreateElementInitializer("Memento_ManualScreenshotsHeader", {name = L["options.manual"]})
+	hooksecurefunc(manualHeader, "InitFrame", function(_, frame)
+		AWL.Controls:AttachInfoTooltip(frame.InfoButton, function() return L["options.manual.help"] end)
+	end)
+	layout:AddInitializer(manualHeader)
 
 	-- Manual Screenshots: Button
-	local _, manualVisibilitySetting = AWL.Settings:AddCheckbox(category, {
+	local initializerManualButton, manualVisibilitySetting = AWL.Settings:AddCheckbox(category, {
 		isNew			= true,
 		variableTable	= MEM.Settings.manual,
 		settingKey		= addonName .. "_manual-button-visible",
@@ -1082,6 +1086,36 @@ function Options:Initialize()
 		end
 	})
 	MEM.Modules.ScreenshotButton.visibilitySetting = manualVisibilitySetting
+
+	-- Manual Screenshots: Hide Frame
+	AWL.Settings:AddCheckbox(category, {
+		variableTable	= MEM.Settings.manual,
+		settingKey		= addonName .. "_manual-button-hide-frame",
+		variableName	= "manual-button-hide-frame",
+		name			= L["options.manual.button.hide-frame.name"],
+		tooltip			= L["options.manual.button.hide-frame.tooltip"],
+		default			= MEM.OPTIONS_DEFAULTS.manual["manual-button-hide-frame"],
+		parentInit		= initializerManualButton,
+		parentCondition	= function() return GetVal(manualVisibilitySetting) end,
+		onClick			= function()
+			MEM.Modules.ScreenshotButton:UpdateAppearance()
+		end
+	})
+
+	-- Manual Screenshots: Lock Position
+	AWL.Settings:AddCheckbox(category, {
+		variableTable	= MEM.Settings.manual,
+		settingKey		= addonName .. "_manual-button-locked",
+		variableName	= "manual-button-locked",
+		name			= L["options.manual.button.lock-position.name"],
+		tooltip			= L["options.manual.button.lock-position.tooltip"],
+		default			= MEM.OPTIONS_DEFAULTS.manual["manual-button-locked"],
+		parentInit		= initializerManualButton,
+		parentCondition	= function() return GetVal(manualVisibilitySetting) end,
+		onClick			= function()
+			MEM.Modules.ScreenshotButton:UpdateAppearance()
+		end
+	})
 
 	-- Manual Screenshots: Key Binding
 	AWL.Settings:AddKeyBinding(layout, {

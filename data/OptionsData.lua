@@ -62,6 +62,8 @@ MEM.OPTIONS_DEFAULTS = {
 	},
 	["manual"] = {
 		["manual-button-visible"] = false,
+		["manual-button-hide-frame"] = false,
+		["manual-button-locked"] = false,
 		["manual-button-x"] = 0,
 		["manual-button-y"] = 0,
 		["manual-countdown-active"] = false,

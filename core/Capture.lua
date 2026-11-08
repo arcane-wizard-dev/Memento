@@ -333,6 +333,7 @@ local function IntervalEventHandler()
 end
 
 local function ManualEventHandler(onFinished)
+	Utils:PrintMessage(L["chat.event.manual.new"])
 	TakeScreenshot({
 		hideUI = MEM.Settings.manual["manual-hide-ui"] ~= false,
 		showMessage = MEM.Settings.manual["manual-show-message"],

@@ -1,6 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">
 	<Script file="Options.lua" />
+	<Include file="Options.xml" />
 	<Script file="Capture.lua" />
 	<Script file="ScreenshotButton.lua" />
 	<Script file="Reputation.lua" />

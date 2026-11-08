@@ -145,10 +145,10 @@ local function CheckInterval()
 end
 
 local function IsPlayerWinner(winner)
-	local playerFaction = UnitFactionGroup("player")
-	Utils:PrintDebugAdvanced("UnitFactionGroup('player') returned: faction=%s, winner=%s", playerFaction, winner)
+	local playerTeam = GetBattlefieldArenaFaction()
+	Utils:PrintDebugAdvanced("GetBattlefieldArenaFaction() returned: team=%s, winner=%s", playerTeam, winner)
 
-	return (playerFaction == "Alliance" and winner == 1) or (playerFaction == "Horde" and winner == 0)
+	return (winner == 0 or winner == 1) and playerTeam == winner
 end
 
 local function SlashCommand(msg)
@@ -747,9 +747,7 @@ end
 MementoFrame:RegisterEvent("ADDON_LOADED")
 MementoFrame:RegisterEvent("TIME_PLAYED_MSG")
 
-if AWL.GAME_TYPE_CLASSIC then
-elseif AWL.GAME_TYPE_TBC then
-elseif AWL.GAME_TYPE_MISTS then
+if AWL.GAME_TYPE_MISTS then
 	MementoFrame:RegisterEvent("ACHIEVEMENT_EARNED")
 	MementoFrame:RegisterEvent("NEW_PET_ADDED")
 	MementoFrame:RegisterEvent("NEW_MOUNT_ADDED")

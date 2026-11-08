@@ -61,8 +61,13 @@ L["options.event.general.delay.name"] = "Задержка"
 L["options.event.general.delay.tooltip"] = "Задаёт задержку создания снимка экрана после «%s».\n\nПо умолчанию: %d сек."
 
 L["options.manual"] = "Снимки экрана вручную"
+L["options.manual.help"] = "|cnGOLD_FONT_COLOR:Создание снимка|r\nЩелчок левой кнопкой мыши по значку создаёт снимок экрана.\n\n|cnGOLD_FONT_COLOR:Перемещение кнопки|r\nПока положение кнопки не закреплено, значок можно перетащить правой кнопкой мыши, а видимую рамку — левой или правой."
 L["options.manual.button.name"] = "Показывать кнопку снимка экрана"
-L["options.manual.button.tooltip"] = "Показывает перемещаемое окно с кнопкой для создания снимков экрана вручную."
+L["options.manual.button.tooltip"] = "Показывает кнопку для создания снимков экрана вручную."
+L["options.manual.button.hide-frame.name"] = "Скрывать рамку и фон"
+L["options.manual.button.hide-frame.tooltip"] = "Скрывает внешнюю рамку, фон и кнопку закрытия."
+L["options.manual.button.lock-position.name"] = "Закрепить положение"
+L["options.manual.button.lock-position.tooltip"] = "Закрепляет кнопку на месте и скрывает кнопку закрытия."
 L["options.manual.countdown.name"] = "Включить задержку"
 L["options.manual.countdown.tooltip"] = "Откладывает снимок экрана вручную на заданное время."
 L["options.manual.delay.name"] = "Задержка"
@@ -225,6 +230,8 @@ L["chat.event.perks-activity.new"] = "Снимок экрана создан - |
 L["chat.event.loot-toast.item.new"] = "Снимок экрана создан - |cnGOLD_FONT_COLOR:Особая добыча - Предмет|r - %s"
 L["chat.event.loot-toast.money.new"] = "Снимок экрана создан - |cnGOLD_FONT_COLOR:Особая добыча - Золото|r - %s"
 L["chat.event.loot-toast.currency.new"] = "Снимок экрана создан - |cnGOLD_FONT_COLOR:Особая добыча - Валюта|r - %s x%d"
+
+L["chat.event.manual.new"] = "Снимок экрана создан - |cnGOLD_FONT_COLOR:Ручная съёмка|r"
 
 -- Capture
 
