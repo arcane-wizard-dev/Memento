@@ -12,6 +12,17 @@ MEM.CHANGELOG = {
 		version = version,
 		date = buildDate ~= "" and buildDate or nil,
 		entries = {
+			"Added: Chat notifications for manual screenshots",
+			"Added: Options to hide the screenshot button's border and background and lock its position",
+			"Fixed: The PvP victory filter now checks the player's match team [forever] [retail]",
+			"Minor code adjustments",
+			"Removed obsolete code for better maintainability"
+		}
+	},
+	{
+		version = "v2.46",
+		date = "2026-11-08",
+		entries = {
 			"Fixed: Renown events for invalid factions could trigger screenshots"
 		}
 	},
@@ -92,13 +103,6 @@ MEM.CHANGELOG = {
 		entries = {
 			"Added: Options to choose the screenshot file format and JPEG quality",
 			"Changed: Regrouped screenshot events in the options menu"
-		}
-	},
-	{
-		version = "v2.37",
-		date = "2026-10-16",
-		entries = {
-			"Adapted to the latest version of Arcane Wizard: Library to ensure full compatibility"
 		}
 	}
 	-- END GENERATED CHANGELOG
