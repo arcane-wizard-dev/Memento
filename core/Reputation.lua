@@ -175,6 +175,16 @@ end
 function Reputation:GetRenownIncrease(factionID, newLevel, oldLevel)
 	if not state.initialized then return nil, nil, "Reputation tracking is not initialized." end
 	if not factionID or not newLevel or not oldLevel then return nil, nil, "Renown event data is incomplete." end
+	if not C_Reputation.IsMajorFaction(factionID) then return nil, nil, "The faction is not a major faction." end
+
+	local data = C_MajorFactions.GetMajorFactionData(factionID)
+	Utils:PrintDebugAdvanced(
+		"C_MajorFactions.GetMajorFactionData() returned: name=%s, renownLevel=%s, isUnlocked=%s",
+		data and data.name, data and data.renownLevel, data and data.isUnlocked
+	)
+
+	if not data or not data.name or data.name == "" then return nil, nil, "Major faction data is incomplete." end
+	if not data.isUnlocked then return nil, nil, "The major faction is not unlocked." end
 
 	local previous = state.renown[factionID]
 	state.renown[factionID] = newLevel
@@ -186,12 +196,6 @@ function Reputation:GetRenownIncrease(factionID, newLevel, oldLevel)
 	if newLevel <= oldLevel then return nil, nil, "The renown level did not increase." end
 	if previous and newLevel <= previous then return nil, nil, "This renown level was already processed." end
 
-	local data = C_MajorFactions.GetMajorFactionData(factionID)
-	Utils:PrintDebugAdvanced(
-		"C_MajorFactions.GetMajorFactionData() returned: name=%s, renownLevel=%s",
-		data and data.name, data and data.renownLevel
-	)
-
-	return data and data.name or UNKNOWN, L["chat.event.reputation.renown"]:format(newLevel)
+	return data.name, L["chat.event.reputation.renown"]:format(newLevel)
 end
 
