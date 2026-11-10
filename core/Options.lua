@@ -107,7 +107,7 @@ end
 ------------------------
 
 function Options:Initialize()
-	local category, layout = Settings.RegisterVerticalLayoutCategory(addonName)
+	local category, layout = AWL.Settings:CreateCategory(addonName)
 
 	layout:AddInitializer(CreateSettingsListSectionHeaderInitializer(L["options.general"]))
 
