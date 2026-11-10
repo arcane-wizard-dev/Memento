@@ -12,6 +12,15 @@ MEM.CHANGELOG = {
 		version = version,
 		date = buildDate ~= "" and buildDate or nil,
 		entries = {
+			"Changed: Reworked the options menu to prevent errors in Blizzard's settings and added a button to restore default values",
+			"Removed: Addon options from Blizzard's settings search",
+			"Requires Arcane Wizard: Library revision 5 or later"
+		}
+	},
+	{
+		version = "v2.47",
+		date = "2026-11-08",
+		entries = {
 			"Added: Chat notifications for manual screenshots",
 			"Added: Options to hide the screenshot button's border and background and lock its position",
 			"Fixed: The PvP victory filter now checks the player's match team [forever] [retail]",
@@ -95,14 +104,6 @@ MEM.CHANGELOG = {
 			"Updated: Addon description",
 			"Fixed: Playtime for the current level now resets when leveling up even if level-up screenshots are disabled",
 			"Minor code adjustments"
-		}
-	},
-	{
-		version = "v2.38",
-		date = "2026-10-21",
-		entries = {
-			"Added: Options to choose the screenshot file format and JPEG quality",
-			"Changed: Regrouped screenshot events in the options menu"
 		}
 	}
 	-- END GENERATED CHANGELOG
