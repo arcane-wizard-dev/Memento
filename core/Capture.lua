@@ -97,7 +97,6 @@ local function PlayScreenshotSound(ignoreSetting, soundKey)
 end
 
 local function ProcessCaptureQueue()
-	-- Aufträge nacheinander abarbeiten, damit ausgeblendete UI und Meldungsbox den nächsten Screenshot nicht beeinflussen.
 	if captureInProgress or #captureQueue == 0 then return end
 
 	local request = table.remove(captureQueue, 1)
