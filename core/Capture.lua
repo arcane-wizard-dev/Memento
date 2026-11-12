@@ -376,12 +376,12 @@ function Capture:PreviewScreenshotSound(soundKey)
 end
 
 function Capture:ScheduleTimer(handler, delay, ...)
-	local args = {...}
+	local args = {n = select("#", ...), ...}
 	Utils:PrintDebugAdvanced("Screenshot timer scheduled: handler=%s, delay=%s", handler, delay)
 
 	C_Timer.After(delay, function()
 		if handlerTable[handler] then
-			handlerTable[handler](unpack(args))
+			handlerTable[handler](unpack(args, 1, args.n))
 		else
 			Utils:PrintDebug(
 				"Handler '%s' not found. No screenshot requested.",

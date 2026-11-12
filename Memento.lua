@@ -544,11 +544,12 @@ function MementoFrame:PLAYER_DEAD(_)
 		local inInstance = IsInInstance()
 		Utils:PrintDebugAdvanced("IsInInstance() returned: inInstance=%s", inInstance)
 
-		if MEM.Settings.event["death-instance"] == 0 then
-			ScheduleScreenshot("DeathEventHandler", MEM.Settings.event["death-delay"] + MEM.CAPTURE_DELAY_OFFSET)
-		elseif inInstance and MEM.Settings.event["death-instance"] == 1 then
-			ScheduleScreenshot("DeathEventHandler", MEM.Settings.event["death-delay"] + MEM.CAPTURE_DELAY_OFFSET)
-		elseif not inInstance and MEM.Settings.event["death-instance"] == 2 then
+		local instanceMode = MEM.Settings.event["death-instance"]
+
+		if instanceMode == 0
+			or (inInstance and instanceMode == 1)
+			or (not inInstance and instanceMode == 2)
+		then
 			ScheduleScreenshot("DeathEventHandler", MEM.Settings.event["death-delay"] + MEM.CAPTURE_DELAY_OFFSET)
 		else
 			Utils:PrintDebugAdvanced("Player died in the wrong area. No screenshot requested.")
@@ -663,17 +664,10 @@ function MementoFrame:ENCOUNTER_END(_, encounterID, encounterName, difficultyID,
 	)
 	if groupType == "party" or groupType == "raid" or (groupType == "scenario" and AWL.GAME_TYPE_RETAIL) then
 		if success == 1 then
-			local isActive = (groupType == "party" and MEM.Settings.event["encounter-victory-party-active"])
-				or (groupType == "raid" and MEM.Settings.event["encounter-victory-raid-active"])
-				or (groupType == "scenario" and MEM.Settings.event["encounter-victory-scenario-active"])
-
-			local delay = (groupType == "party" and MEM.Settings.event["encounter-victory-party-delay"])
-				or (groupType == "raid" and MEM.Settings.event["encounter-victory-raid-delay"])
-				or (groupType == "scenario" and MEM.Settings.event["encounter-victory-scenario-delay"])
-
-			local firstOnly = (groupType == "party" and MEM.Settings.event["encounter-victory-party-first"])
-				or (groupType == "raid" and MEM.Settings.event["encounter-victory-raid-first"])
-				or (groupType == "scenario" and MEM.Settings.event["encounter-victory-scenario-first"])
+			local settingPrefix = "encounter-victory-" .. groupType
+			local isActive = MEM.Settings.event[settingPrefix .. "-active"]
+			local delay = MEM.Settings.event[settingPrefix .. "-delay"]
+			local firstOnly = MEM.Settings.event[settingPrefix .. "-first"]
 
 			if isActive then
 				if not MEM.Data.bossKill[difficulty] then
@@ -689,13 +683,9 @@ function MementoFrame:ENCOUNTER_END(_, encounterID, encounterName, difficultyID,
 				Utils:PrintDebugAdvanced("Victory screenshots for this instance type are disabled. No screenshot requested.")
 			end
 		else
-			local isActive = (groupType == "party" and MEM.Settings.event["encounter-wipe-party-active"])
-				or (groupType == "raid" and MEM.Settings.event["encounter-wipe-raid-active"])
-				or (groupType == "scenario" and MEM.Settings.event["encounter-wipe-scenario-active"])
-
-			local delay = (groupType == "party" and MEM.Settings.event["encounter-wipe-party-delay"])
-				or (groupType == "raid" and MEM.Settings.event["encounter-wipe-raid-delay"])
-				or (groupType == "scenario" and MEM.Settings.event["encounter-wipe-scenario-delay"])
+			local settingPrefix = "encounter-wipe-" .. groupType
+			local isActive = MEM.Settings.event[settingPrefix .. "-active"]
+			local delay = MEM.Settings.event[settingPrefix .. "-delay"]
 
 			if isActive then
 				ScheduleScreenshot("EncounterWipeEventHandler", delay + MEM.CAPTURE_DELAY_OFFSET, encounterName, difficultyName)
