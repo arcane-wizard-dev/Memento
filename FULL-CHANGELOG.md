@@ -1,3 +1,6 @@
+**v2.49 (2026-11-14)**
+- Minor code adjustments
+
 **v2.48 (2026-11-10)**
 - Changed: Reworked the options menu to prevent errors in Blizzard's settings and added a button to restore default values
 - Removed: Addon options from Blizzard's settings search
