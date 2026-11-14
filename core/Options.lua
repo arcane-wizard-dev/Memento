@@ -53,8 +53,15 @@ local timestampFormatOptions = {}
 local screenshotSettingsProxy = setmetatable({}, {
 	__index = function(_, key)
 		local value = C_CVar.GetCVar(key)
-		if key == "screenshotQuality" then return tonumber(value) end
-		if value == "jpg" then return "jpeg" end
+
+		if key == "screenshotQuality" then
+			return tonumber(value)
+		end
+
+		if value == "jpg" then
+			return "jpeg"
+		end
+
 		return value
 	end,
 	__newindex = function(_, key, value)
@@ -88,6 +95,7 @@ end
 local function CreateMultiSelectOptions(definitions, variables, defaults, selectionKey)
 	local optionKeys = {}
 	local options = {}
+
 	for position, option in ipairs(definitions) do
 		optionKeys[position] = option.variableName
 		options[position] = {
@@ -99,6 +107,7 @@ local function CreateMultiSelectOptions(definitions, variables, defaults, select
 
 	local proxy = AWL.Settings:CreateMultiSelectProxy(variables, selectionKey, optionKeys)
 	local defaultProxy = AWL.Settings:CreateMultiSelectProxy(defaults, selectionKey, optionKeys)
+
 	return proxy, defaultProxy[selectionKey], options
 end
 
@@ -275,7 +284,10 @@ function Options:Initialize()
 		sliderSettingKey		= addonName .. "_login-delay",
 		sliderVariableName		= "login-delay",
 		sliderName				= L["options.event.general.delay.name"],
-		sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.character.login"], MEM.OPTIONS_DEFAULTS["event"]["login-delay"]),
+		sliderTooltip			= L["options.event.general.delay.tooltip"]:format(
+			L["options.event.character.login"],
+			MEM.OPTIONS_DEFAULTS["event"]["login-delay"]
+		),
 		sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["login-delay"],
 		sliderMin				= 1,
 		sliderMax				= 10,
@@ -297,7 +309,10 @@ function Options:Initialize()
 		sliderSettingKey		= addonName .. "_level-up-delay",
 		sliderVariableName		= "level-up-delay",
 		sliderName				= L["options.event.general.delay.name"],
-		sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.character.level-up"], MEM.OPTIONS_DEFAULTS["event"]["level-up-delay"]),
+		sliderTooltip			= L["options.event.general.delay.tooltip"]:format(
+			L["options.event.character.level-up"],
+			MEM.OPTIONS_DEFAULTS["event"]["level-up-delay"]
+		),
 		sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["level-up-delay"],
 		sliderMin				= 1,
 		sliderMax				= 10,
@@ -333,7 +348,10 @@ function Options:Initialize()
 		sliderSettingKey		= addonName .. "_death-delay",
 		sliderVariableName		= "death-delay",
 		sliderName				= L["options.event.general.delay.name"],
-		sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.character.death"], MEM.OPTIONS_DEFAULTS["event"]["death-delay"]),
+		sliderTooltip			= L["options.event.general.delay.tooltip"]:format(
+			L["options.event.character.death"],
+			MEM.OPTIONS_DEFAULTS["event"]["death-delay"]
+		),
 		sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["death-delay"],
 		sliderMin				= 1,
 		sliderMax				= 10,
@@ -372,7 +390,10 @@ function Options:Initialize()
 		sliderSettingKey		= addonName .. "_reputation-delay",
 		sliderVariableName		= "reputation-delay",
 		sliderName				= L["options.event.general.delay.name"],
-		sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.character.reputation"], MEM.OPTIONS_DEFAULTS["event"]["reputation-delay"]),
+		sliderTooltip			= L["options.event.general.delay.tooltip"]:format(
+			L["options.event.character.reputation"],
+			MEM.OPTIONS_DEFAULTS["event"]["reputation-delay"]
+		),
 		sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["reputation-delay"],
 		sliderMin				= 1,
 		sliderMax				= 10,
@@ -393,7 +414,10 @@ function Options:Initialize()
 		sliderSettingKey		= addonName .. "_zone-delay",
 		sliderVariableName		= "zone-delay",
 		sliderName				= L["options.event.general.delay.name"],
-		sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.character.zone"], MEM.OPTIONS_DEFAULTS["event"]["zone-delay"]),
+		sliderTooltip			= L["options.event.general.delay.tooltip"]:format(
+			L["options.event.character.zone"],
+			MEM.OPTIONS_DEFAULTS["event"]["zone-delay"]
+		),
 		sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["zone-delay"],
 		sliderMin				= 1,
 		sliderMax				= 10,
@@ -404,10 +428,12 @@ function Options:Initialize()
 
 	local zoneKeys = {}
 	local zoneOptions = {}
+
 	for position, area in ipairs(MEM.ZONE_TYPES) do
 		zoneKeys[position] = area.variableName
 		zoneOptions[position] = {value = position, label = L["options.event.character.zone.type." .. area.kind]}
 	end
+
 	local zoneDefaults = AWL.Settings:CreateMultiSelectProxy(MEM.OPTIONS_DEFAULTS.event, "zone-types", zoneKeys)
 
 	-- Area Types
@@ -589,7 +615,10 @@ function Options:Initialize()
 			sliderSettingKey		= addonName .. "_encounter-victory-party-delay",
 			sliderVariableName		= "encounter-victory-party-delay",
 			sliderName				= L["options.event.general.delay.name"],
-			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(eventPartyVictory, MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-party-delay"]),
+			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(
+				eventPartyVictory,
+				MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-party-delay"]
+			),
 			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-party-delay"],
 			sliderMin				= 1,
 			sliderMax				= 10,
@@ -624,7 +653,10 @@ function Options:Initialize()
 			sliderSettingKey		= addonName .. "_encounter-wipe-party-delay",
 			sliderVariableName		= "encounter-wipe-party-delay",
 			sliderName				= L["options.event.general.delay.name"],
-			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(eventPartyWipe, MEM.OPTIONS_DEFAULTS["event"]["encounter-wipe-party-delay"]),
+			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(
+				eventPartyWipe,
+				MEM.OPTIONS_DEFAULTS["event"]["encounter-wipe-party-delay"]
+			),
 			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-wipe-party-delay"],
 			sliderMin				= 1,
 			sliderMax				= 10,
@@ -646,7 +678,10 @@ function Options:Initialize()
 			sliderSettingKey		= addonName .. "_encounter-victory-raid-delay",
 			sliderVariableName		= "encounter-victory-raid-delay",
 			sliderName				= L["options.event.general.delay.name"],
-			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(eventRaidVictory, MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-raid-delay"]),
+			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(
+				eventRaidVictory,
+				MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-raid-delay"]
+			),
 			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-victory-raid-delay"],
 			sliderMin				= 1,
 			sliderMax				= 10,
@@ -681,7 +716,10 @@ function Options:Initialize()
 			sliderSettingKey		= addonName .. "_encounter-wipe-raid-delay",
 			sliderVariableName		= "encounter-wipe-raid-delay",
 			sliderName				= L["options.event.general.delay.name"],
-			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(eventRaidWipe, MEM.OPTIONS_DEFAULTS["event"]["encounter-wipe-raid-delay"]),
+			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(
+				eventRaidWipe,
+				MEM.OPTIONS_DEFAULTS["event"]["encounter-wipe-raid-delay"]
+			),
 			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["encounter-wipe-raid-delay"],
 			sliderMin				= 1,
 			sliderMax				= 10,
@@ -771,7 +809,10 @@ function Options:Initialize()
 				sliderSettingKey		= addonName .. "_mythic-delay",
 				sliderVariableName		= "mythic-delay",
 				sliderName				= L["options.event.general.delay.name"],
-				sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.pve.mythic"], MEM.OPTIONS_DEFAULTS["event"]["mythic-delay"]),
+				sliderTooltip			= L["options.event.general.delay.tooltip"]:format(
+					L["options.event.pve.mythic"],
+					MEM.OPTIONS_DEFAULTS["event"]["mythic-delay"]
+				),
 				sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["mythic-delay"],
 				sliderMin				= 1,
 				sliderMax				= 10,
@@ -798,7 +839,10 @@ function Options:Initialize()
 		sliderSettingKey		= addonName .. "_pvp-duel-delay",
 		sliderVariableName		= "pvp-duel-delay",
 		sliderName				= L["options.event.general.delay.name"],
-		sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.pvp.duel"], MEM.OPTIONS_DEFAULTS["event"]["pvp-duel-delay"]),
+		sliderTooltip			= L["options.event.general.delay.tooltip"]:format(
+			L["options.event.pvp.duel"],
+			MEM.OPTIONS_DEFAULTS["event"]["pvp-duel-delay"]
+		),
 		sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["pvp-duel-delay"],
 		sliderMin				= 1,
 		sliderMax				= 10,
@@ -821,7 +865,10 @@ function Options:Initialize()
 			sliderSettingKey		= addonName .. "_pvp-arena-delay",
 			sliderVariableName		= "pvp-arena-delay",
 			sliderName				= L["options.event.general.delay.name"],
-			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.pvp.arena"], MEM.OPTIONS_DEFAULTS["event"]["pvp-arena-delay"]),
+			sliderTooltip			= L["options.event.general.delay.tooltip"]:format(
+				L["options.event.pvp.arena"],
+				MEM.OPTIONS_DEFAULTS["event"]["pvp-arena-delay"]
+			),
 			sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["pvp-arena-delay"],
 			sliderMin				= 1,
 			sliderMax				= 10,
@@ -884,7 +931,10 @@ function Options:Initialize()
 				sliderSettingKey		= addonName .. "_pvp-brawl-delay",
 				sliderVariableName		= "pvp-brawl-delay",
 				sliderName				= L["options.event.general.delay.name"],
-				sliderTooltip			= L["options.event.general.delay.tooltip"]:format(L["options.event.pvp.brawl"], MEM.OPTIONS_DEFAULTS["event"]["pvp-brawl-delay"]),
+				sliderTooltip			= L["options.event.general.delay.tooltip"]:format(
+					L["options.event.pvp.brawl"],
+					MEM.OPTIONS_DEFAULTS["event"]["pvp-brawl-delay"]
+				),
 				sliderDefault			= MEM.OPTIONS_DEFAULTS["event"]["pvp-brawl-delay"],
 				sliderMin				= 1,
 				sliderMax				= 10,

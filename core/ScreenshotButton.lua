@@ -32,8 +32,10 @@ local CaptureIcon = nil ---@type Texture?
 
 local function UpdateButton(enabled)
 	if not CaptureButton then return end
+
 	CaptureButton:SetEnabled(enabled)
 	CaptureButton:GetHighlightTexture():SetAlpha(enabled and ButtonConfig.hoverAlpha or 0)
+
 	if CaptureIcon then
 		CaptureIcon:SetTexture(enabled and ButtonConfig.icon or ButtonConfig.waitingIcon)
 	end
@@ -42,7 +44,9 @@ end
 local function SavePosition(frame)
 	frame:StopMovingOrSizing()
 	local x, y = frame:GetCenter()
+
 	if not x or not y then return end
+
 	MEM.Settings.manual["manual-button-x"] = x - UIParent:GetWidth() / 2
 	MEM.Settings.manual["manual-button-y"] = y - UIParent:GetHeight() / 2
 end
@@ -53,6 +57,7 @@ end
 
 function Memento_TakeManualScreenshot()
 	if not CaptureButton or not CaptureButton:IsEnabled() then return end
+
 	UpdateButton(false)
 	local delay = MEM.Settings.manual["manual-countdown-active"]
 		and MEM.Settings.manual["manual-countdown-seconds"] or 0
@@ -67,12 +72,15 @@ end
 
 function ScreenshotButton:SetShown(shown)
 	MEM.Settings.manual["manual-button-visible"] = shown
+
 	if not ScreenshotButtonFrame then return end
+
 	ScreenshotButtonFrame:SetShown(shown)
 end
 
 function ScreenshotButton:UpdateAppearance()
 	local frame = ScreenshotButtonFrame
+
 	if not frame or not CaptureButton then return end
 
 	local showFrame = not MEM.Settings.manual["manual-button-hide-frame"]
@@ -143,6 +151,7 @@ function ScreenshotButton:Initialize()
 	CaptureIcon:SetTexture(ButtonConfig.icon)
 	CaptureButton:SetScript("OnMouseDown", function(_, button)
 		if button ~= "LeftButton" or not CaptureButton:IsEnabled() then return end
+
 		CaptureIcon:ClearAllPoints()
 		CaptureIcon:SetPoint("CENTER", CaptureButton, "CENTER", 1, -1)
 	end)

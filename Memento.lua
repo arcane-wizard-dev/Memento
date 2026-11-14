@@ -54,25 +54,38 @@ local function GetCurrentArea()
 		name, instanceType, instanceID
 	)
 
-	if not instanceType or instanceType == "" then return nil end
+	if not instanceType or instanceType == "" then
+		return nil
+	end
 
 	if instanceType ~= "none" then
-		if instanceType == "zone" or not ZoneSettingKeys[instanceType] then return nil end
-		if not instanceID or instanceID <= 0 or not name or name == "" then return nil end
+		if instanceType == "zone" or not ZoneSettingKeys[instanceType] then
+			return nil
+		end
+
+		if not instanceID or instanceID <= 0 or not name or name == "" then
+			return nil
+		end
 
 		return instanceType, instanceID, name
 	end
 
 	local mapID = C_Map.GetBestMapForUnit("player")
 	Utils:PrintDebugAdvanced("C_Map.GetBestMapForUnit('player') returned: mapID=%s", mapID)
-	if not mapID or mapID <= 0 then return nil end
+
+	if not mapID or mapID <= 0 then
+		return nil
+	end
 
 	local info = MapUtil.GetMapParentInfo(mapID, Enum.UIMapType.Zone)
 	Utils:PrintDebugAdvanced(
 		"MapUtil.GetMapParentInfo() returned: mapID=%s, name=%s",
 		info and info.mapID, info and info.name
 	)
-	if not info or not info.mapID or info.mapID <= 0 or not info.name or info.name == "" then return nil end
+
+	if not info or not info.mapID or info.mapID <= 0 or not info.name or info.name == "" then
+		return nil
+	end
 
 	return "zone", info.mapID, info.name
 end
@@ -83,7 +96,12 @@ local function ScheduleReputationScreenshot(factionName, rankName, reason)
 	elseif not MEM.Settings.event["reputation-active"] then
 		Utils:PrintDebugAdvanced("Reputation screenshots are disabled. No screenshot requested.")
 	else
-		ScheduleScreenshot("ReputationEventHandler", MEM.Settings.event["reputation-delay"] + MEM.CAPTURE_DELAY_OFFSET, factionName, rankName)
+		ScheduleScreenshot(
+			"ReputationEventHandler",
+			MEM.Settings.event["reputation-delay"] + MEM.CAPTURE_DELAY_OFFSET,
+			factionName,
+			rankName
+		)
 	end
 end
 
@@ -119,6 +137,7 @@ local function ProcessLootToast(itemLink, minimumQuality, delay, retriesRemainin
 			itemQuality, minimumQuality
 		)
 		Utils:PrintDebugAdvanced("Event 'SHOW_LOOT_TOAST' completed.")
+
 		return
 	end
 
@@ -222,7 +241,19 @@ function MementoFrame:TIME_PLAYED_MSG(_, totalTimePlayed, timePlayedThisLevel)
 	Utils:PrintDebugAdvanced("Event 'TIME_PLAYED_MSG' completed.")
 end
 
-function MementoFrame:SHOW_LOOT_TOAST(_, typeIdentifier, itemLink, quantity, specID, sex, personalLootToast, toastMethod, lessAwesome, upgraded, corrupted)
+function MementoFrame:SHOW_LOOT_TOAST(
+	_,
+	typeIdentifier,
+	itemLink,
+	quantity,
+	specID,
+	sex,
+	personalLootToast,
+	toastMethod,
+	lessAwesome,
+	upgraded,
+	corrupted
+)
 	Utils:PrintDebugAdvanced(
 		"Event 'SHOW_LOOT_TOAST' fired. Payload: typeIdentifier=%s, itemLink=%s, quantity=%s, specID=%s, sex=%s, personalLootToast=%s, toastMethod=%s, lessAwesome=%s, upgraded=%s, corrupted=%s",
 		typeIdentifier,
@@ -240,6 +271,7 @@ function MementoFrame:SHOW_LOOT_TOAST(_, typeIdentifier, itemLink, quantity, spe
 	if not MEM.Settings.event["loot-toast-active"] then
 		Utils:PrintDebugAdvanced("Loot toast screenshots are disabled. No screenshot requested.")
 		Utils:PrintDebugAdvanced("Event 'SHOW_LOOT_TOAST' completed.")
+
 		return
 	end
 
@@ -251,6 +283,7 @@ function MementoFrame:SHOW_LOOT_TOAST(_, typeIdentifier, itemLink, quantity, spe
 			typeIdentifier
 		)
 		Utils:PrintDebugAdvanced("Event 'SHOW_LOOT_TOAST' completed.")
+
 		return
 	end
 
@@ -260,6 +293,7 @@ function MementoFrame:SHOW_LOOT_TOAST(_, typeIdentifier, itemLink, quantity, spe
 			typeIdentifier
 		)
 		Utils:PrintDebugAdvanced("Event 'SHOW_LOOT_TOAST' completed.")
+
 		return
 	end
 
@@ -269,6 +303,7 @@ function MementoFrame:SHOW_LOOT_TOAST(_, typeIdentifier, itemLink, quantity, spe
 		if not itemLink then
 			Utils:PrintDebugAdvanced("Event 'SHOW_LOOT_TOAST' did not contain an item link. No screenshot requested.")
 			Utils:PrintDebugAdvanced("Event 'SHOW_LOOT_TOAST' completed.")
+
 			return
 		end
 
@@ -295,6 +330,7 @@ function MementoFrame:ACHIEVEMENT_EARNED(_, achievementID, alreadyEarned)
 			or "Previously earned achievements are excluded on this client."
 		Utils:PrintDebugAdvanced("%s No screenshot requested.", reason)
 		Utils:PrintDebugAdvanced("Event 'ACHIEVEMENT_EARNED' completed.")
+
 		return
 	end
 
@@ -311,7 +347,11 @@ function MementoFrame:ACHIEVEMENT_EARNED(_, achievementID, alreadyEarned)
 		end
 	else
 		if MEM.Settings.event["achievement-guild-active"] then
-			ScheduleScreenshot("AchievementGuildEventHandler", MEM.Settings.event["achievement-guild-delay"] + MEM.CAPTURE_DELAY_OFFSET, achievementID)
+			ScheduleScreenshot(
+				"AchievementGuildEventHandler",
+				MEM.Settings.event["achievement-guild-delay"] + MEM.CAPTURE_DELAY_OFFSET,
+				achievementID
+			)
 		else
 			Utils:PrintDebugAdvanced("Guild achievement screenshots are disabled. No screenshot requested.")
 		end
@@ -331,11 +371,17 @@ function MementoFrame:CRITERIA_EARNED(_, achievementID, description, achievement
 	if not AWL.GAME_TYPE_RETAIL then
 		Utils:PrintDebugAdvanced("Achievement criteria screenshots are not supported on this client.")
 		Utils:PrintDebugAdvanced("Event 'CRITERIA_EARNED' completed.")
+
 		return
 	end
 
 	if MEM.Settings.event["achievement-criteria-active"] then
-		ScheduleScreenshot("CriteriaEventHandler", MEM.Settings.event["achievement-criteria-delay"] + MEM.CAPTURE_DELAY_OFFSET, achievementID, description)
+		ScheduleScreenshot(
+			"CriteriaEventHandler",
+			MEM.Settings.event["achievement-criteria-delay"] + MEM.CAPTURE_DELAY_OFFSET,
+			achievementID,
+			description
+		)
 	else
 		Utils:PrintDebugAdvanced("Achievement criteria screenshots are disabled. No screenshot requested.")
 	end
@@ -411,7 +457,10 @@ function MementoFrame:PVP_MATCH_COMPLETE(_, winner, duration)
 		if MEM.Settings.event["pvp-battleground-active"] then
 			if MEM.Settings.event["pvp-battleground-victory-only"] then
 				if IsPlayerWinner(winner) then
-					ScheduleScreenshot("PvPBattlegroundEventHandler", MEM.Settings.event["pvp-battleground-delay"] + MEM.CAPTURE_DELAY_OFFSET)
+					ScheduleScreenshot(
+						"PvPBattlegroundEventHandler",
+						MEM.Settings.event["pvp-battleground-delay"] + MEM.CAPTURE_DELAY_OFFSET
+					)
 				else
 					Utils:PrintDebugAdvanced("The player was not identified as the winner of the battleground. No screenshot requested.")
 				end
@@ -516,16 +565,19 @@ function MementoFrame:ZONE_CHANGED_NEW_AREA()
 	if not kind or not id then
 		Utils:PrintDebugAdvanced("Unknown area. No screenshot requested.")
 		Utils:PrintDebugAdvanced("Event 'ZONE_CHANGED_NEW_AREA' completed.")
+
 		return
 	end
 
 	local settings = MEM.Settings.event
+
 	if not settings["zone-active"] then
 		Utils:PrintDebugAdvanced("New area screenshots are disabled. No screenshot requested.")
 	elseif not settings[ZoneSettingKeys[kind]] then
 		Utils:PrintDebugAdvanced("Area type '%s' is not selected. No screenshot requested.", kind)
 	else
 		local visits = kind == "zone" and MEM.Data.zone.zone or MEM.Data.zone.instance
+
 		if visits[id] then
 			Utils:PrintDebugAdvanced("Area already visited. No screenshot requested.")
 		else
@@ -573,7 +625,12 @@ function MementoFrame:PLAYER_LEVEL_UP(_, level)
 	MEM.State.timePlayedThisLevel = 0
 
 	if MEM.Settings.event["level-up-active"] then
-		Capture:ScheduleTimer("LevelUpEventHandler", MEM.Settings.event["level-up-delay"] + MEM.CAPTURE_DELAY_OFFSET, level, timePlayedOnPreviousLevel)
+		Capture:ScheduleTimer(
+			"LevelUpEventHandler",
+			MEM.Settings.event["level-up-delay"] + MEM.CAPTURE_DELAY_OFFSET,
+			level,
+			timePlayedOnPreviousLevel
+		)
 	else
 		Utils:PrintDebugAdvanced("Level-up screenshots are disabled. No screenshot requested.")
 	end
@@ -601,6 +658,7 @@ function MementoFrame:FACTION_STANDING_CHANGED(_, factionID, updatedStanding)
 	if not Reputation:IsInitialized() then
 		Utils:PrintDebugAdvanced("Reputation tracking is not initialized. No screenshot requested.")
 		Utils:PrintDebugAdvanced("Event 'FACTION_STANDING_CHANGED' completed.")
+
 		return
 	end
 
@@ -622,6 +680,7 @@ function MementoFrame:BOSS_KILL(_, encounterID, encounterName)
 	if inInstance then
 		Utils:PrintDebugAdvanced("Boss killed inside an instance instead of the open world. No screenshot requested.")
 		Utils:PrintDebugAdvanced("Event 'BOSS_KILL' completed.")
+
 		return
 	end
 
@@ -653,6 +712,7 @@ function MementoFrame:ENCOUNTER_END(_, encounterID, encounterName, difficultyID,
 	if not inInstance then
 		Utils:PrintDebugAdvanced("Encounter ended outside an instance. No screenshot requested.")
 		Utils:PrintDebugAdvanced("Event 'ENCOUNTER_END' completed.")
+
 		return
 	end
 
@@ -662,6 +722,7 @@ function MementoFrame:ENCOUNTER_END(_, encounterID, encounterName, difficultyID,
 		"GetDifficultyInfo() returned: difficultyName=%s, groupType=%s",
 		difficultyName, groupType
 	)
+
 	if groupType == "party" or groupType == "raid" or (groupType == "scenario" and AWL.GAME_TYPE_RETAIL) then
 		if success == 1 then
 			local settingPrefix = "encounter-victory-" .. groupType
@@ -677,7 +738,14 @@ function MementoFrame:ENCOUNTER_END(_, encounterID, encounterName, difficultyID,
 				if MEM.Data.bossKill[difficulty][encounterID] and firstOnly then
 					Utils:PrintDebugAdvanced("Encounter already killed. No screenshot requested.")
 				else
-					ScheduleScreenshot("EncounterVictoryEventHandler", delay + MEM.CAPTURE_DELAY_OFFSET, encounterName, difficultyName, difficulty, encounterID)
+					ScheduleScreenshot(
+						"EncounterVictoryEventHandler",
+						delay + MEM.CAPTURE_DELAY_OFFSET,
+						encounterName,
+						difficultyName,
+						difficulty,
+						encounterID
+					)
 				end
 			else
 				Utils:PrintDebugAdvanced("Victory screenshots for this instance type are disabled. No screenshot requested.")
@@ -774,5 +842,5 @@ MementoFrame:RegisterEvent("NEW_RECIPE_LEARNED")
 
 MementoFrame:SetScript("OnEvent", MementoFrame.OnEvent)
 
-SLASH_Memento1, SLASH_Memento2 = '/mem', '/memento'
+SLASH_Memento1, SLASH_Memento2 = "/mem", "/memento"
 SlashCmdList["Memento"] = SlashCommand

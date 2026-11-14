@@ -48,6 +48,7 @@ end
 
 local function GetRank(factionID, data)
 	if not data or (data.isHeader and not data.isHeaderWithRep) then return end
+
 	if C_Reputation and C_Reputation.IsMajorFaction and C_Reputation.IsMajorFaction(factionID) then return end
 
 	if C_GossipInfo and C_GossipInfo.GetFriendshipReputation then
@@ -138,8 +139,13 @@ function Reputation:Initialize()
 end
 
 function Reputation:GetFactionIncrease(factionID)
-	if not state.initialized then return nil, nil, "Reputation tracking is not initialized." end
-	if not factionID then return nil, nil, "No faction ID was supplied." end
+	if not state.initialized then
+		return nil, nil, "Reputation tracking is not initialized."
+	end
+
+	if not factionID then
+		return nil, nil, "No faction ID was supplied."
+	end
 
 	local data = GetFactionDataByID(factionID)
 	local rank = GetRank(factionID, data)
@@ -149,8 +155,13 @@ function Reputation:GetFactionIncrease(factionID)
 		rank and rank.kind, rank and rank.level
 	)
 
-	if not data then return nil, nil, "Faction data is unavailable." end
-	if not rank then return nil, nil, "No supported reputation rank is available for this faction." end
+	if not data then
+		return nil, nil, "Faction data is unavailable."
+	end
+
+	if not rank then
+		return nil, nil, "No supported reputation rank is available for this faction."
+	end
 
 	local previous = state.ranks[factionID]
 	state.ranks[factionID] = rank
@@ -163,14 +174,25 @@ function Reputation:GetFactionIncrease(factionID)
 		return data.name, rank.label
 	end
 
-	if not previous or previous.kind ~= rank.kind then return nil, nil, "No matching previous reputation rank is available." end
+	if not previous or previous.kind ~= rank.kind then
+		return nil, nil, "No matching previous reputation rank is available."
+	end
+
 	return nil, nil, "The reputation rank did not increase."
 end
 
 function Reputation:GetRenownIncrease(factionID, newLevel, oldLevel)
-	if not state.initialized then return nil, nil, "Reputation tracking is not initialized." end
-	if not factionID or not newLevel or not oldLevel then return nil, nil, "Renown event data is incomplete." end
-	if not C_Reputation.IsMajorFaction(factionID) then return nil, nil, "The faction is not a major faction." end
+	if not state.initialized then
+		return nil, nil, "Reputation tracking is not initialized."
+	end
+
+	if not factionID or not newLevel or not oldLevel then
+		return nil, nil, "Renown event data is incomplete."
+	end
+
+	if not C_Reputation.IsMajorFaction(factionID) then
+		return nil, nil, "The faction is not a major faction."
+	end
 
 	local data = C_MajorFactions.GetMajorFactionData(factionID)
 	Utils:PrintDebugAdvanced(
@@ -178,8 +200,13 @@ function Reputation:GetRenownIncrease(factionID, newLevel, oldLevel)
 		data and data.name, data and data.renownLevel, data and data.isUnlocked
 	)
 
-	if not data or not data.name or data.name == "" then return nil, nil, "Major faction data is incomplete." end
-	if not data.isUnlocked then return nil, nil, "The major faction is not unlocked." end
+	if not data or not data.name or data.name == "" then
+		return nil, nil, "Major faction data is incomplete."
+	end
+
+	if not data.isUnlocked then
+		return nil, nil, "The major faction is not unlocked."
+	end
 
 	local previous = state.renown[factionID]
 	state.renown[factionID] = newLevel
@@ -188,9 +215,13 @@ function Reputation:GetRenownIncrease(factionID, newLevel, oldLevel)
 		factionID, previous, oldLevel, newLevel
 	)
 
-	if newLevel <= oldLevel then return nil, nil, "The renown level did not increase." end
-	if previous and newLevel <= previous then return nil, nil, "This renown level was already processed." end
+	if newLevel <= oldLevel then
+		return nil, nil, "The renown level did not increase."
+	end
+
+	if previous and newLevel <= previous then
+		return nil, nil, "This renown level was already processed."
+	end
 
 	return data.name, L["chat.event.reputation.renown"]:format(newLevel)
 end
-

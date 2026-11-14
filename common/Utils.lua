@@ -49,7 +49,13 @@ function Utils:GetDurationParts(totalSeconds)
 end
 
 function Utils:RequestTimePlayed()
-	if not (MEM.Settings.general["notification-time-played"] or MEM.Settings.general["notification-level-time-played"] or MEM.Settings.event["level-up-time-played"]) or MEM.State.timePlayedInitialized then
+	if not (
+		MEM.Settings.general["notification-time-played"]
+		or MEM.Settings.general["notification-level-time-played"]
+		or MEM.Settings.event["level-up-time-played"]
+	)
+		or MEM.State.timePlayedInitialized
+	then
 		self:PrintDebugAdvanced("RequestTimePlayed() skipped.")
 
 		return
@@ -84,7 +90,11 @@ function Utils:PrintMessage(msg, previousLevel, timePlayedOnPreviousLevel)
 			if (MEM.Settings.general["notification-level-time-played"] or MEM.Settings.event["level-up-time-played"]) and timePlayedOnPreviousLevel then
 				local days, hours, minutes, seconds = self:GetDurationParts(timePlayedOnPreviousLevel)
 
-				PrintChatMessage(NORMAL_FONT_COLOR, addonName, L["chat.event.level-up.time-played"]:format(previousLevel, days, hours, minutes, seconds))
+				PrintChatMessage(
+					NORMAL_FONT_COLOR,
+					addonName,
+					L["chat.event.level-up.time-played"]:format(previousLevel, days, hours, minutes, seconds)
+				)
 			end
 		elseif MEM.Settings.general["notification-level-time-played"] then
 			local days, hours, minutes, seconds = self:GetDurationParts(MEM.State.timePlayedThisLevel)

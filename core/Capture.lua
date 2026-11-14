@@ -108,13 +108,17 @@ local function ProcessCaptureQueue()
 		if hiddenUI then
 			UIParent:Show()
 		end
+
 		if frame then
 			frame:Hide()
 		end
+
 		captureInProgress = false
+
 		if request.onFinished then
 			request.onFinished()
 		end
+
 		ProcessCaptureQueue()
 	end
 
@@ -123,6 +127,7 @@ local function ProcessCaptureQueue()
 			Screenshot()
 			PlayScreenshotSound()
 		end)
+
 		if not status then
 			Utils:PrintDebug("Screenshot failed: %s", err)
 		else
@@ -136,6 +141,7 @@ local function ProcessCaptureQueue()
 				hiddenUI = true
 				UIParent:Hide()
 			end
+
 			if request.showMessage then
 				frame = UpdateMessageFrame()
 				frame:Show()
@@ -145,13 +151,16 @@ local function ProcessCaptureQueue()
 
 	if not status then
 		Utils:PrintDebug("Screenshot preparation failed: %s", err)
+
 		if hiddenUI then
 			UIParent:Show()
 			hiddenUI = false
 		end
+
 		if frame then
 			frame:Hide()
 		end
+
 		RecordScreenshot()
 		FinishCapture()
 	elseif hiddenUI or frame then

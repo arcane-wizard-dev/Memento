@@ -10,18 +10,23 @@ MEM.ZONE_TYPES = {
 	{kind = "party", variableName = "zone-dungeon"},
 	{kind = "raid", variableName = "zone-raid"}
 }
+
 if not AWL.GAME_TYPE_CLASSIC and not AWL.GAME_TYPE_TBC and not AWL.GAME_TYPE_FOREVER then
 	MEM.ZONE_TYPES[#MEM.ZONE_TYPES + 1] = {kind = "scenario", variableName = "zone-scenario"}
 end
+
 MEM.ZONE_TYPES[#MEM.ZONE_TYPES + 1] = {kind = "pvp", variableName = "zone-battleground"}
+
 if not AWL.GAME_TYPE_CLASSIC then
 	MEM.ZONE_TYPES[#MEM.ZONE_TYPES + 1] = {kind = "arena", variableName = "zone-arena"}
 end
+
 if AWL.GAME_TYPE_RETAIL then
 	MEM.ZONE_TYPES[#MEM.ZONE_TYPES + 1] = {kind = "neighborhood", variableName = "zone-neighborhood"}
 end
 
 MEM.ZONE_SETTING_BY_TYPE = {}
+
 for _, area in ipairs(MEM.ZONE_TYPES) do
 	MEM.ZONE_SETTING_BY_TYPE[area.kind] = area.variableName
 end
