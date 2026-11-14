@@ -12,6 +12,13 @@ MEM.CHANGELOG = {
 		version = version,
 		date = buildDate ~= "" and buildDate or nil,
 		entries = {
+			"Minor code adjustments"
+		}
+	},
+	{
+		version = "v2.48",
+		date = "2026-11-10",
+		entries = {
 			"Changed: Reworked the options menu to prevent errors in Blizzard's settings and added a button to restore default values",
 			"Removed: Addon options from Blizzard's settings search",
 			"Requires Arcane Wizard: Library revision 5 or later"
@@ -92,18 +99,6 @@ MEM.CHANGELOG = {
 			"Added: TOC version for patch 12.1.7 [retail]",
 			"Updated: Addon description",
 			"Removed: TOC version for patch 12.1.0 [retail]"
-		}
-	},
-	{
-		version = "v2.39",
-		date = "2026-10-28",
-		entries = {
-			"Added: Startup check for the minimum required Library revision",
-			"Added: New event 'New area entered' - A screenshot can now be taken automatically when a character first enters an open-world zone or instance, with a choice of zones, instances or both",
-			"Updated: deDE, enUS, ruRU localizations",
-			"Updated: Addon description",
-			"Fixed: Playtime for the current level now resets when leveling up even if level-up screenshots are disabled",
-			"Minor code adjustments"
 		}
 	}
 	-- END GENERATED CHANGELOG
