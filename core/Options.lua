@@ -404,7 +404,6 @@ function Options:Initialize()
 
 	-- New Area
 	local initializerZone, settingZone = AWL.Settings:AddCheckboxSliderCombo(category, layout, {
-		isNew					= true,
 		variableTable			= MEM.Settings.event,
 		checkboxSettingKey		= addonName .. "_zone-active",
 		checkboxVariableName	= "zone-active",
@@ -1223,7 +1222,6 @@ function Options:Initialize()
 
 	-- Manual Screenshots: Button
 	local initializerManualButton, manualVisibilitySetting = AWL.Settings:AddCheckbox(category, {
-		isNew			= true,
 		variableTable	= MEM.Settings.manual,
 		settingKey		= addonName .. "_manual-button-visible",
 		variableName	= "manual-button-visible",

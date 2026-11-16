@@ -23,7 +23,7 @@ Individual features and display options can be configured in the addon settings.
 #### Retail
 
 * Captures level-ups, deaths, and logins.
-* <sup>✨ NEW</sup> Captures first visits to open-world zones and supported instances.
+* Captures first visits to open-world zones and supported instances.
 * Captures reputation rank and Renown increases.
 * Captures personal achievements, guild achievements, and achievement criteria.
 * Captures world boss victories.
@@ -38,7 +38,7 @@ Individual features and display options can be configured in the addon settings.
 #### Forever
 
 * Captures level-ups, deaths, and logins.
-* <sup>✨ NEW</sup> Captures first visits to open-world zones and supported instances.
+* Captures first visits to open-world zones and supported instances.
 * Captures reputation rank increases.
 * Captures personal achievements.
 * Captures boss victories and wipes in dungeons and raids.
@@ -51,7 +51,7 @@ Individual features and display options can be configured in the addon settings.
 Shared by Classic, Burning Crusade - Classic Anniversary Edition, and Mists of Pandaria - Classic:
 
 * Captures level-ups, deaths, and logins.
-* <sup>✨ NEW</sup> Captures first visits to open-world zones and supported instances.
+* Captures first visits to open-world zones and supported instances.
 * Captures reputation rank increases.
 * Captures completed duels.
 * Captures newly learned recipes.
@@ -64,9 +64,9 @@ Additional events in Mists of Pandaria - Classic:
 
 ### Manual Screenshots
 
-* <sup>✨ NEW</sup> Takes screenshots from a movable on-screen button.
-* <sup>✨ NEW</sup> Supports a custom key binding.
-* <sup>✨ NEW</sup> Offers an optional countdown from 1 to 10 seconds.
+* Takes screenshots from a movable on-screen button.
+* Supports a custom key binding.
+* Offers an optional countdown from 1 to 10 seconds.
 
 ### Capture Settings
 
@@ -91,6 +91,7 @@ Additional events in Mists of Pandaria - Classic:
 To manage the addon, type the following commands in chat and press Enter:
 
 * Type `/mem` or `/memento` to access the addon options menu.
+* Type `/mem help` or `/memento help` to list the available commands.
 * Type `/mem changelog` or `/memento changelog` to open the changelog.
 
 ## Bugs & Feedback
