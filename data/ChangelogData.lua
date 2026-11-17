@@ -12,6 +12,14 @@ MEM.CHANGELOG = {
 		version = version,
 		date = buildDate ~= "" and buildDate or nil,
 		entries = {
+			"Added: A help command lists available slash commands, and unknown commands show a hint in chat",
+			"Requires Arcane Wizard: Library revision 6 or later"
+		}
+	},
+	{
+		version = "v2.49",
+		date = "2026-11-14",
+		entries = {
 			"Minor code adjustments"
 		}
 	},
@@ -90,15 +98,6 @@ MEM.CHANGELOG = {
 			"Fixed: Visited areas were lost after a reload or logout",
 			"Requires Arcane Wizard: Library revision 2 or later",
 			"Minor code adjustments"
-		}
-	},
-	{
-		version = "v2.40",
-		date = "2026-10-29",
-		entries = {
-			"Added: TOC version for patch 12.1.7 [retail]",
-			"Updated: Addon description",
-			"Removed: TOC version for patch 12.1.0 [retail]"
 		}
 	}
 	-- END GENERATED CHANGELOG
