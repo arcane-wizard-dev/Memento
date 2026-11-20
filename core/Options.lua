@@ -196,6 +196,19 @@ function Options:Initialize()
 		})
 	end
 
+	-- HDROutput
+	if C_CVar and C_CVar.GetCVar("HDROutput") ~= nil then
+		AWL.Settings:AddCheckbox(category, {
+			variableTable	= MEM.Settings.general,
+			settingKey		= addonName .. "_disable-hdr",
+			variableName	= "disable-hdr",
+			name			= L["options.general.disable-hdr.name"],
+			tooltip			= L["options.general.disable-hdr.tooltip"],
+			default			= MEM.OPTIONS_DEFAULTS.general["disable-hdr"],
+			isNew			= true
+		})
+	end
+
 	-- Hide UI
 	local initializerHideUI, settingHideUI = AWL.Settings:AddCheckbox(category, {
 		variableTable	= MEM.Settings.general,
@@ -1315,10 +1328,12 @@ function Options:Initialize()
 		useAccountProfile			= Addon:IsAccountProfile(),
 		onSwitchProfile				= function()
 			Addon:ToggleProfileMode()
+			Capture:RestoreHDROutput()
 			ReloadUI()
 		end,
 		onDeleteCharacterProfiles	= function()
 			Addon:ResetAllCharacterProfiles()
+			Capture:RestoreHDROutput()
 			ReloadUI()
 		end
 	})

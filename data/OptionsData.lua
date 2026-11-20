@@ -60,6 +60,7 @@ MEM.OPTIONS_DEFAULTS = {
 		["hide-ui"] = false,
 		["hide-ui-message"] = false,
 		["timestamp-format"] = "iso",
+		["disable-hdr"] = false,
 		["screenshot-sound"] = false,
 		["screenshot-sound-style"] = "memento-camera",
 		["debug-mode"] = false,

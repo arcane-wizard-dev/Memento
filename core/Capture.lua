@@ -18,6 +18,7 @@ local Utils = MEM.Modules.Utils
 local MessageFrame = nil
 local captureQueue = {}
 local captureInProgress = false
+local previousHDROutput = nil
 
 -----------------------
 --- Local Functions ---
@@ -96,7 +97,7 @@ local function PlayScreenshotSound(ignoreSetting, soundKey)
 	end
 end
 
-local function ProcessCaptureQueue()
+local function ProcessCaptureQueue(hdrRenderDelay)
 	if captureInProgress or #captureQueue == 0 then return end
 
 	local request = table.remove(captureQueue, 1)
@@ -115,6 +116,10 @@ local function ProcessCaptureQueue()
 
 		captureInProgress = false
 
+		if #captureQueue == 0 then
+			Capture:RestoreHDROutput()
+		end
+
 		if request.onFinished then
 			request.onFinished()
 		end
@@ -132,6 +137,12 @@ local function ProcessCaptureQueue()
 			Utils:PrintDebug("Screenshot failed: %s", err)
 		else
 			Utils:PrintDebug("Screenshot taken.")
+		end
+
+		if hiddenUI or frame or previousHDROutput ~= nil then
+			C_Timer.After(MEM.SCREENSHOT_RESTORE_DELAY, FinishCapture)
+		else
+			FinishCapture()
 		end
 	end
 
@@ -159,18 +170,14 @@ local function ProcessCaptureQueue()
 
 		if frame then
 			frame:Hide()
+			frame = nil
 		end
+	end
 
-		RecordScreenshot()
-		FinishCapture()
-	elseif hiddenUI or frame then
-		C_Timer.After(MEM.SCREENSHOT_RENDER_DELAY, function()
-			RecordScreenshot()
-			C_Timer.After(MEM.SCREENSHOT_RESTORE_DELAY, FinishCapture)
-		end)
+	if hdrRenderDelay or hiddenUI or frame then
+		C_Timer.After(hdrRenderDelay or MEM.SCREENSHOT_RENDER_DELAY, RecordScreenshot)
 	else
 		RecordScreenshot()
-		FinishCapture()
 	end
 end
 
@@ -179,7 +186,15 @@ local function TakeScreenshot(request)
 		hideUI = MEM.Settings.general["hide-ui"],
 		showMessage = MEM.Settings.general["hide-ui-message"]
 	}
-	ProcessCaptureQueue()
+	local hdrRenderDelay = nil
+	if not captureInProgress and #captureQueue == 1 and MEM.Settings.general["disable-hdr"] and C_CVar then
+		local value = C_CVar.GetCVar("HDROutput")
+		if value ~= nil and value ~= "0" and C_CVar.SetCVar("HDROutput", "0") then
+			previousHDROutput = value
+			hdrRenderDelay = MEM.SCREENSHOT_HDR_RENDER_DELAY
+		end
+	end
+	ProcessCaptureQueue(hdrRenderDelay)
 end
 
 local function NotifyScreenshot(message, previousLevel, timePlayedOnPreviousLevel)
@@ -382,6 +397,13 @@ local handlerTable = {
 
 function Capture:PreviewScreenshotSound(soundKey)
 	PlayScreenshotSound(true, soundKey)
+end
+
+function Capture:RestoreHDROutput()
+	if previousHDROutput == nil then return end
+
+	C_CVar.SetCVar("HDROutput", previousHDROutput)
+	previousHDROutput = nil
 end
 
 function Capture:ScheduleTimer(handler, delay, ...)
