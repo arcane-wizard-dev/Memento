@@ -12,6 +12,13 @@ MEM.CHANGELOG = {
 		version = version,
 		date = buildDate ~= "" and buildDate or nil,
 		entries = {
+			"Added: Option to temporarily disable HDR for manual and automatic screenshots"
+		}
+	},
+	{
+		version = "v2.50",
+		date = "2026-11-17",
+		entries = {
 			"Added: A help command lists available slash commands, and unknown commands show a hint in chat",
 			"Requires Arcane Wizard: Library revision 6 or later"
 		}
@@ -83,20 +90,6 @@ MEM.CHANGELOG = {
 			"Added: Manual screenshots with a movable button, a key binding configurable in the addon settings, optional countdown and capture notice",
 			"Changed: The TOC no longer restricts loading by game type",
 			"Requires Arcane Wizard: Library revision 3 or later",
-			"Minor code adjustments"
-		}
-	},
-	{
-		version = "v2.41",
-		date = "2026-11-01",
-		entries = {
-			"Changed: Grouped related settings in the options menu and added individual choices for supported area types",
-			"Changed: Areas count as visited when Memento requests a screenshot",
-			"Changed: Limited loading to Retail, Forever, Classic, and Talebound",
-			"Updated: deDE, enUS, ruRU localizations",
-			"Fixed: Housing neighborhoods were not recognized by the 'New area' event [retail]",
-			"Fixed: Visited areas were lost after a reload or logout",
-			"Requires Arcane Wizard: Library revision 2 or later",
 			"Minor code adjustments"
 		}
 	}
