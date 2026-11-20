@@ -1,3 +1,6 @@
+**v2.51-alpha.1 (2026-11-20)**
+- Added: Option to temporarily disable HDR for manual and automatic screenshots
+
 **v2.50 (2026-11-17)**
 - Added: A help command lists available slash commands, and unknown commands show a hint in chat
 - Requires Arcane Wizard: Library revision 6 or later
