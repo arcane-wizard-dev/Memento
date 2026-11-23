@@ -16,6 +16,13 @@ MEM.CHANGELOG = {
 		}
 	},
 	{
+		version = "v2.51-alpha.1",
+		date = "2026-11-20",
+		entries = {
+			"Added: Option to temporarily disable HDR for manual and automatic screenshots"
+		}
+	},
+	{
 		version = "v2.50",
 		date = "2026-11-17",
 		entries = {
@@ -80,16 +87,6 @@ MEM.CHANGELOG = {
 		entries = {
 			"Changed: The debug mode option now combines an enable checkbox with a Basic or Advanced level selector",
 			"Updated: deDE, enUS, ruRU localizations",
-			"Minor code adjustments"
-		}
-	},
-	{
-		version = "v2.42",
-		date = "2026-11-01",
-		entries = {
-			"Added: Manual screenshots with a movable button, a key binding configurable in the addon settings, optional countdown and capture notice",
-			"Changed: The TOC no longer restricts loading by game type",
-			"Requires Arcane Wizard: Library revision 3 or later",
 			"Minor code adjustments"
 		}
 	}
