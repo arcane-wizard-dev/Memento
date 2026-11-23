@@ -1,3 +1,6 @@
+**v2.51 (2026-11-23)**
+- Added: Option to temporarily disable HDR for manual and automatic screenshots
+
 **v2.51-alpha.1 (2026-11-20)**
 - Added: Option to temporarily disable HDR for manual and automatic screenshots
 
