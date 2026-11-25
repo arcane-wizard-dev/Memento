@@ -19,6 +19,7 @@ local MessageFrame = nil
 local captureQueue = {}
 local captureInProgress = false
 local previousHDROutput = nil
+local pendingHDRRestore = nil
 
 -----------------------
 --- Local Functions ---
@@ -116,10 +117,6 @@ local function ProcessCaptureQueue(hdrRenderDelay)
 
 		captureInProgress = false
 
-		if #captureQueue == 0 then
-			Capture:RestoreHDROutput()
-		end
-
 		if request.onFinished then
 			request.onFinished()
 		end
@@ -137,6 +134,15 @@ local function ProcessCaptureQueue(hdrRenderDelay)
 			Utils:PrintDebug("Screenshot failed: %s", err)
 		else
 			Utils:PrintDebug("Screenshot taken.")
+		end
+
+		if previousHDROutput ~= nil and #captureQueue == 0 then
+			pendingHDRRestore = request
+			C_Timer.After(MEM.SCREENSHOT_HDR_RESTORE_DELAY, function()
+				if pendingHDRRestore == request then
+					Capture:RestoreHDROutput()
+				end
+			end)
 		end
 
 		if hiddenUI or frame or previousHDROutput ~= nil then
@@ -187,7 +193,9 @@ local function TakeScreenshot(request)
 		showMessage = MEM.Settings.general["hide-ui-message"]
 	}
 	local hdrRenderDelay = nil
-	if not captureInProgress and #captureQueue == 1 and MEM.Settings.general["disable-hdr"] and C_CVar then
+	if pendingHDRRestore then
+		pendingHDRRestore = nil
+	elseif not captureInProgress and #captureQueue == 1 and MEM.Settings.general["disable-hdr"] and C_CVar then
 		local value = C_CVar.GetCVar("HDROutput")
 		if value ~= nil and value ~= "0" and C_CVar.SetCVar("HDROutput", "0") then
 			previousHDROutput = value
@@ -404,6 +412,7 @@ function Capture:RestoreHDROutput()
 
 	C_CVar.SetCVar("HDROutput", previousHDROutput)
 	previousHDROutput = nil
+	pendingHDRRestore = nil
 end
 
 function Capture:ScheduleTimer(handler, delay, ...)
