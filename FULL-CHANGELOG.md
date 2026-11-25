@@ -1,3 +1,6 @@
+**v2.53-alpha.1 (2026-11-25)**
+- Changed: HDR is restored one second after the last screenshot [forever]
+
 **v2.52 (2026-11-25)**
 - Added: In-game help answers common questions and explains each chat command. Open it from the addon settings or type the addon's slash command followed by 'help'
 - Requires Arcane Wizard: Library revision 8 or later
