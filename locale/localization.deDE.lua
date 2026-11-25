@@ -10,6 +10,15 @@ local L = MEM.Localization
 
 L["bindings.manual-screenshot"] = "Manuellen Screenshot erstellen"
 
+-- Help
+
+L["help.faq.interface.question"] = "Warum ist die Benutzeroberfläche auf einem Screenshot zu sehen?"
+L["help.faq.interface.answer"] = "Für automatische und manuelle Screenshots lässt sich das Ausblenden getrennt einstellen. Im Kampf blendet Memento die Benutzeroberfläche auch bei aktivierter Option nicht aus."
+L["help.faq.new-area.question"] = "Wann zählt ein Gebiet als neu?"
+L["help.faq.new-area.answer"] = "Memento merkt sich besuchte Gebiete für jeden Charakter einzeln. Ist „Neues Gebiet“ aktiv und die passende Gebietsart ausgewählt, fordert Memento beim ersten Besuch einen Screenshot an. Weitere Etagen und Schwierigkeitsgrade derselben Instanz zählen als dasselbe Gebiet."
+L["help.faq.screenshot-folder.question"] = "Wo werden die Screenshots gespeichert?"
+L["help.faq.screenshot-folder.answer"] = "WoW speichert die Aufnahmen im Ordner „Screenshots“ der jeweiligen Spielversion. Bei Retail liegt er im Installationsordner unter World of Warcraft/_retail_/Screenshots."
+
 -- Options
 
 L["options.general"] = "Allgemeine Einstellungen"

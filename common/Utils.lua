@@ -116,6 +116,14 @@ function Utils:PrintDebugAdvanced(msg, ...)
 	Addon:PrintDebug(msg, ...)
 end
 
+function Utils.OpenHelp()
+	AWL.Frames:OpenSlashHelp(addonName, {SLASH_Memento1, SLASH_Memento2}, nil, {
+		{question = L["help.faq.screenshot-folder.question"], answer = L["help.faq.screenshot-folder.answer"]},
+		{question = L["help.faq.interface.question"], answer = L["help.faq.interface.answer"]},
+		{question = L["help.faq.new-area.question"], answer = L["help.faq.new-area.answer"]}
+	})
+end
+
 function Utils:OpenSettings()
 	if not Addon:OpenCategory() then
 		self:PrintDebug("In combat. The options menu cannot be opened.")

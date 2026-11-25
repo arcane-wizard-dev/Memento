@@ -10,6 +10,15 @@ local L = MEM.Localization
 
 L["bindings.manual-screenshot"] = "Создать снимок экрана вручную"
 
+-- Help
+
+L["help.faq.interface.question"] = "Почему на снимке экрана виден интерфейс?"
+L["help.faq.interface.answer"] = "Скрытие интерфейса настраивается отдельно для автоматических и ручных снимков. Во время боя Memento не скрывает интерфейс, даже если эта настройка включена."
+L["help.faq.new-area.question"] = "Когда область считается новой?"
+L["help.faq.new-area.answer"] = "Memento учитывает посещения отдельно для каждого персонажа. Если включена «Новая область» и выбран подходящий тип области, при первом посещении Memento запрашивает снимок экрана. Разные этажи и уровни сложности одной и той же копии подземелья считаются одной областью."
+L["help.faq.screenshot-folder.question"] = "Где сохраняются снимки экрана?"
+L["help.faq.screenshot-folder.answer"] = "WoW сохраняет снимки в папке Screenshots соответствующей версии игры. Например, в Retail путь к ней — World of Warcraft/_retail_/Screenshots."
+
 -- Options
 
 L["options.general"] = "Общие параметры"

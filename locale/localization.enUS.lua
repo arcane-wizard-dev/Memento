@@ -18,6 +18,15 @@ local L = MEM.Localization
 
 L["bindings.manual-screenshot"] = "Take Manual Screenshot"
 
+-- Help
+
+L["help.faq.interface.question"] = "Why is the interface visible in a screenshot?"
+L["help.faq.interface.answer"] = "Automatic and manual screenshots have separate settings for hiding the interface. During combat, Memento does not hide the interface even when the option is enabled."
+L["help.faq.new-area.question"] = "When does an area count as new?"
+L["help.faq.new-area.answer"] = "Memento tracks visits separately for each character. When \"New Area\" is enabled and the area type is selected, the first visit triggers a screenshot request. Different floors and difficulties of the same instance count as one area."
+L["help.faq.screenshot-folder.question"] = "Where are screenshots saved?"
+L["help.faq.screenshot-folder.answer"] = "WoW saves captures in the Screenshots folder for the version being played. For Retail, the path is World of Warcraft/_retail_/Screenshots."
+
 -- Options
 
 L["options.general"] = "General Options"
