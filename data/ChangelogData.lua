@@ -12,6 +12,14 @@ MEM.CHANGELOG = {
 		version = version,
 		date = buildDate ~= "" and buildDate or nil,
 		entries = {
+			"Added: In-game help answers common questions and explains each chat command. Open it from the addon settings or type the addon's slash command followed by 'help'",
+			"Requires Arcane Wizard: Library revision 8 or later"
+		}
+	},
+	{
+		version = "v2.51",
+		date = "2026-11-23",
+		entries = {
 			"Added: Option to temporarily disable HDR for manual and automatic screenshots"
 		}
 	},
@@ -79,15 +87,6 @@ MEM.CHANGELOG = {
 		entries = {
 			"Changed: Debug messages are now converted and formatted only when debug mode is enabled",
 			"Requires Arcane Wizard: Library revision 4 or later"
-		}
-	},
-	{
-		version = "v2.43",
-		date = "2026-11-03",
-		entries = {
-			"Changed: The debug mode option now combines an enable checkbox with a Basic or Advanced level selector",
-			"Updated: deDE, enUS, ruRU localizations",
-			"Minor code adjustments"
 		}
 	}
 	-- END GENERATED CHANGELOG
