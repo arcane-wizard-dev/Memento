@@ -91,7 +91,7 @@ Additional events in Mists of Pandaria - Classic:
 To manage the addon, type the following commands in chat and press Enter:
 
 * Type `/mem` or `/memento` to access the addon options menu.
-* Type `/mem help` or `/memento help` to see answers to common questions about taking and finding screenshots and a list of chat commands.
+* Type either command above followed by `help` to see the available chat commands and answers to frequently asked questions.
 * Type `/mem changelog` or `/memento changelog` to open the changelog.
 
 ## Bugs & Feedback
