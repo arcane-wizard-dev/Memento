@@ -1,3 +1,7 @@
+**v2.52 (2026-11-25)**
+- Added: In-game help answers common questions and explains each chat command. Open it from the addon settings or type the addon's slash command followed by 'help'
+- Requires Arcane Wizard: Library revision 8 or later
+
 **v2.51 (2026-11-23)**
 - Added: Option to temporarily disable HDR for manual and automatic screenshots
 
